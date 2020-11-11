@@ -1,0 +1,45 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Hi there, \ni am quite new in WPF development and i am using WPF for the last one and half month. I am currently building an application with datagrid and some valuidations. everything is working ok except that i needed a message box as the user click a button. i found the WPFToolkit.Extended.dll which apparently include a message box control. i download the dll, add as reference in the project, set the namespace, call the namespace all the controls named in the list are there except the \"Message Box\". Any idea??? maybe i miss something.",
+    "LastUpdatedDate": "2013-02-13T19:39:07.65-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "wpfmessagebox",
+    "ReportedDate": "2011-06-23T06:31:47.47-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "WPF MessageBox in version 3.5",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 6226
+  },
+  "FileAttachments": [
+    {
+      "FileId": 2118,
+      "FileName": "control missing.PNG",
+      "DownloadUrl": ".\\2118"
+    }
+  ],
+  "Comments": []
+}

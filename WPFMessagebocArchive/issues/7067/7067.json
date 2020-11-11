@@ -1,0 +1,45 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "Using WPFMessageBox to display messages from your application class constructor causes the end-user styling to not be used. I imagine the application resources have not been loaded at this point.\n \nThe default style of the message box is a little choppy. Icons are displayed in different sizes (some even get clipped), and the message text is appears in the middle of the window when no icon is used because the icon space is not properly collapsed.\n \nI had to define a style in the WPFMessageBoxWindow.xaml file in order to get the default behavior I desired, but this style then overrides any styles applied in the end-user application. So I also had to add a \"useDefaultStyle\" boolean toggle to all of the Show methods that would determine whether or not to clear the window resources before ShowDialog is called in the codebehind.\n \nI am now able to to display the WPFMessageBox in the application codebehind and retain proper styling. I am also considering ditching the boolean toggle and, instead, just passing a Style parameter to the Show methods. This style can then be added to the window resources before ShowDialog is called, thereby allowing different styles to be used depending on the situation (i.e. sometimes I would like the YesNo buttons to instead be SaveDiscard buttons).",
+    "LastUpdatedDate": "2015-02-19T07:04:08.48-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "wpfmessagebox",
+    "ReportedDate": "2012-08-10T07:47:41.26-07:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "Issue When Using in App.xaml.cs",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 7067
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "I solved this by manually loading my own style:\n```\nResourceDictionary messageboxStyle = (ResourceDictionary)Application.LoadComponent(new Uri(\"Resources/Style/MessageBoxStyle.xaml\", UriKind.Relative));\n```\r\n\r\nMy style is in a ResourceDictionary in MessageBoxStyle.xaml. Hope this can help someone.",
+      "PostedDate": "2015-02-19T07:04:08.48-08:00",
+      "Id": -2147483648
+    }
+  ]
+}

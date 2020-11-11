@@ -1,0 +1,1 @@
+https://www.codeproject.com/Articles/201894/A-Customizable-WPF-MessageBox

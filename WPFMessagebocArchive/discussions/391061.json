@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "898200",
+    "ThreadId": "391061",
+    "Html": "\r\n<p>Added the following (highlighted in red) to the Show method in WPFMessageBoxWindow.xaml.cs to my local copy of the source code:</p>\r\n<pre>public static MessageBoxResult Show(           \n            Action setOwner,\n            string messageBoxText,\n            string caption,\n            <span style=\"color:#ff0000\">Style style,</span>\n            MessageBoxButton button,\n            MessageBoxImage icon,\n            MessageBoxResult defaultResult,\n            MessageBoxOptions options)\n        {\n            if ((options &amp; MessageBoxOptions.DefaultDesktopOnly) == MessageBoxOptions.DefaultDesktopOnly)\n            {\n                throw new NotImplementedException();\n            }\n\n            if ((options &amp; MessageBoxOptions.ServiceNotification) == MessageBoxOptions.ServiceNotification)\n            {\n                throw new NotImplementedException();\n            }\n\n            _messageBoxWindow = new WPFMessageBoxWindow();\n\n            <span style=\"color:#ff0000\">if (style != null)\n            {\n                _messageBoxWindow.Resources.Clear();\n                _messageBoxWindow.Resources.Add(typeof(WPFMessageBoxControl), style);\n            }</span>\n\n            setOwner(_messageBoxWindow);\n\n            PlayMessageBeep(icon);\n\n            _messageBoxWindow._viewModel = new MessageBoxViewModel(_messageBoxWindow, caption, messageBoxText, button, icon, defaultResult, options);\n            _messageBoxWindow.DataContext = _messageBoxWindow._viewModel;\n            _messageBoxWindow.ShowDialog();\n            return _messageBoxWindow._viewModel.Result;\n        }</pre>\r\n<p>And then in my application I added the following class:</p>\r\n<pre>public static class MessageBoxStyle\n    {\n        public static Style None = null;\n        public static Style Default = null;\n        public static Style Silly = null;\n\n        static MessageBoxStyle()\n        {\n            Default = (Style)App.Current.TryFindResource(&quot;MessageBoxDefault&quot;);\n            Silly = (Style)App.Current.TryFindResource(&quot;MessageBoxSilly&quot;);\n        }\n    }</pre>\r\n<p>I can now call the WPFMessageBox in the following manner to dynamically get any look I want:</p>\r\n<pre>WPFMessageBox.Show(&quot;message&quot;, &quot;caption&quot;, MessageBoxStyle.Silly, MessageBoxButton.OK, MessageBoxImage.Error);</pre>\r\n<p>It works great and I really like the new flexibility. Let me know what you think and maybe someone can get it added.</p>\r\n",
+    "PostedDate": "2012-08-10T11:47:16.04-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "898208",
+    "ThreadId": "391061",
+    "Html": "<p>I also add a default style in the WPFMessageboxWindow.xaml file. Hence the call to the Resources.Clear( ) method.</p>",
+    "PostedDate": "2012-08-10T12:05:48.48-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]
