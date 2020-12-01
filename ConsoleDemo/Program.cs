@@ -6,6 +6,10 @@ namespace ConsoleDemo
     {
     static void Main(string[] args)
       {
+      Console.WriteLine("SQLite database Demo");
+      DataAccessDemo.SQLiteDatabaseDemo();
+      Console.ReadLine();
+
       Console.WriteLine("TreeBuilder Demo");
       TreeBuilderDemo.TreeDemo();
       Console.ReadLine();
