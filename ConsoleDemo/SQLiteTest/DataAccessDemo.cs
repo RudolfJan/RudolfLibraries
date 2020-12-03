@@ -14,23 +14,64 @@ namespace ConsoleDemo
       // This method will create a database if it does not exist and then initialize the database with tables and startup data.
       // For the latter you must implement the IDatabaseFactory interface
 
-      DbManager.DeleteDatabase(databasePath); // Make sure to set initial condition
-      var factory = new DatabaseFactory();
-      DbManager.InitDatabase(connectionString, databasePath, factory);
+      DatabaseSetupDemo(databasePath, connectionString);
+      ShowDatabaseVersionHistory(databasePath);
+      PutSomeDataInPersonsTable();
+      LookupPersonByIdDemo();
+      UpdateAnExistingPersonAndShowChanges();
+      DeleteAPersonDemo();
+      // Last step is demo on how to proceed tu upgrade an existing database.
+      DatabaseUpdater();
+      // Check table structure
+      ShowTableStructureDemo();
+      }
 
-      DbManager.InitDatabase(connectionString, databasePath, factory); // Test if code is re-entrant
-      DbManager.UpdateDatabaseVersionNumber(2, "Updated version"); // test if we can update version
-      var version = DbManager.GetCurrentVersion();
-      Console.WriteLine(
-        $"Created database {databasePath} Version={version.VersionNr} {version.Description}\r\n");
-
-      var versionHistory = DbManager.GetVersionHistory();
-      foreach (var item in versionHistory)
+    private static void ShowTableStructureDemo()
+      {
+      var s = DbManager.GetTableInfo("Persons");
+      foreach (var line in s)
         {
-        Console.WriteLine(
-          $"Database version: {databasePath} Version={item.VersionNr} {item.Description}");
+        Console.WriteLine($"{line.Id} {line.ColumnName} {line.ColumnType}");
         }
+      }
 
+    private static void DeleteAPersonDemo()
+      {
+      var person1 = PersonDataAccess.GetPersonsById(1);
+      PersonDataAccess.DeletePerson(1);
+      PersonDataAccess.DeletePerson(1); // try again, should not crash
+      var person5 =
+        PersonDataAccess
+          .GetPersonsById(person1
+            .Id); // attempt to request non-existent record, should return null?
+
+
+      if (person5 == null)
+        {
+        Console.WriteLine("Requesting a deleted record results in null value");
+        }
+      }
+
+    private static void UpdateAnExistingPersonAndShowChanges()
+      {
+      var person1 = PersonDataAccess.GetPersonsById(1);
+      person1.FirstName = "Rudolf Jan";
+      PersonDataAccess.UpdatePerson(person1);
+      var person4 = PersonDataAccess.GetPersonsById(person1.Id);
+
+      Console.WriteLine(
+        $"\r\nUpdated record: First name={person4.FirstName} Last name= {person4.LastName}");
+      }
+
+    private static void LookupPersonByIdDemo()
+      {
+      var person3 = PersonDataAccess.GetPersonsById(2);
+      Console.WriteLine(
+        $"\r\nSingle record: First name={person3.FirstName} Last name= {person3.LastName}");
+      }
+
+    private static void PutSomeDataInPersonsTable()
+      {
       // Request persons when table is empty
 
       var emptyPersonList = PersonDataAccess.GetAllPersons();
@@ -59,37 +100,29 @@ namespace ConsoleDemo
         Console.WriteLine(
           $"All records:First name={person.FirstName} Last name= {person.LastName}");
         }
+      }
 
-      var person3 = PersonDataAccess.GetPersonsById(2);
-      Console.WriteLine(
-        $"\r\nSingle record: First name={person3.FirstName} Last name= {person3.LastName}");
-
-      person1.FirstName = "Rudolf Jan";
-      PersonDataAccess.UpdatePerson(person1);
-      var person4 = PersonDataAccess.GetPersonsById(person1.Id);
-
-      Console.WriteLine(
-        $"\r\nUpdated record: First name={person4.FirstName} Last name= {person4.LastName}");
-      PersonDataAccess.DeletePerson(1);
-      PersonDataAccess.DeletePerson(1); // try again, should not crash
-      var person5 =
-        PersonDataAccess
-          .GetPersonsById(person1
-            .Id); // attempt to request non-existent record, should return null?
-      if (person5 == null)
+    private static void ShowDatabaseVersionHistory(string databasePath)
+      {
+      var versionHistory = DbManager.GetVersionHistory();
+      foreach (var item in versionHistory)
         {
-        Console.WriteLine("Requesting a deleted record results in null value");
+        Console.WriteLine(
+          $"Database version: {databasePath} Version={item.VersionNr} {item.Description}");
         }
+      }
 
-      // Last step is demo on how to proceed tu upgrade an existing database.
-      DatabaseUpdater();
+    private static void DatabaseSetupDemo(string databasePath, string connectionString)
+      {
+      DbManager.DeleteDatabase(databasePath); // Make sure to set initial condition
+      var factory = new DatabaseFactory();
+      DbManager.InitDatabase(connectionString, databasePath, factory);
 
-      // Check table structure
-      var s = DbManager.GetTableInfo("Persons");
-      foreach (var line in s)
-        {
-        Console.WriteLine($"{line.Id} {line.ColumnName} {line.ColumnType}");
-        }
+      DbManager.InitDatabase(connectionString, databasePath, factory); // Test if code is re-entrant
+      DbManager.UpdateDatabaseVersionNumber(2, "Updated version"); // test if we can update version
+      var version = DbManager.GetCurrentVersion();
+      Console.WriteLine(
+        $"Created database {databasePath} Version={version.VersionNr} {version.Description}\r\n");
       }
 
     private static void DatabaseUpdater()
