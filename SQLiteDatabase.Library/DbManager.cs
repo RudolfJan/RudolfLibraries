@@ -68,7 +68,7 @@ namespace SQLiteDatabase.Library
       _databasePath = databasePath;
       CreateDatabase();
       CreateVersionTable();
-      return factory.CreateStructures(); // this method is your interface to setup the database
+      return factory.CreateStructures(); // this method is your interface to create tables and initial data.
       }
 
     public static void CreateStructureElementFromFile(string filePathSQL)
@@ -118,7 +118,7 @@ namespace SQLiteDatabase.Library
       int result= CreateStructureElement(sql);
       if (result >= 0)
         {
-        UpdateDatabaseVersion(CurrentDatabaseVersion, DatabaseVersionDescription);
+        UpdateDatabaseVersionNumber(CurrentDatabaseVersion, DatabaseVersionDescription);
         }
       }
 
@@ -127,20 +127,18 @@ namespace SQLiteDatabase.Library
       {
       var version = new VersionModel();
       var sql = @"SELECT Id, VersionNr, Description FROM Version WHERE VersionNr = (SELECT MAX(VersionNr) FROM Version)";
-
       return DbAccess.LoadData<VersionModel, dynamic>(sql, new { }).FirstOrDefault();
       }
 
 
     public static List<VersionModel> GetVersionHistory()
       {
-      var versionList = new List<VersionModel>();
-
-      return versionList;
+      var sql = "SELECT * FROM Version";
+      return DbAccess.LoadData<VersionModel, dynamic>(sql, new { });
       }
 
 
-    public static int UpdateDatabaseVersion(int newVersion, string description)
+    public static int UpdateDatabaseVersionNumber(int newVersion, string description)
       {
       VersionModel version = new VersionModel();
       version.VersionNr = newVersion;
@@ -149,6 +147,15 @@ namespace SQLiteDatabase.Library
                          DbAccess.LastRowInsertQuery;
       return DbAccess.SaveData<dynamic>(sqlStatement,new {version.VersionNr, version.Description});
       }
+
+    #endregion
+
+    public static List<TableInfoModel> GetTableInfo(string tableName)
+      {
+      var sql = $"SELECT cid AS Id, name as ColumnName, [type] AS ColumnType, [notnull] AS IsNotNull, dflt_value AS DefaultValue, pk AS IsPrimaryKey, hidden AS IsHidden FROM pragma_table_xinfo('{tableName}');";
+      return DbAccess.LoadData<TableInfoModel, dynamic>(sql, new { });
+      }
+    #region info
 
     #endregion
 

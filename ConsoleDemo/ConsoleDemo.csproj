@@ -7,10 +7,18 @@
 
   <ItemGroup>
     <None Remove="SQLiteTest\SQL\PersonsTable.sql" />
+    <None Remove="SQLiteTest\SQL\ProfilesTable.sql" />
+    <None Remove="SQLiteTest\SQL\Version4Update.sql" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="SQLiteTest\SQL\PersonsTable.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQLiteTest\SQL\ProfilesTable.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQLiteTest\SQL\Version4Update.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
