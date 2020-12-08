@@ -8,4 +8,8 @@
     <Folder Include="TreeBuilders\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Logging.Library\Logging.Library.csproj" />
+  </ItemGroup>
+
 </Project>
