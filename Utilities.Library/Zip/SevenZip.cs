@@ -219,7 +219,7 @@ namespace Utilities.Library.Zip
       }
 
 
-    // suppressHeaders iwll suppress a lot of stuff you do not want to see if you need to process this info. It is not set as default, bor backward compatibility reasons.
+    // suppressHeaders will suppress a lot of stuff you do not want to see if you need to process this info. It is not set as default, bor backward compatibility reasons.
     // The preferred value for new applications is true of course.
     // Renamed, used to be called ListZipFiles
 		public static void ListFilesInArchive(string archive, out string result, bool suppressHeaders=false)
