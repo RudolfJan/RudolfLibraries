@@ -15,5 +15,18 @@ namespace Logging.Library
       {
       LogEvents.Add(E.EntryClass);
       }
+
+    public static List<string> ReportLog()
+      {
+      var output=new List<string>();
+
+      foreach (var logEntry in LogEvents)
+        {
+        var s = $"{logEntry.Method}: {logEntry.LineNumber} {logEntry}";
+        output.Add(s);
+        }
+      return output;
+      }
+
     }
   }
