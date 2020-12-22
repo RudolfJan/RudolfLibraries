@@ -19,8 +19,28 @@
 	</Style>
 
 	<!--  https://stackoverflow.com/questions/23304125/how-to-create-a-read-only-textbox-style  -->
-
 	<!--  Read only textbox  -->
+	<Style x:Key="TextBoxReadOnly" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+		<Setter Property="AllowDrop" Value="false" />
+		<Setter Property="IsReadOnly" Value="true" />
+		<Setter Property="IsEnabled" Value="false" />
+		<Setter Property="Background" Value="{DynamicResource WindowBackground}" />
+	</Style>
+
+	<!--
+        textbox to enter longer texts
+     -->
+	<Style x:Key="TextBoxMultiLine" TargetType="{x:Type TextBox}">
+		<Setter Property="Background" Value="{DynamicResource ControlBackground}" />
+		<Setter Property="AcceptsReturn" Value="True" />
+		<Setter Property="AcceptsTab" Value="True" />
+		<Setter Property="TextWrapping" Value="Wrap"/>
+		<Setter Property="IsReadOnly" Value="False" />
+		<Setter Property="Height" Value="150"></Setter>
+	</Style>
+
+
+	<!--  Read only textbox  DEPRECATED -->
 	<Style x:Key="StaticTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
 		<Setter Property="AllowDrop" Value="false" />
 		<Setter Property="IsReadOnly" Value="true" />
@@ -29,7 +49,7 @@
 	</Style>
 
     <!--
-        textbox to enter longer texts
+        textbox to enter longer texts  DEPRECATED
      -->
 	<Style x:Key="BigTextBox" TargetType="{x:Type TextBox}">
 		<Setter Property="Background" Value="{DynamicResource ControlBackground}" />
