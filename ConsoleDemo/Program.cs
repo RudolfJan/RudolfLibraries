@@ -9,7 +9,11 @@ namespace ConsoleDemo
       {
       // Setup logging
       LogEventHandler.LogEvent += ReportLogging;
-      
+
+      Console.WriteLine("Text helper Demo");
+      TextHelperDemo.TestHelperDemoSamples();
+      Console.ReadLine();
+
       Console.WriteLine("SQLite database Demo");
       DataAccessDemo.SQLiteDatabaseDemo();
       Console.ReadLine();
