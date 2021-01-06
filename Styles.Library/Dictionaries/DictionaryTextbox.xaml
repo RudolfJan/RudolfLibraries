@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:userControls="clr-namespace:Styles.Library.UserControls">
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 	<!--  Textbox  -->
 
@@ -16,6 +15,9 @@
 		<Setter Property="HorizontalAlignment" Value="Stretch" />
 		<Setter Property="TextAlignment" Value="Left" />
 		<Setter Property="VerticalContentAlignment" Value="Center" />
+	</Style>
+
+	<Style x:Key="TextBoxDefault" TargetType="{x:Type TextBox}"  BasedOn="{StaticResource {x:Type TextBox}}">
 	</Style>
 
 	<!--  https://stackoverflow.com/questions/23304125/how-to-create-a-read-only-textbox-style  -->

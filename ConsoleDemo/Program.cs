@@ -9,6 +9,9 @@ namespace ConsoleDemo
       {
       // Setup logging
       LogEventHandler.LogEvent += ReportLogging;
+      Console.WriteLine("Tests for Time converters");
+      TimeConverterDemo.TimeConverterDemoApp();
+      Console.ReadLine();
 
       Console.WriteLine("Text helper Demo");
       TextHelperDemo.TestHelperDemoSamples();
