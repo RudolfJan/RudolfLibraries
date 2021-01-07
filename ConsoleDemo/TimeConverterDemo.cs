@@ -27,6 +27,7 @@ namespace ConsoleDemo
       {
       try
         {
+        Console.WriteLine($"Time string {input} validity is {TimeConverters.IsValidTimeString(input)}");
         ulong seconds = TimeConverters.TimeStringToSeconds(input);
         }
       catch (Exception ex)
@@ -37,6 +38,7 @@ namespace ConsoleDemo
 
     private static void Test(string input, bool showSeconds)
       {
+      Console.WriteLine($"Time string {input} validity is {TimeConverters.IsValidTimeString(input)}");
       ulong seconds = TimeConverters.TimeStringToSeconds(input);
       var output = TimeConverters.SecondsToString(seconds, showSeconds);
       if (String.CompareOrdinal(input, output) == 0)

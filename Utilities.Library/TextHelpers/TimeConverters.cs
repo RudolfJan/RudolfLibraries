@@ -51,6 +51,62 @@ namespace Utilities.Library.TextHelpers
       return (hours*3600+minutes*60+seconds);
       }
 
+    public static bool IsValidTimeString(string time)
+      {
+      string[] s1 = time.Split(":");
+      if (s1.Length < 2)
+        {
+        return false;
+        }
 
+      foreach (var c in s1[0])
+        {
+        if (!char.IsDigit(c))
+          {
+          return false;
+          }
+        }
+
+      foreach (var c in s1[1])
+        {
+        if (!char.IsDigit(c))
+          {
+          return false;
+          }
+        }
+ 
+      if (s1.Length > 2)
+        {
+        foreach (var c in s1[2])
+          {
+          if (!char.IsDigit(c))
+            {
+            return false;
+            }
+          var value2 = Convert.ToUInt64(s1[1]);
+          if (value2 > 59)
+            {
+            return false;
+            }
+          }
+        }
+
+      if (s1.Length > 2)
+        {
+        return false;
+        }
+      var value = Convert.ToUInt64(s1[0]);
+      if (value > 23)
+        {
+        return false;
+        }
+      value = Convert.ToUInt64(s1[1]);
+      if (value > 59)
+        {
+        return false;
+        }
+
+      return true;
+      }
     }
   }
