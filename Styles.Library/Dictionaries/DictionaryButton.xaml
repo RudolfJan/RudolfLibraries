@@ -60,6 +60,11 @@
 		<Setter Property="Margin" Value="{DynamicResource SmallMargin}"/>
 	</Style>
 
+	<Style x:Key="ButtonNarrow" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonDefault}">
+		<Setter Property="Width" Value="{DynamicResource NarrowButtonWidth}" />
+		<Setter Property="Margin" Value="{DynamicResource SmallMargin}"/>
+	</Style>
+
 	<Style x:Key="ButtonImage" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonDefault}">
 		<Setter Property="Width" Value="{DynamicResource ImageButtonWidth}" />
 		<Setter Property="Height" Value="{DynamicResource ImageButtonHeight}" />

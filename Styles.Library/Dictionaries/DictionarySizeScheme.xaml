@@ -94,7 +94,8 @@
   <!-- Button dimensions -->
 
   <sys:Double x:Key="DefaultButtonWidth">100</sys:Double>
-  <sys:Double x:Key="DottedButtonWidth">30</sys:Double>
+  <sys:Double x:Key="NarrowButtonWidth">70</sys:Double>
+	<sys:Double x:Key="DottedButtonWidth">30</sys:Double>
   <sys:Double x:Key="WideButtonWidth">120</sys:Double>
   <sys:Double x:Key="BigButtonHeight">70</sys:Double>
   <sys:Double x:Key="ImageButtonHeight">30</sys:Double>
