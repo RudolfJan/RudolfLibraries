@@ -157,6 +157,27 @@ namespace SQLiteDatabase.Library
       }
     #region info
 
+    // https://stackoverflow.com/questions/1601151/how-do-i-check-in-sqlite-whether-a-table-exists
+    public static bool TableExists(String TableName)
+      {
+      try
+        {
+        using (var DbConnection = new SQLiteConnection(_connectionString))
+          {
+          DbConnection.Open();
+          // Create tables
+          using (var Command = new SQLiteCommand("SELECT 1 FROM " + TableName + ";", DbConnection))
+            {
+            Command.ExecuteNonQuery();
+            }
+          return true;
+          }
+        }
+      catch (SQLiteException)
+        {
+        return false;
+        }
+      }
     #endregion
 
     public static string GetConnectionString()

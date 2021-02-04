@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace Utilities.Library.TextHelpers
@@ -31,6 +32,43 @@ namespace Utilities.Library.TextHelpers
         }
 
       return $"{input}\\";
+      }
+
+
+    // This is a very simple viewer for byte strings.
+    public static string HexViewer(byte[] input, int lineLength = 16)
+      {
+      var output = "";
+      var inputLength = input.Length;
+      StringBuilder hexString= new StringBuilder();
+      StringBuilder charString= new StringBuilder();
+      for (int i = 0; i < inputLength / lineLength; i++)
+        {
+        hexString.Clear();
+        charString.Clear();
+        var position = (i * lineLength).ToString("0000");
+        for (int j = 0; j < lineLength; j++)
+          {
+          var value = input[i * lineLength + j];
+          var result = char.IsLetterOrDigit((char) value) || char.IsPunctuation((char) value) ||
+                        char.IsSymbol((char) value) || ((char) value == ' ');
+          if (result)
+            {
+            charString.Append((char) value);
+            }
+          else
+            {
+            charString.Append('.');
+            }
+
+          byte[] value2 = new byte[1];
+          value2[0]= value;
+          hexString.Append(BitConverter.ToString(value2).Replace("-", " ")).Append(' ');
+          }
+
+        output += position + "  "+  hexString + "    " + charString + "\r\n";
+        }
+      return output;
       }
 
     }
