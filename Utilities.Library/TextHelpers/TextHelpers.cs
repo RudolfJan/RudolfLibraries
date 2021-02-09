@@ -71,5 +71,13 @@ namespace Utilities.Library.TextHelpers
       return output;
       }
 
+    // This function translates the C# wildcard symbols * and ? to % and _ and will escape % and _ by a backslash
+    public static string ToLikeWildCard(string input)
+      {
+      var output= input.Replace("%","\\%").Replace("_","\\_");
+      output = output.Replace("*", "%").Replace("?", "_");
+      return output;
+      }
+
     }
   }

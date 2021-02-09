@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Filters\SQL\Filters.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Filters\SQL\Filters.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SQLiteDatabase.Library\SQLiteDatabase.Library.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities.Library", "Utilit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleDemo", "ConsoleDemo\ConsoleDemo.csproj", "{17385B25-DED7-45F8-9EB1-67BF49D554DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteDatabase.Library", "SQLiteDatabase.Library\SQLiteDatabase.Library.csproj", "{C140DA4A-F8F4-4F98-91AA-1DF044519AB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLiteDatabase.Library", "SQLiteDatabase.Library\SQLiteDatabase.Library.csproj", "{C140DA4A-F8F4-4F98-91AA-1DF044519AB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Filter.Library", "Filter.Library\Filter.Library.csproj", "{F87B51DC-AD89-40F3-88BF-F3E02F6D2FEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{C140DA4A-F8F4-4F98-91AA-1DF044519AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C140DA4A-F8F4-4F98-91AA-1DF044519AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C140DA4A-F8F4-4F98-91AA-1DF044519AB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F87B51DC-AD89-40F3-88BF-F3E02F6D2FEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F87B51DC-AD89-40F3-88BF-F3E02F6D2FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F87B51DC-AD89-40F3-88BF-F3E02F6D2FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F87B51DC-AD89-40F3-88BF-F3E02F6D2FEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
