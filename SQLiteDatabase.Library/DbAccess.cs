@@ -96,5 +96,26 @@ namespace SQLiteDatabase.Library
         }
       return output;
       }
-    }
+
+    //public async Task SaveBulkData(string databaseTable, DataTable dataTable)
+    //  {
+    //  string connectionString = DbManager.GetConnectionString();
+
+    //  using (var bulkCopy = new SqlBulkCopy(connectionString, SqlBulkCopyOptions.FireTriggers))
+    //    {
+
+    //    bulkCopy.DestinationTableName = databaseTable;
+
+    //    await bulkCopy.WriteToServerAsync(dataTable);
+    //    }
+    //  }
+    //}
+
+
+
+
+
+  }
+
+
   }

@@ -1,5 +1,6 @@
-﻿using ConsoleDemo.SQLiteTest;
-using Filter.Library.Filters.DataAccess;
+﻿using Filter.Library.Filters.DataAccess;
+using Logging.Library;
+using Screenshots.Library.Logic;
 using SQLiteDatabase.Library;
 using System;
 using System.Collections.Generic;
@@ -9,16 +10,17 @@ using Utilities.Library.Filters.Models;
 
 namespace ConsoleDemo
   {
-  public class FiltersDemo
+  public class ScreenshotsDemo
     {
-
-    public static void RunFilterDemo()
+    public static void RunScreenshotsDemo()
       {
-      string databasePath = "FilterDemo.db"; // will run in application folder
+      string databasePath = "ScreenshotsDemo.db"; // will run in application folder
       string connectionString = $"Data Source = {databasePath}; Version = 3;";
       DatabaseSetupDemo(databasePath, connectionString);
       // This method will create a database if it does not exist and then initialize the database with tables and startup data.
       // For the latter you must implement the IDatabaseFactory interface
+      TestCollectionSetup();
+      TestImagesSetup();
       AddCategories();
       AddTags();
       LinkTagsAndCategories();
@@ -27,12 +29,36 @@ namespace ConsoleDemo
     private static void DatabaseSetupDemo(string databasePath, string connectionString)
       {
       DbManager.DeleteDatabase(databasePath); // Make sure to set initial condition
-      var factory = new Filter.Library.Filters.DataAccess.DatabaseFactory();
+      var factory = new Screenshots.Library.DataAccess.DatabaseFactory();
       DbManager.InitDatabase(connectionString, databasePath, factory);
       DbManager.InitDatabase(connectionString, databasePath, factory); // Test if code is re-entrant
       var version = DbManager.GetCurrentVersion();
       Console.WriteLine(
         $"Created database {databasePath} Version={version.VersionNr} {version.Description}\r\n");
+      }
+
+    private static void TestCollectionSetup()
+      {
+      var collectionManager = new CollectionManager
+        {
+        CollectionName = "TestCollection1",
+        CollectionPath = "ScreenshotTest\\TestCollection1\\"
+        };
+      collectionManager.SaveCollection();
+      collectionManager.CollectionName = "TestCollection2";
+      collectionManager.CollectionPath = "ScreenshotTest\\TestCollection2\\";
+      collectionManager.SaveCollection();
+      foreach (var collection in collectionManager.CollectionList)
+        {
+        Console.WriteLine($"{collection.Id}: {collection.CollectionName} - {collection.CollectionPath}");
+        }
+      }
+
+    private static void TestImagesSetup()
+      {
+      var imageManager = new ImageManager();
+      ImageManager.ThumbnailBasePath = "C:\\Temp\\Thumbnails\\";
+      ImageManager.LoadNewImagesForAllCollections();
       }
 
     private static void AddCategories()
@@ -64,7 +90,6 @@ namespace ConsoleDemo
         Console.WriteLine();
         }
       }
-
     private static void AddTags()
       {
       var tag1 = new TagModel()
@@ -91,7 +116,7 @@ namespace ConsoleDemo
         {
         TagName = "DE",
         TagDescription = ""
-        }; 
+        };
       var tag6 = new TagModel()
         {
         TagName = "Main Spessart Bahn",
@@ -128,7 +153,7 @@ namespace ConsoleDemo
         }
 
 
-      result = TagCategoriesExtendedDataAccess.GetFilteredTagsAndCategories("*","C*");
+      result = TagCategoriesExtendedDataAccess.GetFilteredTagsAndCategories("*", "C*");
       foreach (var x in result)
         {
         Console.WriteLine(x.TagAndCategory);
@@ -137,11 +162,14 @@ namespace ConsoleDemo
 
     private static void AddTagLink(int tagId, int categoryId)
       {
-      var t = new TagCategoriesModel();
-      t.TagId= tagId;
-      t.CategoryId = categoryId;
+      var t = new TagCategoriesModel
+        {
+        TagId = tagId,
+        CategoryId = categoryId
+        };
 
       TagCategoriesDataAccess.InsertTagCategory(t);
       }
+
     }
   }

@@ -14,6 +14,13 @@ namespace Filter.Library.Filters.DataAccess
       var sql = "SELECT * FROM TagsAndCategoriesView";
       return DbAccess.LoadData<TagCategoriesExtendedModel, dynamic>(sql, new { });
       }
+
+    public static List<TagCategoriesExtendedModel> GetTagsForCategories(int tagId)
+      {
+      var sql = "SELECT * FROM TagsAndCategoriesView WHERE TagId=@tagId";
+      return DbAccess.LoadData<TagCategoriesExtendedModel, dynamic>(sql, new {tagId});
+      }
+
     public static List<TagCategoriesExtendedModel> GetFilteredTagsAndCategories(string categoryFilter,string tagFilter)
       {
       var catFilter = TextHelper.ToLikeWildCard(categoryFilter);

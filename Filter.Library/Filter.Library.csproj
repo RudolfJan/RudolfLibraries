@@ -2,20 +2,25 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Filters\SQL\Filters.sql" />
+    <None Remove="SQL\Filters.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Filters\SQL\Filters.sql">
+    <Content Include="SQL\Filters.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SQLiteDatabase.Library\SQLiteDatabase.Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="WPF\" />
   </ItemGroup>
 
 </Project>

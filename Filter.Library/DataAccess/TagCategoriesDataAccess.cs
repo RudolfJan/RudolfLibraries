@@ -6,7 +6,7 @@ using Utilities.Library.Filters.Models;
 
 namespace Filter.Library.Filters.DataAccess
   {
-  public class TagTagCategoriesDataAccess
+  public class TagCategoriesDataAccess
     {
     public static List<TagCategoriesModel> GetAllTagCategories()
       {
@@ -29,10 +29,10 @@ namespace Filter.Library.Filters.DataAccess
       return DbAccess.SaveData<dynamic>(sql, new { tagCategory.TagId, tagCategory.CategoryId, tagCategory.Id });
       }
 
-    public static void DeleteTagCategory(int id)
+    public static void DeleteTagCategory(int tagId, int categoryId)
       {
-      var sql = "DELETE FROM TagCategories WHERE Id=@id";
-      DbAccess.SaveData<dynamic>(sql, new { id });
+      var sql = "DELETE FROM TagCategories WHERE TagId=@tagId AND CategoryId=@categoryId";
+      DbAccess.SaveData<dynamic>(sql, new { tagId, categoryId });
       }
     }
   }

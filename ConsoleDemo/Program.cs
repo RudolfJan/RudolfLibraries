@@ -10,9 +10,13 @@ namespace ConsoleDemo
       // Setup logging
       LogEventHandler.LogEvent += ReportLogging;
 
-      Console.WriteLine("Filter Demo");
-      FiltersDemo.RunFilterDemo();
+      Console.WriteLine("Screenshot Demo");
+      ScreenshotsDemo.RunScreenshotsDemo();
       Console.ReadLine();
+
+      //Console.WriteLine("Filter Demo");
+      //FiltersDemo.RunFilterDemo();
+      //Console.ReadLine();
 
       //Console.WriteLine("Tests for Time converters");
       //TimeConverterDemo.TimeConverterDemoApp();

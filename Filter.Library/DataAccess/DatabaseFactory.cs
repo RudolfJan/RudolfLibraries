@@ -9,7 +9,7 @@ namespace Filter.Library.Filters.DataAccess
     {
     public int CreateStructures()
       {
-      DbManager.CreateStructureElementFromFile("Filters\\SQL\\Filters.sql");
+      DbManager.CreateStructureElementFromFile("SQL\\Filters.sql");
       return 0;
       }
     }

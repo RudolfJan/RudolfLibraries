@@ -10,10 +10,9 @@ namespace Filter.Library.Filters.DataAccess
     {
     public static List<CategoryModel> GetAllCategories()
       {
-      var sql = "SELECT * FROM Categories";
+      var sql = "SELECT * FROM Categories ORDER BY CategoryName ASC";
       return DbAccess.LoadData<CategoryModel, dynamic>(sql, new { });
       }
-
 
     public static int InsertCategory(CategoryModel Category)
       {
