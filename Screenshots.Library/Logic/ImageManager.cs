@@ -9,47 +9,11 @@ using Utilities.Library;
 namespace Screenshots.Library.Logic
   {
 
-  public class ImageManager : Notifier
+  public class ImageManager
     {
     public static string ThumbnailBasePath = "C:\\Temp\\Thumbnails\\";
-    private List<ImageModel> _ImageList;
-    public List<ImageModel> ImageList
-      {
-      get { return _ImageList; }
-      set
-        {
-        _ImageList = value;
-        OnPropertyChanged("ImageList");
-        }
-      }
 
-    private ImageModel _SelectedImage;
-    public ImageModel SelectedImage
-      {
-      get { return _SelectedImage; }
-      set
-        {
-        _SelectedImage = value;
-        OnPropertyChanged("SelectedImage");
-        }
-      }
-    private string _ImageDescription;
-    public string ImageDescription
-      {
-      get { return _ImageDescription; }
-      set
-        {
-        _ImageDescription = value;
-        OnPropertyChanged("ImageDescription");
-        }
-      }
-
-    public ImageManager()
-      {
-      ImageList = ImageDataAccess.GetAllImages();
-      }
-
-    public static string GetThumbnalPathForCollection(CollectionModel collection)
+    public static string GetThumbnailPathForCollection(CollectionModel collection)
       {
       return $"{ThumbnailBasePath}\\CollectionId_{collection.Id}\\";
       }
@@ -61,7 +25,7 @@ namespace Screenshots.Library.Logic
       var collectionList = CollectionDataAccess.GetAllCollections();
       foreach (var collection in collectionList)
         {
-        var thumbnailCollectionPath = GetThumbnalPathForCollection(collection);
+        var thumbnailCollectionPath = GetThumbnailPathForCollection(collection);
         Directory.CreateDirectory(thumbnailCollectionPath);
         newImages = newImages.Concat(LoadNewImagesForCollection(collection)).ToList();
         }
@@ -117,7 +81,7 @@ namespace Screenshots.Library.Logic
 
     public static void DeleteImagesInCollection(CollectionModel collection, bool deleteFiles = false)
       {
-      var thumbnailCollectionPath = GetThumbnalPathForCollection(collection);
+      var thumbnailCollectionPath = GetThumbnailPathForCollection(collection);
       FileHelpers.EmptyDirectory(thumbnailCollectionPath);
       Directory.Delete(thumbnailCollectionPath);
       var imageList = ImageDataAccess.GetImagesByCollectionId(collection.Id);

@@ -5,10 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFDemo"
         xmlns:views="clr-namespace:Filter.Library.WPF.Views;assembly=Filter.Library.WPF"
+        xmlns:views1="clr-namespace:Screenshots.Library.WPF.Views;assembly=Screenshots.Library.WPF"
         mc:Ignorable="d"
         Style="{StaticResource AllWindows}" 
        Title="Main Window">
-    <Grid>
-		<views:TagsMaintenanceView x:Name="TagMaintenanceView"/>
-	</Grid>
+	<ScrollViewer>
+	<StackPanel>
+		<WrapPanel>
+			<views1:ScreenshotCollectionMaintenanceView x:Name="CollectionMantenanceView"/>
+			<views:TagsMaintenanceView x:Name="TagMaintenanceView"/>
+		</WrapPanel>
+
+    <views1:ScreenshotManagerView x:Name="ScreenshotManagerView"/>
+	</StackPanel>
+	</ScrollViewer>
 </Window>

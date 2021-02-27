@@ -33,7 +33,7 @@ namespace Screenshots.Library.DataAccess
     public static int InsertImageTag(ImageTagsModel imageTag)
       {
       var sql = $"INSERT OR IGNORE INTO ImageTags (ImageId, TagId) " +
-                $"VALUES(@ImageName, @ImagePath, @ImageDescription);{DbAccess.LastRowInsertQuery}";
+                $"VALUES(@ImageId, @TagId);{DbAccess.LastRowInsertQuery}";
       return DbAccess.SaveData<dynamic>(sql, new { imageTag.ImageId, imageTag.TagId });
       }
 
@@ -48,6 +48,12 @@ namespace Screenshots.Library.DataAccess
       {
       var sql = "DELETE FROM ImageTags WHERE Id=@id";
       DbAccess.SaveData<dynamic>(sql, new { id });
+      }
+
+    public static void DeleteImageTagForImage(int imageId, int tagId)
+      {
+      var sql = "DELETE FROM ImageTags WHERE Imageid==@imageId AND Tagid=@tagId";
+      DbAccess.SaveData<dynamic>(sql, new { imageId, tagId });
       }
     }
   }

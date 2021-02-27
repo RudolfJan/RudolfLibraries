@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
+using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using ThumbnailSharp;
 
@@ -7,7 +9,7 @@ namespace Screenshots.Library.Logic
   {
   public class ThumbnailLogic
     {
-
+    public static uint ThumbnailWidth { get; set; } = 180;
     public static BitmapImage CreateThumbNail(string imagePath)
       {
       Format format;
@@ -38,7 +40,7 @@ namespace Screenshots.Library.Logic
       try
         {
         byte[] ResultBytes = new ThumbnailCreator().CreateThumbnailBytes(
-          thumbnailSize: 180,
+          thumbnailSize: ThumbnailWidth,
           imageFileLocation: imagePath,
           imageFormat: format);
         return ByteArrayToBitmap(ResultBytes);

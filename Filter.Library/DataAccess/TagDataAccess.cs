@@ -19,16 +19,16 @@ namespace Utilities.Library.Filters.DataAccess
 
     public static int InsertTag(TagModel tag)
       {
-      var sql = $"INSERT OR IGNORE INTO Tags (TagName, TagDescription) " +
-                $"VALUES(@TagName, @TagDescription);{DbAccess.LastRowInsertQuery}";
-      return DbAccess.SaveData<dynamic>(sql, new { tag.TagName, tag.TagDescription});
+      var sql = $"INSERT OR IGNORE INTO Tags (TagName, TagDescription, CategoryId) " +
+                $"VALUES(@TagName, @TagDescription, @CategoryId);{DbAccess.LastRowInsertQuery}";
+      return DbAccess.SaveData<dynamic>(sql, new { tag.TagName, tag.TagDescription, tag.CategoryId});
       }
 
     public static int UpdateTag(TagModel tag)
       {
-  var sql = "UPDATE OR IGNORE Tags SET TagName=@TagName, TagDescription=@TagDescription" +
+      var sql = "UPDATE OR IGNORE Tags SET TagName=@TagName, TagDescription=@TagDescription, CategoryId=@CategoryId " +
                 $"WHERE Id= @Id; {DbAccess.LastRowInsertQuery}";
-      return DbAccess.SaveData<dynamic>(sql, new { tag.TagName, tag.TagDescription, tag.Id });
+      return DbAccess.SaveData<dynamic>(sql, new { tag.TagName, tag.TagDescription, tag.CategoryId, tag.Id });
       }
 
     public static void DeleteTag(int id)

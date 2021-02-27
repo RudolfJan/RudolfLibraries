@@ -14,12 +14,76 @@ namespace Screenshots.Library.DataAccess
       return DbAccess.LoadData<ImageModel, dynamic>(sql, new { });
       }
 
-    public static List<ImageModel> GetImagesByCollectionId(int collectionId)
+    // https://stackoverflow.com/questions/4076098/how-to-select-rows-with-no-matching-entry-in-another-table
+    public static List<ImageModel> GetUntaggedImages()
       {
-      var sql = "SELECT * FROM Images WHERE Images.CollectionId= @collectionId";
+      var sql = @"SELECT DISTINCT Images.Id, Images.ImagePath, Images.ImageDescription, Images.ImageThumbnailPath, Images.CollectionId FROM Images 
+                      LEFT JOIN ImageTags ON Images.Id = ImageTags.ImageId
+                      WHERE ImageTags.ImageId IS NULL";
+      return DbAccess.LoadData<ImageModel, dynamic>(sql, new { });
+      }
+
+    public static List<ImageModel> GetImagesByCollectionId(int collectionId, bool SelectUntagged=false)
+      {
+      string sql;
+      if (SelectUntagged)
+        {
+        sql = @"SELECT DISTINCT Images.Id, Images.ImagePath, Images.ImageDescription, Images.ImageThumbnailPath, Images.CollectionId FROM Images
+                      LEFT JOIN ImageTags ON Images.Id = ImageTags.ImageId
+                      WHERE ImageTags.ImageId IS NULL AND Images.CollectionId= @collectionId";
+        }
+      else
+        {
+        sql = "SELECT * FROM Images WHERE Images.CollectionId= @collectionId";
+        }
+
       return DbAccess.LoadData<ImageModel, dynamic>(sql, new { collectionId});
       }
-    
+
+    public static List<ImageModel> GetImagesByCategory(int categoryId)
+      {
+      var sql = @"SELECT DISTINCT Images.Id, Images.ImagePath, Images.ImageDescription, Images.ImageThumbnailPath, Images.CollectionId 
+                        FROM Images 
+                        LEFT JOIN ImageTags, Tags 
+                            ON Images.Id = ImageTags.ImageId 
+                            AND ImageTags.TagId = Tags.Id 
+                            AND Tags.CategoryId = @categoryId;";
+      return DbAccess.LoadData<ImageModel, dynamic>(sql, new { categoryId});
+      }
+    public static List<ImageModel> GetImagesByCategoryAndCollection(int categoryId, int collectionId)
+      {
+      var sql = @"SELECT DISTINCT Images.Id, Images.ImagePath, Images.ImageDescription, Images.ImageThumbnailPath, Images.CollectionId 
+                        FROM Images 
+                        LEFT JOIN ImageTags, Tags 
+                            ON Images.Id = ImageTags.ImageId 
+                            AND ImageTags.TagId = Tags.Id 
+                            AND Tags.CategoryId = @categoryId
+                            AND Images.CollectionId= @collectionId;"; 
+      return DbAccess.LoadData<ImageModel, dynamic>(sql, new {categoryId,  collectionId });
+      }
+
+    public static List<ImageModel> GetImagesByTagAndCollection(int tagId, int collectionId)
+      {
+      var sql = @"SELECT DISTINCT Images.Id, Images.ImagePath, Images.ImageDescription, Images.ImageThumbnailPath, Images.CollectionId 
+                        FROM Images 
+                        LEFT JOIN ImageTags, Tags 
+                            ON Images.Id = ImageTags.ImageId 
+                            AND ImageTags.TagId = Tags.Id 
+                            AND Images.CollectionId= @collectionId
+                            AND ImageTags.TagId=@tagId;";
+      return DbAccess.LoadData<ImageModel, dynamic>(sql, new { tagId, collectionId });
+      }
+
+    public static List<ImageModel> GetImagesByTag(int tagId)
+      {
+      var sql = @"SELECT DISTINCT Images.Id, Images.ImagePath, Images.ImageDescription, Images.ImageThumbnailPath, Images.CollectionId 
+                        FROM Images 
+                        LEFT JOIN ImageTags, Tags 
+                            ON Images.Id = ImageTags.ImageId 
+                            AND ImageTags.Tagid=@tagId;";
+      return DbAccess.LoadData<ImageModel, dynamic>(sql, new { tagId});
+      }
+
     public static int InsertImage(ImageModel image)
       {
       var sql = $"INSERT OR IGNORE INTO Images (ImagePath, ImageDescription, ImageThumbnailPath, CollectionId) " +

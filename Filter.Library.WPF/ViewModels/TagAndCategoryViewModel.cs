@@ -11,7 +11,6 @@ namespace Filter.Library.WPF.ViewModels
   {
   public class TagAndCategoryViewModel : Notifier
     {
-    private const string PropertyName = "TagCategoriesList";
     private int _categoryId;
     private int _tagId;
 
@@ -32,10 +31,13 @@ namespace Filter.Library.WPF.ViewModels
       set
         {
         _SelectedCategory = value;
+        if (_SelectedCategory != null)
+          {
+          TagCategoryName = _SelectedCategory.CategoryName;
+          }
         OnPropertyChanged("SelectedCategory");
         }
       }
-
 
     private string _CategoryName=string.Empty;
     public string CategoryName
@@ -58,7 +60,6 @@ namespace Filter.Library.WPF.ViewModels
         OnPropertyChanged("CategoryDescription");
         }
       }
-
   
     private List<TagModel> _TagList;
     public List<TagModel> TagList
@@ -104,27 +105,16 @@ namespace Filter.Library.WPF.ViewModels
         }
       }
 
-    private List<TagCategoriesExtendedModel> _TagCategoriesList;
-    public List<TagCategoriesExtendedModel> TagCategoriesList
+    private string _TagCategoryName=string.Empty;
+    public string TagCategoryName
       {
-      get { return _TagCategoriesList; }
+      get { return _TagCategoryName; }
       set
         {
-        _TagCategoriesList = value;
-        OnPropertyChanged("TagCategoriesList");
+        _TagCategoryName = value;
+        OnPropertyChanged("TagCategoryName");
         }
       }
-    private TagCategoriesExtendedModel _SelectedTagCategory;
-    public TagCategoriesExtendedModel SelectedTagCategory
-      {
-      get { return _SelectedTagCategory; }
-      set
-        {
-        _SelectedTagCategory = value;
-        OnPropertyChanged("SelectedTagCategory");
-        }
-      }
-
 
     public TagAndCategoryViewModel()
       {
@@ -140,6 +130,8 @@ namespace Filter.Library.WPF.ViewModels
         TagName = "RSN",
         TagDescription = "Ruhr-Sieg Nord"
         };
+      var category = CategoryDataAccess.GetCategoryByName("Routes");
+      y.CategoryId= category.Id;
       var id2 = TagDataAccess.InsertTag(y);
       TagList = TagDataAccess.GetAllTags();
       
@@ -182,6 +174,7 @@ namespace Filter.Library.WPF.ViewModels
 
     public void DeleteCategory()
       {
+      // TODO check that no Tags are still connected to the Category
       CategoryDataAccess.DeleteCategory(SelectedCategory.Id);
       CategoryList.Remove(SelectedCategory);
       ClearCategory();
@@ -191,6 +184,8 @@ namespace Filter.Library.WPF.ViewModels
       {
       TagName = SelectedTag.TagName;
       TagDescription = SelectedTag.TagDescription;
+      var category = CategoryDataAccess.GetCategoryById(SelectedTag.CategoryId);
+      TagCategoryName = category.CategoryName;
       _tagId=SelectedTag.Id;
       }
 
@@ -201,7 +196,8 @@ namespace Filter.Library.WPF.ViewModels
         var newTag = new TagModel
           {
           TagName = TagName,
-          TagDescription = TagDescription
+          TagDescription = TagDescription, 
+          CategoryId= SelectedCategory.Id
           };
         newTag.Id = TagDataAccess.InsertTag(newTag);
         TagList.Add(newTag);
@@ -210,6 +206,10 @@ namespace Filter.Library.WPF.ViewModels
         {
         SelectedTag.TagName=TagName;
         SelectedTag.TagDescription = TagDescription;
+        if (SelectedCategory != null)
+          {
+          SelectedTag.CategoryId = SelectedCategory.Id;
+          }
         TagDataAccess.UpdateTag(SelectedTag);
         }
       }
@@ -218,6 +218,8 @@ namespace Filter.Library.WPF.ViewModels
       {
       TagName=string.Empty;
       TagDescription=string.Empty;
+      TagCategoryName=string.Empty;
+
       _tagId = 0;
       SelectedTag=null;
       }
@@ -227,34 +229,6 @@ namespace Filter.Library.WPF.ViewModels
       TagDataAccess.DeleteTag(SelectedTag.Id);
       TagList.Remove(SelectedTag);
       ClearTag();
-      }
-
-    public void SetCategoriesPerTagList()
-      {
-      TagCategoriesList = TagCategoriesExtendedDataAccess.GetTagsForCategories(SelectedTag.Id);
-      }
-
-    internal void UnSetCategoriesPerTagList()
-      {
-      TagCategoriesList=null;
-      SelectedTagCategory=null;
-      }
-
-    public void AddCategoryToTag()
-      {
-      var t = new TagCategoriesModel
-        {
-        TagId = SelectedTag.Id,
-        CategoryId = SelectedCategory.Id
-        };
-      TagCategoriesDataAccess.InsertTagCategory(t);
-      SetCategoriesPerTagList();
-      }
-
-    public void RemoveCategoryFromTag()
-      {
-      TagCategoriesDataAccess.DeleteTagCategory(SelectedTagCategory.TagId,SelectedTagCategory.CategoryId);
-      SetCategoriesPerTagList();
       }
 		}
 	}

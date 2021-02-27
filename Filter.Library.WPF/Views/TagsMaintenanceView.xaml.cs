@@ -32,8 +32,7 @@ namespace Filter.Library.WPF.Views
       var tagSelectionCheck = TagAndCategoryData?.SelectedTag != null;
       EditTagButton.IsEnabled = tagSelectionCheck;
       DeleteTagButton.IsEnabled = tagSelectionCheck;
-      AddCategoryButton.IsEnabled = categorySelectionCheck&& tagSelectionCheck;
-      RemoveCategoryButton.IsEnabled= TagAndCategoryData?.SelectedTagCategory!=null && tagSelectionCheck;
+      SaveTagButton.IsEnabled = TagAndCategoryData?.TagCategoryName.Length>0;
       }
 
     private void OnCategoryEditButtonClicked(object sender, RoutedEventArgs e)
@@ -65,13 +64,12 @@ namespace Filter.Library.WPF.Views
 
     private void OnCategorySelectionChanged(object sender, SelectionChangedEventArgs e)
       {
+      
       SetControlStates();
       }
 
     private void OnTagSelectionChanged(object sender, SelectionChangedEventArgs e)
       {
-      TagAndCategoryData.SetCategoriesPerTagList();
-      CategoryInTagDataGrid.Items.Refresh();
       SetControlStates();
       }
 
@@ -92,8 +90,6 @@ namespace Filter.Library.WPF.Views
       {
       TagAndCategoryData.ClearTag();
       TagDataGrid.Items.Refresh();
-      TagAndCategoryData.SetCategoriesPerTagList();
-      CategoryInTagDataGrid.Items.Refresh();
       SetControlStates();
       }
 
@@ -101,27 +97,11 @@ namespace Filter.Library.WPF.Views
       {
       TagAndCategoryData.DeleteTag();
       TagDataGrid.Items.Refresh();
-      TagAndCategoryData.SetCategoriesPerTagList();
-      CategoryInTagDataGrid.Items.Refresh();
       SetControlStates();
       }
 
     private void OnTagCategorySelectionChanged(object sender, SelectionChangedEventArgs e)
       {
-      SetControlStates();
-      }
-
-    private void AddCategoryButtonClicked(object sender, RoutedEventArgs e)
-      {
-      TagAndCategoryData.AddCategoryToTag();
-      SetControlStates();
-      }
-
-    private void RemoveCategoryButtonClicked(object sender, RoutedEventArgs e)
-      {
-      TagAndCategoryData.RemoveCategoryFromTag();
-      TagAndCategoryData.SetCategoriesPerTagList();
-      CategoryInTagDataGrid.Items.Refresh();
       SetControlStates();
       }
     }

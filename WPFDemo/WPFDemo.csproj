@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Filter.Library.WPF\Filter.Library.WPF.csproj" />
     <ProjectReference Include="..\Filter.Library\Filter.Library.csproj" />
+    <ProjectReference Include="..\Screenshots.Library.WPF\Screenshots.Library.WPF.csproj" />
     <ProjectReference Include="..\Screenshots.Library\Screenshots.Library.csproj" />
   </ItemGroup>
 

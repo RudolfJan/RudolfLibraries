@@ -9,6 +9,7 @@ namespace Utilities.Library.Filters.Models
     public int Id { get; set; }
     public string TagName { get; set; }
     public string TagDescription { get; set; }
+    public int CategoryId { get; set; }
     }
   }
   

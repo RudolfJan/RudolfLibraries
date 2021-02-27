@@ -1,0 +1,81 @@
+﻿<Window x:Class="Screenshots.Library.WPF.Views.ScreenshotView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Screenshots.Library.WPF.Views"
+        xmlns:userControls="clr-namespace:Styles.Library.UserControls;assembly=Styles.Library"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Style="{DynamicResource AllWindows}"
+        Title="Screenshot">
+
+	<ScrollViewer>
+		<StackPanel>
+			<Border Style="{DynamicResource BorderDefault}">
+				<StackPanel>
+					<Border Name="ImageBorder" Height="400" MinWidth="600">
+						<Image Name="SelectedImageBox" Source="{Binding ImagePath}" VerticalAlignment="Top" />
+					</Border>
+					<userControls:LabelTextBox 
+						LabelText="Image path" LabelWidth="70"
+						IsReadOnly="true"
+						Style="{DynamicResource LabelTextBoxDefault}" 
+						TextBoxText="{Binding ImagePath, Mode=OneWay}"/>
+					<WrapPanel>
+					<TextBlock Style="{DynamicResource TextBlockDefault}" Width="65">Tags:</TextBlock>
+	
+					<ListBox Name="ImageTagsItemControl" 
+					              ItemsSource="{Binding ImageTagList}" 
+												SelectedItem="{Binding SelectedImageTag}"
+												SelectionChanged="OnImageTagsSelectionChanged" 
+					              >
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Border BorderThickness="1" CornerRadius="3" BorderBrush="SaddleBrown">
+								<TextBlock Text="{Binding TagAndCategory}" Padding="3" />
+								</Border>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+					</ListBox>
+					</WrapPanel>
+					<WrapPanel VerticalAlignment="Bottom">
+						<Button Name="SaveAsButton"   Style="{DynamicResource ButtonDefault}"
+						        ToolTip="Save selected screenshot with new name" Click="OnSaveAsButtonClicked" >
+							Save as ...
+						</Button>
+						<Button Name="DeleteButton"  Style="{DynamicResource ButtonDefault}"
+						        ToolTip="Delete selected screenshot" Click="OnDeleteButtonClicked" >
+							Delete
+						</Button>
+					</WrapPanel>
+					<TextBlock >Add tags:</TextBlock>
+					<TextBox Name="ChooseTag" Style="{DynamicResource TextBoxDefault}" Text="{Binding TagPattern, Mode=TwoWay}" TextChanged="OnChooseTagTextChanged"/>
+					<DataGrid Name="FilteredTagsDataGrid" 
+					          Style="{DynamicResource DataGridReadOnly}"
+										ItemsSource="{Binding FilteredTagList}"
+										SelectedItem="{Binding SelectedTag}"
+					          HeadersVisibility="None"
+					          Height="150"
+					          SelectionChanged="OnFilteredTagListSelectionChanged">
+						<DataGrid.Columns>
+							<DataGridTextColumn Binding="{Binding TagAndCategory}" Width="150"/>
+						</DataGrid.Columns>
+					</DataGrid>
+
+				</StackPanel>
+
+			</Border>
+
+			<Button Name="OKButton" Style="{DynamicResource ButtonOK}"  HorizontalAlignment="Right"
+			        Click="OnOkButtonClicked">
+				Close
+			</Button>
+		</StackPanel>
+	</ScrollViewer>
+</Window>

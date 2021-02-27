@@ -1,4 +1,6 @@
 ﻿using Filter.Library.WPF.ViewModels;
+using Screenshots.Library.WPF.ViewModels;
+using Screenshots.Library.WPF.Views;
 using SQLiteDatabase.Library;
 using System.Windows;
 
@@ -18,9 +20,15 @@ namespace WPFDemo
       var factory = new Screenshots.Library.DataAccess.DatabaseFactory();
       DbManager.InitDatabase(connectionString, databasePath, factory);
       TagAndCategoryManager = new TagAndCategoryViewModel();
-      DataContext= TagAndCategoryManager;
+      ScreenshotManagerViewModel screenshotManager = new ScreenshotManagerViewModel();
+      ScreenshotManagerView.DataContext= screenshotManager;
+      ScreenshotManagerView.ScreenshotManager=screenshotManager;
+      DataContext = TagAndCategoryManager;
       TagMaintenanceView.DataContext = TagAndCategoryManager;
       TagMaintenanceView.TagAndCategoryData= TagAndCategoryManager;
+      ScreenshotCollectionViewModel CollectionManager = new ScreenshotCollectionViewModel();
+      CollectionMantenanceView.DataContext = CollectionManager;
+      CollectionMantenanceView.ScreenshotCollectionManager= CollectionManager;
       }
     }
   }

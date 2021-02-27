@@ -30,7 +30,7 @@ namespace Screenshots.Library.DataAccess
 
     public static int UpdateCollection(CollectionModel collection)
       {
-      var sql = "UPDATE OR IGNORE Collections SET CollectionName=@CollectionName, CollectionPath=@CollectionPath, CollectionDescription=@CollectionDescription" +
+      var sql = "UPDATE OR IGNORE Collections SET CollectionName=@CollectionName, CollectionPath=@CollectionPath, CollectionDescription=@CollectionDescription " +
                 $"WHERE Id= @Id; {DbAccess.LastRowInsertQuery}";
       return DbAccess.SaveData<dynamic>(sql, new { collection.CollectionName, collection.CollectionPath, collection.CollectionDescription, collection.Id });
       }

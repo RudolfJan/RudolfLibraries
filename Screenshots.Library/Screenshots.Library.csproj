@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\mirzaevolution\ThumbnailSharp\ThumbnailSharp\ThumbnailSharp.csproj" />
     <ProjectReference Include="..\Filter.Library\Filter.Library.csproj" />
     <ProjectReference Include="..\Logging.Library\Logging.Library.csproj" />
     <ProjectReference Include="..\SQLiteDatabase.Library\SQLiteDatabase.Library.csproj" />

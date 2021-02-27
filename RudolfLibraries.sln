@@ -23,7 +23,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Filter.Library.WPF", "Filte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFDemo", "WPFDemo\WPFDemo.csproj", "{FCC690D5-04D6-4368-B749-8B9469867C98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Screenshots.Library.WPF", "Screenshots.Library.WPF\Screenshots.Library.WPF.csproj", "{86FCD1EA-20B4-4D44-A17F-804391574716}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Screenshots.Library.WPF", "Screenshots.Library.WPF\Screenshots.Library.WPF.csproj", "{86FCD1EA-20B4-4D44-A17F-804391574716}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E0E751EB-6867-4D08-B8E7-785781AAA78F}"
+	ProjectSection(SolutionItems) = preProject
+		build.cake = build.cake
+		.config\dotnet-tools.json = .config\dotnet-tools.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
