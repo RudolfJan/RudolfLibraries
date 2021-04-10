@@ -14,7 +14,7 @@
 				<StackPanel>
 					<ScrollViewer Name="ThumbNailScrollView" VerticalScrollBarVisibility="Auto"
                                   HorizontalScrollBarVisibility="Auto"
-                                  MinHeight="560" MaxHeight="560">
+                                  Height="560">
 						<ItemsControl Name="ScreenshotsItemsControl" ItemsSource="{Binding DisplayScreenshotList}">
 							<ItemsControl.ItemsPanel>
 								<ItemsPanelTemplate>
@@ -25,10 +25,12 @@
 								</ItemsPanelTemplate>
 							</ItemsControl.ItemsPanel>
 							<ItemsControl.ItemTemplate>
+								<!-- ThumbnailWidth="{Binding Path= ThumbnailWidth}" -->
 								<DataTemplate>
 									<local:ThumbNailButton x:Name="MyThumbNail"  
 									                       Screenshot="{Binding}" 
-									                       ThumbnailWidth="200" 
+									                       ThumbnailWidth="{Binding Source={x:Static viewModels:ScreenshotManagerViewModel.ThumbnailWidth}}"
+									                       ThumbnailHeight="{Binding Source={x:Static viewModels:ScreenshotManagerViewModel.ThumbnailHeight}}"
 									                       ThumbnailClickedEventHandler="OnThumbNailButtonClicked"/>
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>
@@ -55,11 +57,13 @@
                                                     TextBoxText="{Binding FormattedPage}"
                                                     ToolTip="Current page shown" />
 						<userControls:LabelTextBox Name="NrSelectedTextBox" LabelText="Total selected" LabelWidth="80"
-						                           TextBoxText="{Binding TotalFilteredScreenshotCount}"
-						                           ToolTip="Number of screenshots in selection" />
+						                           TextBoxText="{Binding TotalFilteredScreenshotCountDisplay}" Alignment="Right"
+						                           ToolTip="Number of screenshots in selection" Loaded="NrSelectedTextBox_Loaded" />
 						<userControls:LabelTextBox LabelText="Total images" LabelWidth="80"
-                                                    TextBoxText="{Binding TotalScreenshotCount}"
-                                                    ToolTip="Number of screenshots registered" />
+                                                    TextBoxText="{Binding TotalScreenshotCountDisplay}" Alignment="Right"
+                                                    ToolTip="Number of screenshots registered">
+							
+						</userControls:LabelTextBox>
 					</WrapPanel>
 					<WrapPanel>
 						<TextBlock>Filters: </TextBlock>
@@ -72,7 +76,7 @@
 						<Button Style="{DynamicResource ButtonNarrow}" Click="OnResetCollectionFilterClicked">Reset</Button>
 						<TextBlock>Category filter:</TextBlock>
 						<ComboBox Name="CategoryFilterComboBox" ItemsSource="{Binding CategoryList}" 
-						          SelectedItem="{Binding SelectedCategory}"
+						          SelectedItem="{Binding SelectedCategory, NotifyOnSourceUpdated=True}"
 						          DisplayMemberPath="CategoryName"
 						          Width="80"
 						          SelectionChanged="OnCategoryChanged"/>

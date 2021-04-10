@@ -52,7 +52,7 @@ namespace Screenshots.Library.DataAccess
 
     public static void DeleteImageTagForImage(int imageId, int tagId)
       {
-      var sql = "DELETE FROM ImageTags WHERE Imageid==@imageId AND Tagid=@tagId";
+      var sql = "DELETE FROM ImageTags WHERE ImageId=@imageId AND Tagid=@tagId";
       DbAccess.SaveData<dynamic>(sql, new { imageId, tagId });
       }
     }

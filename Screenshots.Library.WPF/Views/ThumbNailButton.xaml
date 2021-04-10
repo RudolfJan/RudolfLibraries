@@ -6,16 +6,18 @@
              mc:Ignorable="d" 
              x:Name="Root"
              d:DesignHeight="120" d:DesignWidth="200">
-    <Border Name="ThumbNailBorder" BorderThickness="1" BorderBrush="Darkred"
-            Width="{Binding ThumbnailWidth, ElementName=Root, TargetNullValue=200, FallbackValue=200}" 
-            Height="{Binding ThumbnailHeight, ElementName=Root, TargetNullValue=120, FallbackValue=120}" Padding="0" Margin="0" 
-            ToolTip="{Binding Screenshot.ImagePath, ElementName=Root, TargetNullValue='Image not found', FallbackValue='Image not found'}">
-        <Button Name="ThumbNailPart" Padding="0" Margin="0" Click="OnThumbNailPartClicked" MouseDoubleClick="OnThumbNailPartDoubleClicked" >
-            <Image Name="ThumbNailImage" 
+	<UserControl.Resources>
+		<BitmapImage x:Key="DefaultImage" UriSource="/Images/NoImageFound.png" />
+	</UserControl.Resources>
+	<Border Name="ThumbNailBorder" BorderThickness="1" BorderBrush="Darkred"
+	        Width="{Binding ThumbnailWidth, ElementName=Root}" 
+	        Height="{Binding ThumbnailHeight, ElementName=Root}" Padding="0" Margin="0" 
+	        ToolTip="{Binding Screenshot.ImagePath, ElementName=Root}">
+		<Button Name="ThumbNailPart" Padding="0" Margin="0" Click="OnThumbNailPartClicked" MouseDoubleClick="OnThumbNailPartDoubleClicked" >
+			<Image Name="ThumbNailImage" 
                    Source="{Binding Screenshot.ImageThumbnailPath, ElementName=Root, 
-                TargetNullValue='../Images/NoImageFound.png',
-                FallbackValue='../Images/NoImageFound.png'}"/>
-        </Button>
-            
-    </Border>
+                TargetNullValue={StaticResource DefaultImage},
+                FallbackValue={StaticResource DefaultImage}}"/>
+		</Button>
+	</Border>
 </UserControl>

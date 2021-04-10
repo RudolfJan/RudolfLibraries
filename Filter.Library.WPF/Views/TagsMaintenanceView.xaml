@@ -14,12 +14,12 @@
 			<ColumnDefinition Width="auto"/>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
-		<Border Grid.Column="0" Style="{StaticResource BorderDefault}">
+		<Border Grid.Column="0" Style="{DynamicResource BorderDefault}">
 			<StackPanel>
-				<TextBlock Style="{StaticResource TextBlockHeader}">Categories</TextBlock>
+				<TextBlock Style="{DynamicResource TextBlockHeader}">Categories</TextBlock>
 				<DataGrid Name="CategoryDataGrid" Style="{DynamicResource DataGridReadOnly}"
 				          ItemsSource="{Binding CategoryList}"
-				          SelectedItem="{Binding SelectedCategory}"
+				          SelectedItem="{Binding SelectedCategory, NotifyOnSourceUpdated=True}"
 				          SelectionChanged="OnCategorySelectionChanged"
 				          Height="230">
 					<DataGrid.Columns>
@@ -35,8 +35,15 @@
 						</DataGridTemplateColumn>
 					</DataGrid.Columns>
 				</DataGrid>
-				<TextBox Text="{Binding CategoryName}"/>
-				<TextBox Text="{Binding CategoryDescription}"/>
+				<userControls:LabelTextBox 
+					LabelText="Category" LabelWidth="65"
+					TextBoxText="{Binding CategoryName, Mode=TwoWay}"
+					Style="{DynamicResource LabelTextBoxDefault}"/>
+				<userControls:LabelTextBox 
+					LabelText="Description" LabelWidth="65"
+					TextBoxText="{Binding CategoryDescription, Mode=TwoWay}"
+					Height="50"
+					Style="{DynamicResource LabelTextBoxMultiLine}"/>
 				<WrapPanel>
 					<Button Name="EditCategoryButton" Style="{DynamicResource ButtonNarrow}" Click="OnCategoryEditButtonClicked">Edit</Button>
 					<Button Name="SaveCategoryButton" Style="{DynamicResource ButtonNarrow}" Click="OnCategorySaveButtonClicked">Save</Button>
@@ -46,35 +53,37 @@
 			</StackPanel>
 		</Border>
 
-		<Border Grid.Column="1" Style="{StaticResource BorderDefault}">
+		<Border Grid.Column="1" Style="{DynamicResource BorderDefault}">
 
-
-		<StackPanel >
-			<TextBlock Style="{StaticResource TextBlockHeader}">Tags</TextBlock>
-			<DataGrid Name="TagDataGrid" Style="{DynamicResource DataGridReadOnly}"
+			<StackPanel >
+				<TextBlock Style="{DynamicResource TextBlockHeader}">Tags</TextBlock>
+				<DataGrid Name="TagDataGrid" Style="{DynamicResource DataGridReadOnly}"
 			          ItemsSource="{Binding TagList}"
-			          SelectedItem="{Binding SelectedTag}"
+			          SelectedItem="{Binding SelectedTag, NotifyOnSourceUpdated=True}"
 			          SelectionChanged="OnTagSelectionChanged"
 			          Height="300">
-				<DataGrid.Columns>
-					<DataGridTemplateColumn Header="Category" Width="200">
-						<DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<StackPanel>
-									<TextBlock Text="{Binding TagName}"/>
-									<TextBlock Text="{Binding TagDescription}"/>
-								</StackPanel>
-							</DataTemplate>
-						</DataGridTemplateColumn.CellTemplate>
-					</DataGridTemplateColumn>
-				</DataGrid.Columns>
-			</DataGrid>
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Category" 
+															Width="60"
+					                    Binding="{Binding CategoryName}"/>
+						<DataGridTemplateColumn Header="Tag" Width="180">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<StackPanel>
+										<TextBlock Text="{Binding TagName}"/>
+										<TextBlock Text="{Binding TagDescription}"/>
+									</StackPanel>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+					</DataGrid.Columns>
+				</DataGrid>
 
 				<WrapPanel>
-				<Button Name="EditTagButton" Style="{DynamicResource ButtonNarrow}" Click="OnEditTagButtonClicked">Edit</Button>
-				<Button Name="DeleteTagButton" Style="{DynamicResource ButtonNarrow}" Click="OnDeleteTagButtonClicked">Delete</Button>
-			</WrapPanel>
-		</StackPanel>
+					<Button Name="EditTagButton" Style="{DynamicResource ButtonNarrow}" Click="OnEditTagButtonClicked">Edit</Button>
+					<Button Name="DeleteTagButton" Style="{DynamicResource ButtonNarrow}" Click="OnDeleteTagButtonClicked">Delete</Button>
+				</WrapPanel>
+			</StackPanel>
 		</Border>
 		<Border Grid.Column="2" Style="{StaticResource BorderDefault}">
 			<StackPanel >
@@ -88,11 +97,11 @@
 				<userControls:LabelTextBox LabelText="Category" LabelWidth="60" Width="200"
 					TextBoxText="{Binding TagCategoryName, Mode=TwoWay}" Style="{DynamicResource LabelTextBoxDefault}" IsReadOnly="True"/>
 				<WrapPanel>
-				<Button Name="SaveTagButton" Style="{DynamicResource ButtonNarrow}" Click="OnSaveTagButtonClicked">Save</Button>
-				<Button Name="ClearTagButton" Style="{DynamicResource ButtonNarrow}" Click="OnClearTagButtonClicked">Clear</Button>
+					<Button Name="SaveTagButton" Style="{DynamicResource ButtonNarrow}" Click="OnSaveTagButtonClicked">Save</Button>
+					<Button Name="ClearTagButton" Style="{DynamicResource ButtonNarrow}" Click="OnClearTagButtonClicked">Clear</Button>
 				</WrapPanel>
 			</StackPanel>
-			</Border>
+		</Border>
 
 	</Grid>
 </UserControl>

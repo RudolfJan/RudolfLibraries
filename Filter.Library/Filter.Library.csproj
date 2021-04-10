@@ -19,8 +19,4 @@
     <ProjectReference Include="..\SQLiteDatabase.Library\SQLiteDatabase.Library.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="WPF\" />
-  </ItemGroup>
-
 </Project>

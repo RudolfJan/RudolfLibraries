@@ -15,11 +15,13 @@ namespace Screenshots.Library.WPF.ViewModels
   {
   public class ScreenshotManagerViewModel : Notifier
     {
-    public static string ThumbnailBasePath = "C:\\Temp\\Thumbnails\\";
     public static int ScreenshotsPerPage { get; set; } = 16;
     public static int ScreenshotsPerRow { get; set; } = 4;
     public static int ScreenshotsPerColumn { get; set; } = 4;
     public static int NrOfTagsInFilter { get; set; } = 3;
+    public static uint ThumbnailWidth { get; set; } = ThumbnailLogic.ThumbnailWidth;
+    public static uint ThumbnailHeight { get; set; } = ThumbnailLogic.ThumbnailWidth*9/16;
+
     private List<ImageModel> _ScreenshotList = null;
 
     public List<ImageModel> ScreenshotList
@@ -95,10 +97,21 @@ namespace Screenshots.Library.WPF.ViewModels
       set
         {
         _totalFilteredScreenshotCount = value;
+        TotalFilteredScreenshotCountDisplay = value - 1;
         OnPropertyChanged("TotalFilteredScreenshotCount");
         }
       }
 
+    private int _totalFilteredScreenshotCountDisplay;
+    public int TotalFilteredScreenshotCountDisplay
+      {
+      get { return _totalFilteredScreenshotCountDisplay; }
+      set
+        {
+        _totalFilteredScreenshotCountDisplay = value;
+        OnPropertyChanged("TotalFilteredScreenshotCountDisplay");
+        }
+      }
 
     private int _TotalScreenshotCount;
     public int TotalScreenshotCount
@@ -107,10 +120,21 @@ namespace Screenshots.Library.WPF.ViewModels
       set
         {
         _TotalScreenshotCount = value;
+        TotalScreenshotCountDisplay = value - 1;
         OnPropertyChanged("TotalScreenshotCount");
         }
       }
 
+    private int _TotalScreenshotCountDisplay;
+    public int TotalScreenshotCountDisplay
+      {
+      get { return _TotalScreenshotCountDisplay; }
+      set
+        {
+        _TotalScreenshotCountDisplay = value;
+        OnPropertyChanged("TotalScreenshotCountDisplay");
+        }
+      }
     private string _SelectedImagePath = string.Empty;
 
     public string SelectedImagePath
@@ -138,6 +162,7 @@ namespace Screenshots.Library.WPF.ViewModels
         OnPropertyChanged("SelectUntaggedScreenshots");
         }
       }
+
 
     private List<CollectionModel> _CollectionList;
     public List<CollectionModel> CollectionList
@@ -229,14 +254,15 @@ namespace Screenshots.Library.WPF.ViewModels
 
     public ScreenshotManagerViewModel()
       {
-      var newImages = ImageManager.LoadNewImagesForAllCollections();
+      var newImages = ImageManager.LoadNewImagesForAllCollectionsAsync();
+      ThumbnailWidth = ThumbnailLogic.ThumbnailWidth;
       CollectionList = CollectionDataAccess.GetAllCollections();
       CategoryList = CategoryDataAccess.GetAllCategories();
       ExtendedTagList = TagCategoriesExtendedDataAccess.GetAllTagsAndCategories();
       UpdateTagFilter();
       ScreenshotList = ImageDataAccess.GetAllImages();
       FilteredScreenshotList = GetFilteredScreenshotList();
-      TotalScreenshotCount = ScreenshotList.Count;
+      TotalScreenshotCount = ScreenshotList.Count+1;
       TotalPageCount = GetTotalPageCount();
       PageStartIndex = 0;
       CurrentPage = GetCurrentPageNumber();
@@ -280,7 +306,7 @@ namespace Screenshots.Library.WPF.ViewModels
         FilteredScreenshotList = ImageDataAccess.GetAllImages();
         }
 
-      TotalFilteredScreenshotCount = FilteredScreenshotList.Count;
+      TotalFilteredScreenshotCount = FilteredScreenshotList.Count+1;
       return FilteredScreenshotList;
       }
 
@@ -308,7 +334,7 @@ namespace Screenshots.Library.WPF.ViewModels
 
     private int GetCurrentPageNumber()
       {
-      if (PageStartIndex >= TotalFilteredScreenshotCount - ScreenshotsPerPage)
+      if (PageStartIndex > TotalFilteredScreenshotCount-1 - ScreenshotsPerPage)
         {
         return GetTotalPageCount();
         }
@@ -335,14 +361,14 @@ namespace Screenshots.Library.WPF.ViewModels
 
     public void GetLastPage()
       {
-      PageStartIndex = Math.Min(TotalFilteredScreenshotCount - ScreenshotsPerPage,0);
+      PageStartIndex = Math.Max(TotalFilteredScreenshotCount - ScreenshotsPerPage,0);
       GetDisplayRange();
       }
 
     public void GetDisplayRange()
       {
       DisplayScreenshotList.Clear();
-      int upperLimit = Math.Min(PageStartIndex + ScreenshotsPerPage, TotalFilteredScreenshotCount);
+      int upperLimit = Math.Min(PageStartIndex + ScreenshotsPerPage, TotalFilteredScreenshotCount-1);
       CurrentPage = GetCurrentPageNumber();
       for (int idx = PageStartIndex;
           idx < upperLimit;
@@ -351,6 +377,14 @@ namespace Screenshots.Library.WPF.ViewModels
         var S = FilteredScreenshotList[idx];
         DisplayScreenshotList.Add(S);
         }
+      }
+
+
+   public void DeleteScreenshot(ImageModel screenshot)
+      {
+      ImageManager.DeleteImage(screenshot);
+      ScreenshotList.Remove(screenshot);
+      DisplayScreenshotList.Remove(screenshot);
       }
     }
   }

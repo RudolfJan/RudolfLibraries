@@ -1,9 +1,13 @@
 ﻿using Filter.Library.Filters.DataAccess;
+using Logging.Library;
 using Screenshots.Library.DataAccess;
+using Screenshots.Library.Logic;
 using Screenshots.Library.Models;
 using Styles.Library.Helpers;
+using Styles.Library.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Utilities.Library.Filters.DataAccess;
@@ -23,6 +27,7 @@ namespace Screenshots.Library.WPF.ViewModels
         OnPropertyChanged("Image");
         }
       }
+
     private CollectionModel _Collection;
     public CollectionModel Collection
       {
@@ -33,6 +38,7 @@ namespace Screenshots.Library.WPF.ViewModels
         OnPropertyChanged("Collection");
         }
       }
+
     private string _ImagePath;
     public string ImagePath
       {
@@ -44,20 +50,7 @@ namespace Screenshots.Library.WPF.ViewModels
         }
       }
 
-    private string _Tags;
-    public string Tags
-      {
-      get { return _Tags; }
-      set
-        {
-        _Tags = value;
-        OnPropertyChanged("Tags");
-        }
-      }
-
     private string _TagPattern=string.Empty;
-
- 
     public string TagPattern
       {
       get { return _TagPattern; }
@@ -69,7 +62,6 @@ namespace Screenshots.Library.WPF.ViewModels
       }
 
     private List<TagCategoriesExtendedModel> _AvailableTagList;
-
     public List<TagCategoriesExtendedModel> AvailableTagList
       {
       get { return _AvailableTagList; }
@@ -124,13 +116,15 @@ namespace Screenshots.Library.WPF.ViewModels
         }
       }
 
+    // status field, needed to communicate between the screenshot collection
+    // management and an individual screenshot, maybe a bit clumsy, but should work
+    public bool IsDeleted { get; set; } = false;
 
     public ScreenshotViewModel(ImageModel image)
       {
       Image=image;
       Collection = CollectionDataAccess.GetCollectionById(Image.CollectionId);
       ImagePath = $"{Collection.CollectionPath}{Image.ImagePath}";
-      Tags = TagCategoriesExtendedDataAccess.GetTagsForImage(Image.Id);
       AvailableTagList = TagCategoriesExtendedDataAccess.GetAllTagsAndCategories();
       ImageTagList= TagCategoriesExtendedDataAccess.GetTagListForImage(Image.Id);
       UpdateTagFilter();
@@ -143,22 +137,41 @@ namespace Screenshots.Library.WPF.ViewModels
 
     public void AddTag()
       {
-      var imageTag = new ImageTagsModel
-        {
-        ImageId = Image.Id,
-        TagId = SelectedTag.TagId
-        };
-      var imageTagId= ImageTagsDataAccess.InsertImageTag(imageTag);
+      var imageTagId=ImageManager.AddTag(Image.Id, SelectedTag.TagId);
       SelectedTag=null;
       TagPattern=string.Empty;
       ImageTagList = TagCategoriesExtendedDataAccess.GetTagListForImage(Image.Id);
-      Tags += TagCategoriesExtendedDataAccess.GetSingleTag(imageTagId);
       }
 
     public void RemoveTag()
       {
       ImageTagsDataAccess.DeleteImageTagForImage(Image.Id,SelectedImageTag.TagId);
       ImageTagList = TagCategoriesExtendedDataAccess.GetTagListForImage(Image.Id);
+      }
+
+    public void SaveScreenshotToDisk()
+      {
+      SaveFileModel fileDetails = new SaveFileModel
+        {
+        InitialDirectory =
+        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+        OverWriteprompt = true,
+        Title = "Save copy of screenshot here",
+        Filter = "Jpeg files|*.jpg|Png files|*.png|All Files|*.*",
+        DefaultExt = ""
+        };
+      var filePath = FileIOHelpers.GetSaveFileName(fileDetails);
+      if (filePath.Length > 0)
+        {
+        File.Copy(ImagePath, filePath, true);
+        Log.Trace($"Saved selected screenshot to {filePath}");
+        }
+      }
+
+    public void DeleteScreenshot()
+      {
+      IsDeleted=true;
+      ImageTagList.Clear();
       }
     }
   }

@@ -4,70 +4,75 @@ using Styles.Library.Helpers;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Utilities.Library;
 
 namespace Screenshots.Library.Logic
   {
-
   public class ImageManager
     {
     public static string ThumbnailBasePath = "C:\\Temp\\Thumbnails\\";
 
     public static string GetThumbnailPathForCollection(CollectionModel collection)
       {
-      return $"{ThumbnailBasePath}\\CollectionId_{collection.Id}\\";
+      return $"{ThumbnailBasePath}CollectionId_{collection.Id}\\";
       }
 
-    public static List<ImageModel> LoadNewImagesForAllCollections()
+    public static async Task<List<ImageModel>> LoadNewImagesForAllCollectionsAsync()
       {
-      List<ImageModel> newImages = new List<ImageModel>();
-
+      var newImages = new List<ImageModel>();
       var collectionList = CollectionDataAccess.GetAllCollections();
+      await Task.Run(async () =>
+        {
       foreach (var collection in collectionList)
         {
         var thumbnailCollectionPath = GetThumbnailPathForCollection(collection);
         Directory.CreateDirectory(thumbnailCollectionPath);
-        newImages = newImages.Concat(LoadNewImagesForCollection(collection)).ToList();
+        newImages = await LoadNewImagesForCollectionAsync(collection);
         }
-
-      return newImages;
+      });
+    return newImages;
       }
 
-    private static List<ImageModel> LoadNewImagesForCollectionsByType(CollectionModel collection,
+    private static async Task<List<ImageModel>> LoadNewImagesForCollectionAsync(CollectionModel collection)
+      {
+      var dir = new DirectoryInfo(collection.CollectionPath);
+      var newImages1 = await LoadNewImagesForCollectionsByTypeAsync(collection, dir, "jpg");
+      var newImages2 = await LoadNewImagesForCollectionsByTypeAsync(collection, dir, "png");
+      var newImages3 = await LoadNewImagesForCollectionsByTypeAsync(collection, dir, "jpeg");
+      return newImages1.Concat(newImages2).Concat(newImages3).ToList();
+      }
+ 
+    private static async Task<List<ImageModel>> LoadNewImagesForCollectionsByTypeAsync(CollectionModel collection,
       DirectoryInfo dir, string imageType)
       {
-      List<ImageModel> newImages = new List<ImageModel>();
-      FileInfo[] files = dir.GetFiles($"*.{imageType}", SearchOption.TopDirectoryOnly);
-      foreach (var file in files)
+      var newImages = new List<ImageModel>();
+      var files = dir.GetFiles($"*.{imageType}", SearchOption.TopDirectoryOnly);
+      await Task.Run(() =>
         {
-        string thumbnailPath =
-          $"{ThumbnailBasePath}{Path.GetFileNameWithoutExtension(file.Name)}.png";
-        var image = new ImageModel
+        var thumbnailCollectionPath = GetThumbnailPathForCollection(collection);
+        Parallel.ForEach<FileInfo>(files, (file) =>
           {
-          ImageDescription = string.Empty,
-          ImageThumbnailPath = thumbnailPath,
-          ImagePath = file.Name,
-          CollectionId = collection.Id
-          };
-        image.Id = ImageDataAccess.InsertImage(image);
-        newImages.Add(image);
-
-        var thumbNail = ThumbnailLogic.CreateThumbNail($"{collection.CollectionPath}{file.Name}");
-        ThumbnailLogic.SaveThumbNail(thumbNail, thumbnailPath);
-        }
+          var thumbnailPath =
+            $"{thumbnailCollectionPath}{Path.GetFileNameWithoutExtension(file.Name)}.png";
+          if (!File.Exists(thumbnailPath))
+            {
+            var image = new ImageModel
+              {
+              ImageDescription = string.Empty,
+              ImageThumbnailPath = thumbnailPath,
+              ImagePath = file.Name,
+              CollectionId = collection.Id
+              };
+            image.Id = ImageDataAccess.InsertImage(image);
+            newImages.Add(image);
+            ThumbnailLogic.CreateThumbNail($"{collection.CollectionPath}{file.Name}",
+              thumbnailPath);
+            }
+          });
+        });
       return newImages;
       }
-
-    private static List<ImageModel> LoadNewImagesForCollection(CollectionModel collection)
-      {
-      List<ImageModel> newImages = new List<ImageModel>();
-      DirectoryInfo dir = new DirectoryInfo(collection.CollectionPath);
-      newImages = newImages.Concat(LoadNewImagesForCollectionsByType(collection, dir, "jpg")).ToList();
-      newImages = newImages.Concat(LoadNewImagesForCollectionsByType(collection, dir, "png")).ToList();
-      newImages = newImages.Concat(LoadNewImagesForCollectionsByType(collection, dir, "jpeg")).ToList();
-      return newImages;
-      }
-
     public static void DeleteImage(ImageModel image)
       {
       if (image.ImageThumbnailPath.Length > 0)
@@ -101,9 +106,10 @@ namespace Screenshots.Library.Logic
       foreach (var collection in collectionList)
         {
         var imageList = ImageDataAccess.GetImagesByCollectionId(collection.Id);
+        var fileList = Directory.GetFiles(collection.CollectionPath).ToList();
         foreach (var image in imageList)
           {
-          if (!File.Exists($"{collection.CollectionPath}{image.ImagePath}"))
+          if (!fileList.Contains($"{collection.CollectionPath}{image.ImagePath}"))
             {
             FileHelpers.DeleteSingleFile(image.ImageThumbnailPath);
             ImageDataAccess.DeleteImage(image.Id);
@@ -112,14 +118,14 @@ namespace Screenshots.Library.Logic
         }
       }
 
-    public void AddTag(int imageId, int tagId)
+    public static int AddTag(int imageId, int tagId)
       {
       var imageTag = new ImageTagsModel
         {
         ImageId = imageId,
         TagId = tagId
         };
-      ImageTagsDataAccess.InsertImageTag(imageTag);
+      return ImageTagsDataAccess.InsertImageTag(imageTag);
       }
 
     public string GetTagsForImage(int imageId)

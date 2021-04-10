@@ -1,4 +1,6 @@
-﻿using SQLiteDatabase.Library;
+﻿using Logging.Library;
+using Microsoft.VisualBasic.FileIO;
+using SQLiteDatabase.Library;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +46,44 @@ namespace Filter.Library.Filters.DataAccess
       DbAccess.SaveData<dynamic>(sql, new { id });
       }
 
- 
+    public static void ImportCategoriesFromCsv(string categoriesCsvFilePath)
+      {
+      // https://stackoverflow.com/questions/5282999/reading-csv-file-and-storing-values-into-an-array
+
+      try
+        {
+        using (TextFieldParser csvParser = new TextFieldParser(categoriesCsvFilePath))
+          {
+          csvParser.CommentTokens = new string[] { "#" };
+          csvParser.SetDelimiters(new string[] { "," });
+          csvParser.HasFieldsEnclosedInQuotes = true;
+
+          // Skip the row with the column names
+          csvParser.ReadLine();
+
+          while (!csvParser.EndOfData)
+            {
+            // Read current line fields, pointer moves to the next line.
+            string[] fields = csvParser.ReadFields();
+            int length = fields.GetLength(0);
+            CategoryModel category = new CategoryModel();
+            if (length > 0)
+              {
+              category.CategoryName = fields[0];
+              }
+
+            if (length > 1)
+              {
+              category.CategoryDescription = fields[1];
+              }
+            InsertCategory(category);
+            }
+          }
+        }
+      catch (Exception ex)
+        {
+        Log.Trace($"Error reading category import {ex.Message}");
+        }
+      }
     }
   }

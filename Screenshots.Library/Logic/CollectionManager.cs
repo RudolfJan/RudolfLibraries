@@ -93,6 +93,7 @@ namespace Screenshots.Library.Logic
         SelectedCollection.CollectionDescription = CollectionDescription;
         CollectionDataAccess.UpdateCollection(SelectedCollection);
         }
+      var newImages = ImageManager.LoadNewImagesForAllCollectionsAsync();
       }
 
     public void ClearCollection()

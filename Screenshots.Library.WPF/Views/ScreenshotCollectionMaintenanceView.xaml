@@ -55,7 +55,7 @@
 					                           TextBoxText="{Binding CollectionName, Mode=TwoWay}" 
 					                           LabelWidth="80" />
 					<userControls:FileInputBox x:Name="CollectionFolderFileInput" 
-					                           LabelText="CollectionFolder"
+					                           LabelText="Folder"
 					                           Style="{StaticResource OptionsOpenFile}" 
 					                           LabelWidth="80" 
 					                           InitialDirectory="C:\\" FileDialogType="BrowseDir"
@@ -69,6 +69,7 @@
 						<Button Name="SaveCollectionButton" Style="{DynamicResource ButtonNarrow}" Click="SaveCollectionClicked">Save</Button>
 						<Button Name="ClearCollectionButton" Style="{DynamicResource ButtonNarrow}" Click="ClearCollectionClicked">Clear</Button>
 					</WrapPanel>
+					<TextBlock TextWrapping="Wrap">It may take up to about 30 seconds to create thumbnails for each image if you save a new collection. Please be patient.</TextBlock>
 				</StackPanel>
 			</Border>
 		</Grid> 

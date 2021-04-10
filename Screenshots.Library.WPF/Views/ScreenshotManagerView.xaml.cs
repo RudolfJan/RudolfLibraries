@@ -95,11 +95,18 @@ namespace Screenshots.Library.WPF.Views
         Form.Screenshot = tmp;
         Form.DataContext = tmp;
         Form.ShowDialog();
+        if (tmp.IsDeleted)
+          {
+          ScreenshotManager.DeleteScreenshot(Screenshot);
+          }
 
         // TODo performance improvement, check if anything was changed that is relevant.
         // Example is screenshot is deleted, or tags are added or all tags are removed
         ScreenshotManager.FilteredScreenshotList = ScreenshotManager.GetFilteredScreenshotList();
-        ScreenshotManager.GetFirstPage();
+        if (tmp.IsDeleted)
+          {
+          ScreenshotManager.GetFirstPage();
+          }
         NrSelectedTextBox.TextBoxText = ScreenshotManager.TotalFilteredScreenshotCount.ToString();
         PageTextBox.TextBoxText = ScreenshotManager.FormattedPage;
         ScreenshotsItemsControl.Items.Refresh();
@@ -184,6 +191,11 @@ namespace Screenshots.Library.WPF.Views
       TagFilterComboBox.IsDropDownOpen = false;
       TagFilterComboBox.Items.Refresh();
       RefreshThumbnailGrid();
+      }
+
+    private void NrSelectedTextBox_Loaded(object sender, RoutedEventArgs e)
+      {
+
       }
     }
   }

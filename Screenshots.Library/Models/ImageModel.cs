@@ -11,5 +11,6 @@ namespace Screenshots.Library.Models
     public string ImageDescription { get; set; }
     public string ImageThumbnailPath { get; set; }
     public int CollectionId { get; set; }
+
     }
   }

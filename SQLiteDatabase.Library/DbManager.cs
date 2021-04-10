@@ -100,10 +100,6 @@ namespace SQLiteDatabase.Library
         throw ex;
         }
       }
-
-
-
-
     #endregion
 
     #region versionmanager
@@ -122,7 +118,6 @@ namespace SQLiteDatabase.Library
         }
       }
 
-
     public static VersionModel GetCurrentVersion()
       {
       var version = new VersionModel();
@@ -130,19 +125,19 @@ namespace SQLiteDatabase.Library
       return DbAccess.LoadData<VersionModel, dynamic>(sql, new { }).FirstOrDefault();
       }
 
-
     public static List<VersionModel> GetVersionHistory()
       {
       var sql = "SELECT * FROM Version";
       return DbAccess.LoadData<VersionModel, dynamic>(sql, new { });
       }
 
-
     public static int UpdateDatabaseVersionNumber(int newVersion, string description)
       {
-      VersionModel version = new VersionModel();
-      version.VersionNr = newVersion;
-      version.Description=description;
+      var version = new VersionModel
+        {
+        VersionNr = newVersion,
+        Description = description
+        };
       var sqlStatement = "INSERT OR IGNORE INTO Version (VersionNr, Description) VALUES (@VersionNr, @Description); " +
                          DbAccess.LastRowInsertQuery;
       return DbAccess.SaveData<dynamic>(sqlStatement,new {version.VersionNr, version.Description});

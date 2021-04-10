@@ -1,10 +1,12 @@
 ﻿using Screenshots.Library.DataAccess;
+using Screenshots.Library.Logic;
 using Screenshots.Library.Models;
 using Styles.Library.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading.Tasks;
 using Utilities.Library.TextHelpers;
 
 namespace Screenshots.Library.WPF.ViewModels
@@ -98,13 +100,17 @@ namespace Screenshots.Library.WPF.ViewModels
       {
       if (CollectionId < 1)
         {
-        var newCollection = new CollectionModel();
-        newCollection.CollectionName = CollectionName;
-        newCollection.CollectionPath = TextHelper.AddBackslash(CollectionPath);
-        newCollection.CollectionDescription = CollectionDescription;
+        var newCollection = new CollectionModel
+          {
+          CollectionName = CollectionName,
+          CollectionPath = TextHelper.AddBackslash(CollectionPath),
+          CollectionDescription = CollectionDescription
+          };
         newCollection.Id = CollectionDataAccess.InsertCollection(newCollection);
         CollectionList.Add(newCollection);
         CollectionId = newCollection.Id;
+        // https://briancaos.wordpress.com/2018/11/13/c-async-fire-and-forget/
+        Task.Factory.StartNew(ImageManager.LoadNewImagesForAllCollectionsAsync);
         ClearCollection();
         }
       else

@@ -63,17 +63,17 @@ namespace ConsoleDemo
 
     private static void AddCategories()
       {
-      var cat1 = new CategoryModel()
+      var cat1 = new TagModel()
         {
         CategoryName = "Route",
         CategoryDescription = "This is a route"
         };
-      var cat2 = new CategoryModel()
+      var cat2 = new TagModel()
         {
         CategoryName = "Loco",
         CategoryDescription = "This is a loco"
         };
-      var cat3 = new CategoryModel()
+      var cat3 = new TagModel()
         {
         CategoryName = "Country",
         CategoryDescription = ""

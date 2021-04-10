@@ -2,6 +2,7 @@
 using Styles.Library.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using Utilities.Library.Filters.DataAccess;
@@ -61,8 +62,8 @@ namespace Filter.Library.WPF.ViewModels
         }
       }
   
-    private List<TagModel> _TagList;
-    public List<TagModel> TagList
+    private List<TagCategoriesExtendedModel> _TagList;
+    public List<TagCategoriesExtendedModel> TagList
       {
       get { return _TagList; }
       set
@@ -72,8 +73,8 @@ namespace Filter.Library.WPF.ViewModels
         }
       }
 
-    private TagModel _SelectedTag;
-    public TagModel SelectedTag
+    private TagCategoriesExtendedModel _SelectedTag;
+    public TagCategoriesExtendedModel SelectedTag
       {
       get { return _SelectedTag; }
       set
@@ -120,8 +121,8 @@ namespace Filter.Library.WPF.ViewModels
       {
       var x = new CategoryModel
         {
-        CategoryName = "Routes",
-        CategoryDescription = "a description"
+        CategoryName = "Route",
+        CategoryDescription = ""
         };
       var id=CategoryDataAccess.InsertCategory(x);
       CategoryList = CategoryDataAccess.GetAllCategories();
@@ -130,11 +131,11 @@ namespace Filter.Library.WPF.ViewModels
         TagName = "RSN",
         TagDescription = "Ruhr-Sieg Nord"
         };
-      var category = CategoryDataAccess.GetCategoryByName("Routes");
+      var category = CategoryDataAccess.GetCategoryByName("Route");
       y.CategoryId= category.Id;
       var id2 = TagDataAccess.InsertTag(y);
-      TagList = TagDataAccess.GetAllTags();
-      
+      TagList = TagCategoriesExtendedDataAccess.GetAllTagsAndCategories();
+
       }
 
     public void EditCategory()
@@ -186,7 +187,7 @@ namespace Filter.Library.WPF.ViewModels
       TagDescription = SelectedTag.TagDescription;
       var category = CategoryDataAccess.GetCategoryById(SelectedTag.CategoryId);
       TagCategoryName = category.CategoryName;
-      _tagId=SelectedTag.Id;
+      _tagId=SelectedTag.TagId;
       }
 
     public void SaveTag()
@@ -200,17 +201,21 @@ namespace Filter.Library.WPF.ViewModels
           CategoryId= SelectedCategory.Id
           };
         newTag.Id = TagDataAccess.InsertTag(newTag);
-        TagList.Add(newTag);
+        var tmp = TagCategoriesExtendedDataAccess.GetTagsForCategories(_tagId).FirstOrDefault();
+        TagList.Add(tmp);
         }
       else
         {
-        SelectedTag.TagName=TagName;
-        SelectedTag.TagDescription = TagDescription;
+        TagModel updatedTag = new TagModel
+          {
+          TagName = TagName,
+          TagDescription = TagDescription
+          };
         if (SelectedCategory != null)
           {
-          SelectedTag.CategoryId = SelectedCategory.Id;
+          updatedTag.CategoryId = SelectedCategory.Id;
           }
-        TagDataAccess.UpdateTag(SelectedTag);
+        TagDataAccess.UpdateTag(updatedTag);
         }
       }
 
@@ -219,14 +224,14 @@ namespace Filter.Library.WPF.ViewModels
       TagName=string.Empty;
       TagDescription=string.Empty;
       TagCategoryName=string.Empty;
-
+      ClearCategory();
       _tagId = 0;
       SelectedTag=null;
       }
 
     public void DeleteTag()
       {
-      TagDataAccess.DeleteTag(SelectedTag.Id);
+      TagDataAccess.DeleteTag(SelectedTag.TagId);
       TagList.Remove(SelectedTag);
       ClearTag();
       }

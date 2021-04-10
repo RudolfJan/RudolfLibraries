@@ -3,6 +3,7 @@ using SQLiteDatabase.Library;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Screenshots.Library.DataAccess
   {
@@ -89,6 +90,13 @@ namespace Screenshots.Library.DataAccess
       var sql = $"INSERT OR IGNORE INTO Images (ImagePath, ImageDescription, ImageThumbnailPath, CollectionId) " +
                 $"VALUES(@ImagePath, @ImageDescription, @ImageThumbnailPath, @CollectionId);{DbAccess.LastRowInsertQuery}";
       return DbAccess.SaveData<dynamic>(sql, new { image.ImagePath, image.ImageDescription, image.ImageThumbnailPath,  image.CollectionId});
+      }
+
+    public static Task<int> InsertImageAsync(ImageModel image)
+      {
+      var sql = $"INSERT OR IGNORE INTO Images (ImagePath, ImageDescription, ImageThumbnailPath, CollectionId) " +
+                $"VALUES(@ImagePath, @ImageDescription, @ImageThumbnailPath, @CollectionId);{DbAccess.LastRowInsertQuery}";
+      return DbAccess.SaveDataAsync<dynamic>(sql, new { image.ImagePath, image.ImageDescription, image.ImageThumbnailPath, image.CollectionId });
       }
 
     public static int UpdateImage(ImageModel image)

@@ -30,18 +30,18 @@ namespace Screenshots.Library.WPF.Views
 
     private void OnSaveAsButtonClicked(object sender, RoutedEventArgs e)
       {
-      throw new NotImplementedException();
+      Screenshot.SaveScreenshotToDisk();
       }
 
     private void OnDeleteButtonClicked(object sender, RoutedEventArgs e)
       {
-      throw new NotImplementedException();
+      Screenshot.DeleteScreenshot();
+      Close();
       }
 
     private void OnOkButtonClicked(object sender, RoutedEventArgs e)
       {
       Close();
-
       }
 
    private void OnChooseTagTextChanged(object sender, TextChangedEventArgs e)
@@ -66,6 +66,16 @@ namespace Screenshots.Library.WPF.Views
         Screenshot.RemoveTag();
         ImageTagsItemControl.Items.Refresh();
         }
+      }
+
+    private void OnShowImageFullScreenClicked(object sender, RoutedEventArgs e)
+      {
+      var form = new FullScreenScreenshotView
+        {
+        ImagePath = Screenshot.ImagePath,
+        DataContext= Screenshot.ImagePath
+        };
+      form.Show();
       }
     }
   }

@@ -15,7 +15,9 @@
 			<Border Style="{DynamicResource BorderDefault}">
 				<StackPanel>
 					<Border Name="ImageBorder" Height="400" MinWidth="600">
+						<Button Click="OnShowImageFullScreenClicked">
 						<Image Name="SelectedImageBox" Source="{Binding ImagePath}" VerticalAlignment="Top" />
+						</Button>
 					</Border>
 					<userControls:LabelTextBox 
 						LabelText="Image path" LabelWidth="70"
@@ -46,7 +48,7 @@
 					</WrapPanel>
 					<WrapPanel VerticalAlignment="Bottom">
 						<Button Name="SaveAsButton"   Style="{DynamicResource ButtonDefault}"
-						        ToolTip="Save selected screenshot with new name" Click="OnSaveAsButtonClicked" >
+						        ToolTip="Save copy of screenshot with new name" Click="OnSaveAsButtonClicked" >
 							Save as ...
 						</Button>
 						<Button Name="DeleteButton"  Style="{DynamicResource ButtonDefault}"
@@ -54,7 +56,7 @@
 							Delete
 						</Button>
 					</WrapPanel>
-					<TextBlock >Add tags:</TextBlock>
+					<TextBlock >Add tag:</TextBlock>
 					<TextBox Name="ChooseTag" Style="{DynamicResource TextBoxDefault}" Text="{Binding TagPattern, Mode=TwoWay}" TextChanged="OnChooseTagTextChanged"/>
 					<DataGrid Name="FilteredTagsDataGrid" 
 					          Style="{DynamicResource DataGridReadOnly}"

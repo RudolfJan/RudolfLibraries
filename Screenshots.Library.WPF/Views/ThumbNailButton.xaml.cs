@@ -25,14 +25,14 @@ namespace Screenshots.Library.WPF.Views
 
     public int ThumbnailHeight
       {
-      get { return (int)GetValue(HeightProperty); }
-      set { SetValue(HeightProperty, value); }
+      get { return (int)GetValue(ThumbnailHeightProperty); }
+      set { SetValue(ThumbnailHeightProperty, value); }
       }
 
     public static readonly DependencyProperty ThumbnailHeightProperty =
-        DependencyProperty.Register("HeigThumbnailHeight", typeof(int), typeof(ThumbNailButton));
+        DependencyProperty.Register("ThumbnailHeight", typeof(int), typeof(ThumbNailButton));
 
-    public new int ThumbnailWidth
+    public int ThumbnailWidth
       {
       get { return (int)GetValue(ThumbnailWidthProperty); }
       set { SetValue(ThumbnailWidthProperty, value); }

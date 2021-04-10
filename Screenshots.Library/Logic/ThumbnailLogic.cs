@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Logging.Library;
+using System;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
-using System.Windows.Forms;
+using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using ThumbnailSharp;
 
@@ -10,28 +10,28 @@ namespace Screenshots.Library.Logic
   public class ThumbnailLogic
     {
     public static uint ThumbnailWidth { get; set; } = 180;
-    public static BitmapImage CreateThumbNail(string imagePath)
+    public static void CreateThumbNail(string imagePath, string thumbnailPath)
       {
       Format format;
       var extension = Path.GetExtension(imagePath).ToLower();
       switch (extension)
         {
-          case ".jpg":
+        case ".jpg":
             {
             format = Format.Jpeg;
             break;
             }
-          case ".jpeg":
+        case ".jpeg":
             {
             format = Format.Jpeg;
             break;
             }
-          case ".png":
+        case ".png":
             {
             format = Format.Png;
             break;
             }
-          default:
+        default:
             {
             throw new NotSupportedException($"File type {extension} not supported for thumbnail");
             }
@@ -39,41 +39,27 @@ namespace Screenshots.Library.Logic
 
       try
         {
-        byte[] ResultBytes = new ThumbnailCreator().CreateThumbnailBytes(
-          thumbnailSize: ThumbnailWidth,
-          imageFileLocation: imagePath,
-          imageFormat: format);
-        return ByteArrayToBitmap(ResultBytes);
+        using (Stream sourceStream = new ThumbnailCreator().CreateThumbnailStream(ThumbnailWidth, imagePath, format))
+          {
+          if (sourceStream != null)
+            {
+            using (FileStream fs = new FileStream(thumbnailPath, FileMode.OpenOrCreate, FileAccess.Write))
+              {
+              if (sourceStream.Position != 0)
+                {
+                sourceStream.Position = 0;
+                }
+              sourceStream.CopyTo(fs);
+              }
+
+            }
+          }
         }
       catch (Exception ex)
         {
-        throw new InvalidOperationException("Cannot create Thumbnail", ex);
+        var result = Log.Trace($"Failed to create thumbnail", ex, LogEventType.Error);
+        throw new Exception(result);
         }
       }
-
-    private static BitmapImage ByteArrayToBitmap(Byte[] ByteArray)
-      {
-      MemoryStream Stream = new MemoryStream(ByteArray);
-
-      BitmapImage BitmapImage = new BitmapImage();
-      BitmapImage.BeginInit();
-      BitmapImage.StreamSource = Stream;
-      BitmapImage.EndInit();
-
-      return BitmapImage;
-      }
-
-    // https://stackoverflow.com/questions/35804375/how-do-i-save-a-bitmapimage-from-memory-into-a-file-in-wpf-c
-    public static void SaveThumbNail(BitmapImage image, string filePath)
-      {
-      BitmapEncoder encoder = new PngBitmapEncoder();
-      encoder.Frames.Add(BitmapFrame.Create(image));
-
-      using (var fileStream = new FileStream(filePath, FileMode.Create))
-        {
-        encoder.Save(fileStream);
-        }
-      }
-
     }
   }

@@ -1,16 +1,6 @@
 ﻿using Screenshots.Library.WPF.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Screenshots.Library.WPF.Views
   {
@@ -30,8 +20,6 @@ namespace Screenshots.Library.WPF.Views
       DeleteCollectionButton.IsEnabled= ScreenshotCollectionManager?.SelectedCollection != null;
       CollectionFolderFileInput.IsEnabled = ScreenshotCollectionManager?.CollectionId == 0;
       }
-
-
 
     private void EditCollectionClicked(object sender, RoutedEventArgs e)
       {
