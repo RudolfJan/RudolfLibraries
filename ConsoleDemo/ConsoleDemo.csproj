@@ -6,12 +6,44 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ScreenshotTest\TestCollection1\20201109205428_1.jpg" />
+    <None Remove="ScreenshotTest\TestCollection1\20201112075308_1.jpg" />
+    <None Remove="ScreenshotTest\TestCollection1\20201112075827_1.jpg" />
+    <None Remove="ScreenshotTest\TestCollection1\20201112092149_1.jpg" />
+    <None Remove="ScreenshotTest\TestCollection2\TSW2_Sheila_1597956562_00.png" />
+    <None Remove="ScreenshotTest\TestCollection2\TSW2_Sheila_1597956669_00.png" />
+    <None Remove="ScreenshotTest\TestCollection2\TSW2_Sheila_1597962933_00.png" />
+    <None Remove="ScreenshotTest\TestCollection2\TSW2_Sheila_1598015259_00.png" />
     <None Remove="SQLiteTest\SQL\PersonsTable.sql" />
     <None Remove="SQLiteTest\SQL\ProfilesTable.sql" />
     <None Remove="SQLiteTest\SQL\Version4Update.sql" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="ScreenshotTest\TestCollection1\20201109205428_1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ScreenshotTest\TestCollection1\20201112075308_1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ScreenshotTest\TestCollection1\20201112075827_1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ScreenshotTest\TestCollection1\20201112092149_1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ScreenshotTest\TestCollection2\TSW2_Sheila_1597956562_00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ScreenshotTest\TestCollection2\TSW2_Sheila_1597956669_00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ScreenshotTest\TestCollection2\TSW2_Sheila_1597962933_00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ScreenshotTest\TestCollection2\TSW2_Sheila_1598015259_00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SQLiteTest\SQL\PersonsTable.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -24,7 +56,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\mirzaevolution\ThumbnailSharp\ThumbnailSharp\ThumbnailSharp.csproj" />
+    <ProjectReference Include="..\Filter.Library\Filter.Library.csproj" />
     <ProjectReference Include="..\Logging.Library\Logging.Library.csproj" />
+    <ProjectReference Include="..\Screenshots.Library\Screenshots.Library.csproj" />
     <ProjectReference Include="..\SQLiteDatabase.Library\SQLiteDatabase.Library.csproj" />
     <ProjectReference Include="..\Utilities.Library\Utilities.Library.csproj" />
   </ItemGroup>

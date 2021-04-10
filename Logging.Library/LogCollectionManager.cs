@@ -19,7 +19,6 @@ namespace Logging.Library
     public static List<string> ReportLog()
       {
       var output=new List<string>();
-
       foreach (var logEntry in LogEvents)
         {
         var s = $"{logEntry.Method}: {logEntry.LineNumber} {logEntry}";
@@ -27,6 +26,5 @@ namespace Logging.Library
         }
       return output;
       }
-
     }
   }

@@ -13,7 +13,7 @@
 		  Text="{Binding LabelText, ElementName=root}"
 		   Width="{Binding LabelWidth, ElementName=root}"/>
 		<Border CornerRadius="3">
-			<TextBox x:Name="FileTextBox"
+			<TextBox x:Name="FileTextBox" 
 			  MinWidth="{Binding ActualWidth, ElementName=GetFileButton}"
 			  Margin="2,0,8,0"
 			  Text="{Binding FileName, ElementName=root}" />

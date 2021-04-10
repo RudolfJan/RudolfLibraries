@@ -9,27 +9,36 @@ namespace ConsoleDemo
       {
       // Setup logging
       LogEventHandler.LogEvent += ReportLogging;
-      Console.WriteLine("Tests for Time converters");
-      TimeConverterDemo.TimeConverterDemoApp();
+
+      Console.WriteLine("Screenshot Demo");
+      ScreenshotsDemo.RunScreenshotsDemo();
       Console.ReadLine();
 
-      Console.WriteLine("Text helper Demo");
-      TextHelperDemo.TestHelperDemoSamples();
-      Console.ReadLine();
+      //Console.WriteLine("Filter Demo");
+      //FiltersDemo.RunFilterDemo();
+      //Console.ReadLine();
 
-      Console.WriteLine("SQLite database Demo");
-      DataAccessDemo.SQLiteDatabaseDemo();
-      Console.ReadLine();
+      //Console.WriteLine("Tests for Time converters");
+      //TimeConverterDemo.TimeConverterDemoApp();
+      //Console.ReadLine();
 
-      Console.WriteLine("TreeBuilder Demo");
-      TreeBuilderDemo.TreeDemo();
-      Console.ReadLine();
+      //Console.WriteLine("Text helper Demo");
+      //TextHelperDemo.TestHelperDemoSamples();
+      //Console.ReadLine();
 
-      Console.WriteLine("SevenZip Demo");
-      SevenZipDemo.RunSevenZipDemo();
-      Console.ReadLine();
+      //Console.WriteLine("SQLite database Demo");
+      //DataAccessDemo.SQLiteDatabaseDemo();
+      //Console.ReadLine();
 
-      var log=LogCollectionManager.ReportLog();
+      //Console.WriteLine("TreeBuilder Demo");
+      //TreeBuilderDemo.TreeDemo();
+      //Console.ReadLine();
+
+      //Console.WriteLine("SevenZip Demo");
+      //SevenZipDemo.RunSevenZipDemo();
+      //Console.ReadLine();
+
+      var log =LogCollectionManager.ReportLog();
       if (log.Count == 0)
         {
         Console.WriteLine("Error log: Nothing logged");

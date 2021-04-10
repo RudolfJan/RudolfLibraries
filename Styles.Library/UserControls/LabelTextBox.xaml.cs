@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,11 +13,24 @@ namespace Styles.Library.UserControls
   // https://stackoverflow.com/questions/3067617/raising-an-event-on-parent-window-from-a-user-control-in-net-c-sharp
 
   [System.Windows.Markup.ContentProperty("TextBoxText")]
+  [DefaultProperty("Alignment")]
   public partial class LabelTextBox
     {
     public LabelTextBox()
       {
       InitializeComponent();
+      }
+
+    [Description("Sets the alignment of the content")]
+    [Category("TableLayout")]
+
+    //https://stackoverflow.com/questions/1346533/c-sharp-usercontrol-how-to-access-all-child-controls
+    [DefaultValue(TextAlignment.Left)]
+    public TextAlignment Alignment
+      {
+      get { return this.LabeledTextBox.TextAlignment; }
+
+      set { this.LabeledTextBox.TextAlignment = value; }
       }
 
     public String LabelText
