@@ -7,7 +7,7 @@ using Utilities.Library.TextHelpers;
 
 namespace Utilities.Library.Zip
   {
-  public class SevenZip
+  public class SevenZipLib
     {
 		private static string _sevenZipProgram =null;
 
@@ -56,27 +56,9 @@ namespace Utilities.Library.Zip
         {
         try
           {
-          MyProcess.StartInfo.FileName = GetSevenZipProgram();
-          MyProcess.StartInfo.Arguments = arguments;
-          MyProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-          MyProcess.StartInfo.CreateNoWindow = true;
-          MyProcess.StartInfo.RedirectStandardOutput = true;
-          MyProcess.StartInfo.RedirectStandardError = true;
-          MyProcess.StartInfo.UseShellExecute = false;
-          MyProcess.Start();
-          // ReSharper disable once UnusedVariable
-          var Stdout = MyProcess.StandardOutput.ReadToEnd();
-          var Stderr = MyProcess.StandardError.ReadToEnd();
-          MyProcess.WaitForExit();
-          if (Stderr.Length > 0)
-            {
-            Log.Trace($"Error  + {Stderr}", LogEventType.Message);
-
-						// TODO throw exception here?
+          return ProcessHelper.RunProcess(GetSevenZipProgram(),arguments,true,true,WindowStyle: ProcessWindowStyle.Hidden,
+            RedirectStandardOutput:true, RedirectStandardError:true,CreateNoWindow:true,UseShellExecute:false);
             }
-
-          return Stdout;
-          }
         catch (Exception ex)
           {
           Log.Trace("SevenZip error", ex, LogEventType.Error);
@@ -94,12 +76,7 @@ namespace Utilities.Library.Zip
           {
           try
             {
-            MyProcess.StartInfo.FileName = GetSevenZipWindowsProgram();
-            MyProcess.StartInfo.Arguments = TextHelper.QuoteFilename(archive);
-            MyProcess.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
-            MyProcess.StartInfo.RedirectStandardOutput = false;
-            MyProcess.Start();
-            return string.Empty;
+            return ProcessHelper.RunProcess(GetSevenZipWindowsProgram(), TextHelper.QuoteFilename(archive),true, WindowStyle: ProcessWindowStyle.Maximized);
             }
           catch (Exception ex)
             {
@@ -219,7 +196,7 @@ namespace Utilities.Library.Zip
       }
 
 
-    // suppressHeaders will suppress a lot of stuff you do not want to see if you need to process this info. It is not set as default, bor backward compatibility reasons.
+    // suppressHeaders will suppress a lot of stuff you do not want to see if you need to process this info. It is not set as default, for backward compatibility reasons.
     // The preferred value for new applications is true of course.
     // Renamed, used to be called ListZipFiles
 		public static void ListFilesInArchive(string archive, out string result, bool suppressHeaders=false)

@@ -23,7 +23,7 @@ namespace ConsoleDemo
       TestImagesSetup();
       AddCategories();
       AddTags();
-      LinkTagsAndCategories();
+      // LinkTagsAndCategories();
       }
 
     private static void DatabaseSetupDemo(string databasePath, string connectionString)
@@ -54,26 +54,26 @@ namespace ConsoleDemo
         }
       }
 
-    private static void TestImagesSetup()
+    private static async void TestImagesSetup()
       {
       var imageManager = new ImageManager();
       ImageManager.ThumbnailBasePath = "C:\\Temp\\Thumbnails\\";
-      ImageManager.LoadNewImagesForAllCollections();
+      await ImageManager.LoadNewImagesForAllCollectionsAsync();
       }
 
     private static void AddCategories()
       {
-      var cat1 = new TagModel()
+      var cat1 = new CategoryModel()
         {
         CategoryName = "Route",
         CategoryDescription = "This is a route"
         };
-      var cat2 = new TagModel()
+      var cat2 = new CategoryModel()
         {
         CategoryName = "Loco",
         CategoryDescription = "This is a loco"
         };
-      var cat3 = new TagModel()
+      var cat3 = new CategoryModel()
         {
         CategoryName = "Country",
         CategoryDescription = ""
@@ -138,38 +138,38 @@ namespace ConsoleDemo
         }
       }
 
-    private static void LinkTagsAndCategories()
-      {
-      AddTagLink(1, 1);
-      AddTagLink(2, 2);
-      AddTagLink(3, 2);
-      AddTagLink(4, 3);
-      AddTagLink(5, 3);
-      AddTagLink(6, 1);
-      var result = TagCategoriesExtendedDataAccess.GetAllTagsAndCategories();
-      foreach (var x in result)
-        {
-        Console.WriteLine(x.TagAndCategory);
-        }
+    //private static void LinkTagsAndCategories()
+    //  {
+    //  AddTagLink(1, 1);
+    //  AddTagLink(2, 2);
+    //  AddTagLink(3, 2);
+    //  AddTagLink(4, 3);
+    //  AddTagLink(5, 3);
+    //  AddTagLink(6, 1);
+    //  var result = TagCategoriesExtendedDataAccess.GetAllTagsAndCategories();
+    //  foreach (var x in result)
+    //    {
+    //    Console.WriteLine(x.TagAndCategory);
+    //    }
 
 
-      result = TagCategoriesExtendedDataAccess.GetFilteredTagsAndCategories("*", "C*");
-      foreach (var x in result)
-        {
-        Console.WriteLine(x.TagAndCategory);
-        }
-      }
+    //  result = TagCategoriesExtendedDataAccess.GetFilteredTagsAndCategories("*", "C*");
+    //  foreach (var x in result)
+    //    {
+    //    Console.WriteLine(x.TagAndCategory);
+    //    }
+    //  }
 
-    private static void AddTagLink(int tagId, int categoryId)
-      {
-      var t = new TagCategoriesModel
-        {
-        TagId = tagId,
-        CategoryId = categoryId
-        };
+    //private static void AddTagLink(int tagId, int categoryId)
+    //  {
+    //  var t = new TagCategoriesModel
+    //    {
+    //    TagId = tagId,
+    //    CategoryId = categoryId
+    //    };
 
-      TagCategoriesDataAccess.InsertTagCategory(t);
-      }
+    //  TagCategoriesDataAccess.InsertTagCategory(t);
+    //  }
 
     }
   }

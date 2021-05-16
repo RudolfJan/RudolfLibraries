@@ -10,7 +10,7 @@ namespace ConsoleDemo
     public static void  RunSevenZipDemo()
       {
       string SevenZipFilePath = @"C:\Program Files\7-Zip\7z.exe";
-      SevenZip.InitZip(SevenZipFilePath);
+      SevenZipLib.InitZip(SevenZipFilePath);
       // We need a demo archive. For this purpose we can use the current directory
       string path = System.AppContext.BaseDirectory;
       string demoArchiveName = $"{path}SevenZipDemoArchive.7z";
@@ -54,18 +54,18 @@ namespace ConsoleDemo
       TestExtractDirectory(demoArchiveName, testDirectory);
 
       // test extract all files in archive
-      SevenZip.ExtractAll(demoArchiveName, testDirectory);
+      SevenZipLib.ExtractAll(demoArchiveName, testDirectory);
 
       // test extract all but filtered
       TestExtractFilteredFileFormArchive(demoArchiveName, outputFolder);
 
       // Test list archive
-      SevenZip.ListFilesInArchive(demoArchiveName, out report, true);
+      SevenZipLib.ListFilesInArchive(demoArchiveName, out report, true);
       Console.WriteLine(report);
 
-      SevenZip.OpenZipFile(singleFileDemoArchive);
-      SevenZip.OpenZipFile(multipleFileDemoArchive);
-      SevenZip.OpenZipFile(demoArchiveName);
+      SevenZipLib.OpenZipFile(singleFileDemoArchive);
+      SevenZipLib.OpenZipFile(multipleFileDemoArchive);
+      SevenZipLib.OpenZipFile(demoArchiveName);
       }
 
     private static void TestExtractFilteredFileFormArchive(string demoArchiveName, string outputFolder)
@@ -76,7 +76,7 @@ namespace ConsoleDemo
         {
         File.Delete(checkPath);
         }
-      SevenZip.ExtractAll(demoArchiveName, testDirectory2, "*.sql", true);
+      SevenZipLib.ExtractAll(demoArchiveName, testDirectory2, "*.sql", true);
       if (File.Exists(checkPath))
         {
         Console.WriteLine($"Passed test writing selected files\r\n");
@@ -89,7 +89,7 @@ namespace ConsoleDemo
 
     private static string TestExtractDirectory(string demoArchiveName, string testDirectory)
       {
-      var report = SevenZip.ExtractDirectory(demoArchiveName, "SQLiteTest", testDirectory);
+      var report = SevenZipLib.ExtractDirectory(demoArchiveName, "SQLiteTest", testDirectory);
       Console.WriteLine(report);
       return report;
       }
@@ -98,7 +98,7 @@ namespace ConsoleDemo
       {
       string report;
       var resultFile = Path.GetFileName(inputFile);
-      report = SevenZip.ExtractSingleWithoutPath(demoArchiveName, inputFile, outputFolder);
+      report = SevenZipLib.ExtractSingleWithoutPath(demoArchiveName, inputFile, outputFolder);
       Console.WriteLine(report);
 
       if (File.Exists($"{outputFolder}{resultFile}"))
@@ -123,7 +123,7 @@ namespace ConsoleDemo
 
       // Extract single, using file path in target folder
 
-      report = SevenZip.ExtractSingle(demoArchiveName, outputFolder, inputFile);
+      report = SevenZipLib.ExtractSingle(demoArchiveName, outputFolder, inputFile);
       Console.WriteLine(report);
       if (File.Exists($"{outputFolder}{inputFile}"))
         {
@@ -139,13 +139,13 @@ namespace ConsoleDemo
 
     private static void AddFilesToArchive(string archive, string inputFiles)
       {
-      var report = SevenZip.AddFiles(archive, inputFiles);
+      var report = SevenZipLib.AddFiles(archive, inputFiles);
       Console.WriteLine(report);
       }
 
     private static bool CreateArchiveForDirectory(string demoArchiveName, string path)
       {
-      var report = SevenZip.AddDirectory(demoArchiveName, path, false);
+      var report = SevenZipLib.AddDirectory(demoArchiveName, path, false);
       Console.WriteLine(report);
 
       if (File.Exists(demoArchiveName))
