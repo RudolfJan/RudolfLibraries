@@ -15,20 +15,19 @@ namespace WPFDemo
     public MainWindow()
       {
       InitializeComponent();
-      string databasePath = "ScreenshotsDemo.db"; // will run in application folder
-      string connectionString = $"Data Source = {databasePath}; Version = 3;";
-      var factory = new Screenshots.Library.DataAccess.DatabaseFactory();
-      DbManager.InitDatabase(connectionString, databasePath, factory);
-      TagAndCategoryManager = new TagAndCategoryViewModel();
-      ScreenshotManagerViewModel screenshotManager = new ScreenshotManagerViewModel();
-      ScreenshotManagerView.DataContext= screenshotManager;
-      ScreenshotManagerView.ScreenshotManager=screenshotManager;
-      DataContext = TagAndCategoryManager;
-      TagMaintenanceView.DataContext = TagAndCategoryManager;
-      TagMaintenanceView.TagAndCategoryData= TagAndCategoryManager;
-      ScreenshotCollectionViewModel CollectionManager = new ScreenshotCollectionViewModel();
-      CollectionMantenanceView.DataContext = CollectionManager;
-      CollectionMantenanceView.ScreenshotCollectionManager= CollectionManager;
+
+      }
+
+    private void ScreenshotButton_Click(object sender, RoutedEventArgs e)
+      {
+      var form= new ScreenshotDemoView();
+      form.Show();
+      }
+
+    private void TreeViewButton_Click(object sender, RoutedEventArgs e)
+      {
+      var form= new FileTreeDemoView();
+      form.Show();
       }
     }
   }

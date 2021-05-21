@@ -10,21 +10,41 @@
     Right="5"
     Top="5" />
 
-  <Thickness
+	<Thickness
+    x:Key="MarginDefault"
+    Bottom="5"
+    Left="5"
+    Right="5"
+    Top="5" />
+
+	<Thickness
     x:Key="GroupBoxMargin"
     Bottom="2"
     Left="5"
     Right="5"
     Top="2" />
 
-  <Thickness
+	<Thickness
+    x:Key="MarginGroupBox"
+    Bottom="2"
+    Left="5"
+    Right="5"
+    Top="2" />
+	
+	<Thickness
     x:Key="ButtonInBoxMargin"
     Bottom="2"
     Left="5"
     Right="5"
     Top="2" />
 
-
+	<Thickness
+    x:Key="MarginButtonInBox"
+    Bottom="2"
+    Left="5"
+    Right="5"
+    Top="2" />
+	
   <Thickness
     x:Key="SmallMargin"
     Bottom="3"
@@ -32,27 +52,55 @@
     Right="3"
     Top="3" />
 
-  <Thickness
+	<Thickness
+    x:Key="MarginSmall"
+    Bottom="3"
+    Left="3"
+    Right="3"
+    Top="3" />
+	
+	<Thickness
     x:Key="TableMargin"
     Bottom="0"
     Left="3"
     Right="3"
     Top="0" />
 
-  <Thickness
+	<Thickness
+    x:Key="MarginTable"
+    Bottom="0"
+    Left="3"
+    Right="3"
+    Top="0" />
+	
+	<Thickness
     x:Key="TableTopMargin"
     Bottom="0"
     Left="3"
     Right="3"
     Top="3" />
 
-  <Thickness
+	<Thickness
+    x:Key="MarginTableTop"
+    Bottom="0"
+    Left="3"
+    Right="3"
+    Top="3" />
+	
+	<Thickness
     x:Key="TableBottomMargin"
     Bottom="3"
     Left="3"
     Right="3"
     Top="0" />
-
+	
+	<Thickness
+    x:Key="MarginTableBottom"
+    Bottom="3"
+    Left="3"
+    Right="3"
+    Top="0" />
+	
   <Thickness
     x:Key="DefaultPadding"
     Bottom="2"
@@ -67,7 +115,14 @@
     Right="1"
     Top="1" />
 
-  <Thickness
+	<Thickness
+    x:Key="PaddingSmall"
+    Bottom="1"
+    Left="1"
+    Right="1"
+    Top="1" />
+	
+	<Thickness
     x:Key="ThinBorderWidth"
     Bottom="1"
     Left="1"
@@ -80,18 +135,42 @@
     BottomRight="5"
     TopLeft="5"
     TopRight="5" />
-
-  <CornerRadius
+	
+	<CornerRadius
+    x:Key="CornersDefault"
+    BottomLeft="5"
+    BottomRight="5"
+    TopLeft="5"
+    TopRight="5" />
+	
+	<CornerRadius
     x:Key="SmallCorners"
     BottomLeft="3"
     BottomRight="3"
     TopLeft="3"
     TopRight="3" />
-
+	
+	<CornerRadius
+    x:Key="CornersSmall"
+    BottomLeft="3"
+    BottomRight="3"
+    TopLeft="3"
+    TopRight="3" />
+	
   <sys:Double x:Key="ItemHeight">25</sys:Double>
   <sys:Double x:Key="BigHeight">100</sys:Double>
 
-  <!-- Button dimensions -->
+	<sys:Double x:Key="HeightItem">25</sys:Double>
+	<sys:Double x:Key="HeightBig">100</sys:Double>
+	<!--  for rectangles  -->
+	<sys:Double x:Key="DefaultRectangleWidth">15</sys:Double>
+	<sys:Double x:Key="SmallRectangleWidth">10</sys:Double>
+
+	<sys:Double x:Key="RectangleWidthDefault">15</sys:Double>
+	<sys:Double x:Key="RectangleWidthSmall">10</sys:Double>
+
+	
+	<!-- Button dimensions -->
 
   <sys:Double x:Key="DefaultButtonWidth">100</sys:Double>
 	<sys:Double x:Key="NarrowButtonWidth">60</sys:Double>
@@ -101,12 +180,20 @@
   <sys:Double x:Key="ImageButtonHeight">30</sys:Double>
   <sys:Double x:Key="ImageButtonWidth">30</sys:Double>
 
-  <!--  eg for grid cells  -->
+	<sys:Double x:Key="ButtonWidthDefault">100</sys:Double>
+	<sys:Double x:Key="ButtonWidthNarrow">60</sys:Double>
+	<sys:Double x:Key="ButtonWidthDotted">30</sys:Double>
+	<sys:Double x:Key="ButtonWidthWide">120</sys:Double>
+	<sys:Double x:Key="ButtonHeightBig">70</sys:Double>
+	<sys:Double x:Key="ButtonHeightImage">30</sys:Double>
+	<sys:Double x:Key="ButtonWidthImage">30</sys:Double>
+
+	<!--  eg for grid cells  -->
   <GridLength x:Key="DefaultHeight">25</GridLength>
   <GridLength x:Key="GridHeight">35</GridLength>
   <sys:Double x:Key="CellHeight">28</sys:Double>
-  
-  <!--  for rectangles  -->
-  <sys:Double x:Key="DefaultRectangleWidth">15</sys:Double>
-  <sys:Double x:Key="SmallRectangleWidth">10</sys:Double>
+
+	<GridLength x:Key="GridHeightSmall">25</GridLength>
+	<GridLength x:Key="GridHeighDefault">35</GridLength>
+
 </ResourceDictionary>

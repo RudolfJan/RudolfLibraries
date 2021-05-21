@@ -1,0 +1,16 @@
+﻿<Window x:Class="WPFDemo.FileTreeDemoView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFDemo" 
+				xmlns:views="clr-namespace:TreeBuilders.Library.Wpf;assembly=TreeBuilders.Library.Wpf"
+				mc:Ignorable="d"
+				Style="{StaticResource AllWindows}"
+        Title="FileTree Demo View" Height="450" Width="800">
+    <ScrollViewer>
+		<StackPanel>
+			<views:FileTreeView Name="FileTreeViewControl"/>
+		</StackPanel>
+    </ScrollViewer>
+</Window>

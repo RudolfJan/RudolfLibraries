@@ -4,19 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFDemo"
-        xmlns:views="clr-namespace:Filter.Library.WPF.Views;assembly=Filter.Library.WPF"
-        xmlns:views1="clr-namespace:Screenshots.Library.WPF.Views;assembly=Screenshots.Library.WPF"
-        mc:Ignorable="d"
+          mc:Ignorable="d"
         Style="{StaticResource AllWindows}" 
-       Title="Main Window">
+       Title="Main Window" Width="400" Height="300">
 	<ScrollViewer>
 	<StackPanel>
-		<WrapPanel>
-			<views1:ScreenshotCollectionMaintenanceView x:Name="CollectionMantenanceView"/>
-			<views:TagsMaintenanceView x:Name="TagMaintenanceView"/>
-		</WrapPanel>
+			<Button Name="ScreenshotButton" Style="{StaticResource ButtonDefault}" Click="ScreenshotButton_Click">Screenshotmanager demo</Button>
+			<Button Name="TreeViewButton" Style="{StaticResource ButtonDefault}" Click="TreeViewButton_Click">Tree builder demo</Button>
 
-    <views1:ScreenshotManagerView x:Name="ScreenshotManagerView"/>
-	</StackPanel>
+		</StackPanel>
 	</ScrollViewer>
 </Window>
