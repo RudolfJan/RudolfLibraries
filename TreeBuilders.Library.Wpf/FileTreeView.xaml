@@ -27,7 +27,7 @@
 					<TreeView Name="FileTreeTreeView"
 	                      Height="300" MinWidth="400"
 	                      Margin="{DynamicResource MarginDefault}"
-	                      ItemsSource="{Binding FileTree.TreeViewFileTree}"
+	                      ItemsSource="{Binding FileTree.TreeViewFileTree, NotifyOnSourceUpdated=True}"
 	                      ScrollViewer.CanContentScroll="True"
 	                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
 	                      ScrollViewer.VerticalScrollBarVisibility="Auto" 

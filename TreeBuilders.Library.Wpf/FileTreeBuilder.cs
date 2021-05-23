@@ -10,14 +10,14 @@ namespace TreeBuilders.Library.Wpf
     #region BuildTree
 
     public static TreeNodeModel BuildTree(string path, string fileFilter = "",
-      string directoryFilter = "")
+      string directoryFilter = "", bool onlyDirectories=false)
       {
       DirectoryInfo pathDirInfo = new DirectoryInfo(path);
-      return BuildTree(pathDirInfo, fileFilter, directoryFilter);
+      return BuildTree(pathDirInfo, fileFilter, directoryFilter, onlyDirectories);
       }
 
     public static TreeNodeModel BuildTree(DirectoryInfo path, string fileFilter =
-      "", string directoryFilter = "")
+      "", string directoryFilter = "", bool onlyDirectories = false)
       {
       try
         {
@@ -27,7 +27,7 @@ namespace TreeBuilders.Library.Wpf
             {
             Root = path
             };
-          return BuildTreeNode(tree, fileFilter, directoryFilter);
+          return BuildTreeNode(tree, fileFilter, directoryFilter, onlyDirectories);
           }
 
         Log.Trace($"Directory {path.FullName} does not exist", LogEventType.Error);
@@ -41,24 +41,33 @@ namespace TreeBuilders.Library.Wpf
       }
 
     private static TreeNodeModel BuildTreeNode(TreeNodeModel node, string fileFilter = "",
-      string directoryFilter = "")
+      string directoryFilter = "", bool onlyDirectories = false)
+      {
+      if(!onlyDirectories)
+        {
+        BuildFileList(node, fileFilter);
+        }
+
+      DirectoryInfo[] dirList = node.Root.GetDirectories(directoryFilter);
+      foreach (var dir in dirList)
+        {
+        var subNode = new TreeNodeModel
+          {
+          Root = dir
+          };
+        node.DirNodeList.Add(subNode);
+        BuildTreeNode(subNode, fileFilter, directoryFilter, onlyDirectories);
+        }
+      return node;
+      }
+
+    private static void BuildFileList(TreeNodeModel node, string fileFilter)
       {
       FileInfo[] fileList = node.Root.GetFiles(fileFilter);
       foreach (var file in fileList)
         {
         node.FileNodeList.Add(new FileNodeModel { FileEntry = file });
         }
-
-      DirectoryInfo[] dirList = node.Root.GetDirectories(directoryFilter);
-      foreach (var dir in dirList)
-        {
-        var subNode = new TreeNodeModel();
-        subNode.Root = dir;
-        node.DirNodeList.Add(subNode);
-        BuildTreeNode(subNode, fileFilter, directoryFilter);
-        }
-
-      return node;
       }
 
     #endregion

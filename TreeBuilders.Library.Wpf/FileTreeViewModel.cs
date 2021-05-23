@@ -23,10 +23,30 @@ namespace TreeBuilders.Library.Wpf
 				}
 			}
 
-    public FileNodeModel SelectedFileNode { get; internal set; }
-    public TreeNodeModel SelectedTreeNode { get; internal set; }
+		private FileNodeModel _SelectedFileNode;
+		public FileNodeModel SelectedFileNode
+			{
+			get { return _SelectedFileNode; }
+			set
+				{
+				_SelectedFileNode = value;
+				OnPropertyChanged("SelectedFileNode");
+				}
+			}
 
-    public FileTreeViewModel(string _rootFolder)
+		private TreeNodeModel _SelectedTreeNode;
+		public TreeNodeModel SelectedTreeNode
+			{
+			get { return _SelectedTreeNode; }
+			set
+				{
+				_SelectedTreeNode = value;
+				OnPropertyChanged("SelectedTreeNode");
+				}
+			}
+
+
+		public FileTreeViewModel(string _rootFolder, bool onlyDirectories=false)
 			{
 			RootFolder= _rootFolder;
 			if(!Directory.Exists(RootFolder))
