@@ -6,6 +6,9 @@
 		<ResourceDictionary Source="DictionaryColorScheme.xaml" />
 		<ResourceDictionary Source="DictionarySizeScheme.xaml" />
 
+		<!-- Converters -->
+		<ResourceDictionary Source="DictionaryConverters.xaml" />
+		
 		<!-- Windows -->
 		<ResourceDictionary Source="DictionaryWindow.xaml" />
 

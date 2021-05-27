@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:converters="clr-namespace:Styles.Library.Converters">
+
+	<BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+	<converters:BooleanToColorConverter x:Key="BoolToColorConverter" />
+	<converters:DebugConverter x:Key="DebugConverter" />
+	<!-- This one is not working for some reason ...
+	<converters:EnumDescriptionTypeConverter x:Key="EnumDescriptionConverter"/> -->
+	<converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
+	<converters:NullToBoolConverter x:Key="NullToBoolConverter"/>
+	<converters:NumberToBoolConverter x:Key="NumberToBoolConverter"/>
+	<converters:PathToImageSourceConverter x:Key="PathToImageSourceConverter"/>
+	<converters:RatioConverter x:Key="RatioConverter"/>
+	
+	<!-- Old definitions, still in use -->
+	<converters:EnumToStringConverter x:Key="DefaultEnumToStringConverter" />
+	<converters:NumberToBoolConverter x:Key="IntConverter"/>
+</ResourceDictionary>

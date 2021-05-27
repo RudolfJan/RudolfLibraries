@@ -168,8 +168,9 @@
 
 	<sys:Double x:Key="RectangleWidthDefault">15</sys:Double>
 	<sys:Double x:Key="RectangleWidthSmall">10</sys:Double>
+	<sys:Double x:Key="RectangleWidthBig">20</sys:Double>
+	<sys:Double x:Key="RectangleHeightBig">20</sys:Double>
 
-	
 	<!-- Button dimensions -->
 
   <sys:Double x:Key="DefaultButtonWidth">100</sys:Double>
