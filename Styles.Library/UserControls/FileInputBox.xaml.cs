@@ -68,7 +68,6 @@ namespace Styles.Library.UserControls
             }
         case FileDialogTypeEnum.BrowseDir:
             {
-#pragma warning disable IDE0017 // Simplify object initialization
             using var Form = new System.Windows.Forms.FolderBrowserDialog
               {
               Description = Title,
@@ -76,7 +75,6 @@ namespace Styles.Library.UserControls
               SelectedPath = FileName
               };
             // Use of this class is exceptional, so use full lib path here
-#pragma warning restore IDE0017 // Simplify object initialization
             if (Form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
               {
               FileName = Form.SelectedPath;

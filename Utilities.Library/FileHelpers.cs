@@ -119,7 +119,28 @@ namespace Utilities.Library
       File.Create(Filename).Dispose();
       }
 
-
+    public static bool RenameFileWithSingleQuotes(string filePath)
+      {
+      if(!File.Exists(filePath))
+        {
+        return false;
+        }
+      var newPath=filePath.Replace("\'","");
+      if(newPath.Equals(filePath))
+        {
+        return true;
+        }
+      try
+        {
+        File.Move(filePath,newPath);
+        return true;
+        }
+      catch (Exception ex)
+        {
+        Log.Trace($"Cannot remove singe quotes in file path {filePath}",ex,LogEventType.Error);
+        return false;
+        }
+      }
 
     }
   }

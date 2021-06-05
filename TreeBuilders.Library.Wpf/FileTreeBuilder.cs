@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Utilities.Library;
 
 namespace TreeBuilders.Library.Wpf
   {
@@ -69,6 +70,25 @@ namespace TreeBuilders.Library.Wpf
         node.FileNodeList.Add(new FileNodeModel { FileEntry = file });
         }
       }
+
+    #endregion
+
+    #region RemoveQuotes
+
+    public static void RenameFilesToUnquoted(TreeNodeModel tree)
+      {
+      foreach(var file in tree.FileNodeList)
+        {
+        FileHelpers.RenameFileWithSingleQuotes(file.FileEntry.FullName);
+        file.FileEntry=new FileInfo(file.FileEntry.FullName);
+        }
+      foreach(var dir in tree.DirNodeList)
+        {
+        RenameFilesToUnquoted(dir);
+        }
+      }
+
+
 
     #endregion
 

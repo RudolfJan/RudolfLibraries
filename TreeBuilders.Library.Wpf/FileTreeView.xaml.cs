@@ -1,5 +1,6 @@
 ﻿using Logging.Library;
 using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
@@ -16,6 +17,7 @@ namespace TreeBuilders.Library.Wpf
     public FileTreeView()
       {
       InitializeComponent();
+      FileTreeTreeView.SelectedItemChanged += new RoutedPropertyChangedEventHandler<object>(FileTreeTreeView_SelectedItemChanged);
       SetControlStates();
       }
 
@@ -25,6 +27,10 @@ namespace TreeBuilders.Library.Wpf
       OpenDocumentButton.IsEnabled= Tree?.SelectedFileNode!=null;
       }
 
+    public void Refresh()
+      {
+      FileTreeTreeView.Items.Refresh();
+      }
     public void SetImages()
       {
       try
@@ -45,7 +51,7 @@ namespace TreeBuilders.Library.Wpf
         }
       }
 
-    private void FileTreeTreeView_SelectedItemChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<object> e)
+    private void FileTreeTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
       {
       var selected = FileTreeTreeView.SelectedItem;
       if(selected is FileNodeModel)
@@ -60,6 +66,9 @@ namespace TreeBuilders.Library.Wpf
         Tree.SelectedTreeNode=selected as TreeNodeModel;
         Tree.SelectedFileNode=null;
         }
+      e.Handled = true;
+      RoutedEventArgs Args = new RoutedEventArgs(NodeSelectionChangedEvent);
+      RaiseEvent(Args);
       SetControlStates();
       }
 
@@ -71,6 +80,17 @@ namespace TreeBuilders.Library.Wpf
     private void OpenFolderButton_Click(object sender, System.Windows.RoutedEventArgs e)
       {
       Tree.OpenFolder();
+      }
+
+
+    public static readonly RoutedEvent NodeSelectionChangedEvent =
+       EventManager.RegisterRoutedEvent("NodeSelectionChanged",
+       RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<object>), typeof(TreeView));
+
+    public event RoutedEventHandler NodeSelectionChanged
+      {
+      add => AddHandler(NodeSelectionChangedEvent, value);
+      remove => RemoveHandler(NodeSelectionChangedEvent, value);
       }
     }
   }
