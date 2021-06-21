@@ -1,15 +1,10 @@
 ﻿using Logging.Library;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics; // needed for Process class
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Principal;
-using System.Text;
-using System.Xml;
-using System.Xml.Linq;
 
 
 namespace Utilities.Library
@@ -142,5 +137,21 @@ namespace Utilities.Library
         }
       }
 
+    // https://stackoverflow.com/questions/3855956/check-if-an-executable-exists-in-the-windows-path
+    // Get the full path, using an environment search
+    public static string GetFullPath(string fileName)
+      {
+      if (File.Exists(fileName))
+        return Path.GetFullPath(fileName);
+
+      var values = Environment.GetEnvironmentVariable("PATH");
+      foreach (var path in values.Split(Path.PathSeparator))
+        {
+        var fullPath = Path.Combine(path, fileName);
+        if (File.Exists(fullPath))
+          return fullPath;
+        }
+      return null;
+      }
     }
   }

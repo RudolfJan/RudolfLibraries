@@ -22,6 +22,7 @@ namespace Utilities.Library
         bool RedirectStandardOutput = false,
         bool RedirectStandardError = false)
       {
+      Filepath= FileHelpers.GetFullPath(Filepath); // retrieve the path for the file,
       if(!File.Exists(Filepath))
         {
         Log.Trace($"Cannot execute program {Filepath} because it does not exist",LogEventType.Error);
