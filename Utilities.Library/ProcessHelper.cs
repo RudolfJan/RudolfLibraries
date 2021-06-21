@@ -22,6 +22,11 @@ namespace Utilities.Library
         bool RedirectStandardOutput = false,
         bool RedirectStandardError = false)
       {
+      if(!File.Exists(Filepath))
+        {
+        Log.Trace($"Cannot execute program {Filepath} because it does not exist",LogEventType.Error);
+        return string.Empty;
+        }
       using (var GenericProcess = new Process())
         {
         GenericProcess.StartInfo.FileName = Filepath;

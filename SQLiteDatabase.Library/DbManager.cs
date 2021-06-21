@@ -108,7 +108,7 @@ namespace SQLiteDatabase.Library
       {
       string sql = @"CREATE TABLE IF NOT EXISTS Version (
                   Id INTEGER NOT NULL PRIMARY KEY,
-                  VersionNr INTEGER NOT NULL,
+                  VersionNr INTEGER NOT NULL UNIQUE ON CONFLICT IGNORE,
                   Description TEXT NOT NULL
         );";
       int result= CreateStructureElement(sql);
