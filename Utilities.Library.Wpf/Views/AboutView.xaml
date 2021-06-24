@@ -1,0 +1,36 @@
+﻿<Window x:Class="Utilities.Library.Wpf.Views.AboutView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Utilities.Library.Wpf.Views"
+        FontSize="28"
+        mc:Ignorable="d"
+        Title="{Binding AboutData.AboutWindowText}"
+        Style="{DynamicResource AllWindows}">
+    <ScrollViewer>
+    <StackPanel>
+			<Image Margin="{DynamicResource DefaultMargin}" MaxHeight="250" 
+						 Source="{Binding AboutData.AboutImagePath}"/>
+        <Border Style="{DynamicResource DefaultBorder}">
+            <StackPanel HorizontalAlignment="Left">
+            <TextBlock Text="{Binding AboutData.Description}" 
+											 Style="{DynamicResource DefaultTextBlock}" FontSize="16"/>
+					<TextBlock Text="{Binding AboutData.Version, StringFormat='Version: {0}'}" FontSize="20"
+									 Style="{DynamicResource DefaultTextBlock}"/>
+					<TextBlock Text="{Binding AboutData.Copyright}" FontSize="20"
+									 Style="{DynamicResource DefaultTextBlock}"/>
+					<TextBlock TextWrapping="Wrap" Height="70" MaxWidth="400"  Style="{DynamicResource DefaultTextBlock}" FontSize="20">
+            Download updates, manuals and other stuff:
+					        <Hyperlink NavigateUri="{Binding AboutData.DownloadUri}" 
+														RequestNavigate="Hyperlink_RequestNavigate"
+														 >
+                <TextBlock FontSize="20" Text="{Binding AboutData.DownloadUri}" Foreground="Blue"/>
+            </Hyperlink></TextBlock>
+				</StackPanel>
+        </Border>
+        <Button Name="OKButton" Style="{DynamicResource OKButton}" 
+								HorizontalAlignment="Right" Click="OnOkButtonClicked" >Close</Button>
+    </StackPanel>
+    </ScrollViewer>
+</Window>

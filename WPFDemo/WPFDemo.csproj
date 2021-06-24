@@ -4,9 +4,15 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <Authors>Rudolf Heijink</Authors>
+    <Company>Holland Hiking</Company>
+	<ProgramVersion>0.1 beta</ProgramVersion>
+    <Description>This is a demo application for Wpf libreary stuff....</Description>
+    <Copyright>(C) 2021 Rudolf Heijink</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\about.jpg" />
     <None Remove="Images\file_extension_doc.png" />
     <None Remove="Images\folder.png" />
   </ItemGroup>
@@ -27,7 +33,29 @@
     <ProjectReference Include="..\Screenshots.Library\Screenshots.Library.csproj" />
     <ProjectReference Include="..\Styles.Library\Styles.Library.csproj" />
     <ProjectReference Include="..\TreeBuilders.Library.Wpf\TreeBuilders.Library.Wpf.csproj" />
+    <ProjectReference Include="..\Utilities.Library.Wpf\Utilities.Library.Wpf.csproj" />
     <ProjectReference Include="..\Utilities.Library\Utilities.Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\about.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>
