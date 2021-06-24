@@ -34,7 +34,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreeBuilders.Library.Wpf", "TreeBuilders.Library.Wpf\TreeBuilders.Library.Wpf.csproj", "{D6763F9C-A3AF-427E-9D16-A37236D3AF20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities.Library.Wpf", "Utilities.Library.Wpf\Utilities.Library.Wpf.csproj", "{5B73F9B7-C444-45DA-8ECB-1B6918746D9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities.Library.Wpf", "Utilities.Library.Wpf\Utilities.Library.Wpf.csproj", "{5B73F9B7-C444-45DA-8ECB-1B6918746D9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging.Library.Wpf", "Logging.Library.Wpf\Logging.Library.Wpf.csproj", "{DBD5D202-E009-4699-B8EB-CDFFEA2D74D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,6 +96,10 @@ Global
 		{5B73F9B7-C444-45DA-8ECB-1B6918746D9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B73F9B7-C444-45DA-8ECB-1B6918746D9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B73F9B7-C444-45DA-8ECB-1B6918746D9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBD5D202-E009-4699-B8EB-CDFFEA2D74D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBD5D202-E009-4699-B8EB-CDFFEA2D74D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBD5D202-E009-4699-B8EB-CDFFEA2D74D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBD5D202-E009-4699-B8EB-CDFFEA2D74D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
