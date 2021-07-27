@@ -11,7 +11,7 @@
 	<StackPanel>
 			<Button Name="ScreenshotButton" Style="{StaticResource ButtonDefault}" Click="ScreenshotButton_Click">Screenshotmanager demo</Button>
 			<Button Name="TreeViewButton" Style="{StaticResource ButtonDefault}" Click="TreeViewButton_Click">Tree builder demo</Button>
-			<Button Name="AboutButton" Style="{StaticResource ButtonDefault}" Click="AboutButton_Click">About button demo</Button>
+			<Button Name="AboutButton" Style="{StaticResource ButtonDefault}">About button demo</Button>
 		</StackPanel>
 	</ScrollViewer>
 </Window>
