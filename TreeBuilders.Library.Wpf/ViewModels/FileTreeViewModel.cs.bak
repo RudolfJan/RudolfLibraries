@@ -1,17 +1,27 @@
-﻿using Logging.Library;
+﻿using Caliburn.Micro;
+using Logging.Library;
 using Styles.Library.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Documents;
+using System.Windows.Media.Imaging;
 using Utilities.Library;
 
-namespace TreeBuilders.Library.Wpf
+namespace TreeBuilders.Library.Wpf.ViewModels
   {
- public  class FileTreeViewModel: Notifier
+ public  class FileTreeViewModel: Screen
     {
 		public string RootFolder { get;set; } 
+
+
+		public string FileImage { get;set; }
+
+		public string FolderImage { get;set; }
+		public BitmapImage FolderBitMap { get; set; }
+		public BitmapImage FileBitMap { get; set; }
+
 		private TreeNodeModel _FileTree;
 		public TreeNodeModel FileTree
 			{
@@ -19,7 +29,7 @@ namespace TreeBuilders.Library.Wpf
 			set
 				{
 				_FileTree = value;
-				OnPropertyChanged("FileTree");
+				NotifyOfPropertyChange("FileTree");
 				}
 			}
 
@@ -30,7 +40,7 @@ namespace TreeBuilders.Library.Wpf
 			set
 				{
 				_SelectedFileNode = value;
-				OnPropertyChanged("SelectedFileNode");
+				NotifyOfPropertyChange("SelectedFileNode");
 				}
 			}
 
@@ -41,14 +51,13 @@ namespace TreeBuilders.Library.Wpf
 			set
 				{
 				_SelectedTreeNode = value;
-				OnPropertyChanged("SelectedTreeNode");
+				NotifyOfPropertyChange("SelectedTreeNode");
 				}
 			}
 
 
-		public FileTreeViewModel(string _rootFolder, bool onlyDirectories=false)
+		public FileTreeViewModel()
 			{
-			RootFolder= _rootFolder;
 			if(!Directory.Exists(RootFolder))
         {
 				Log.Trace($"Root folder cannot be found {RootFolder}");
@@ -59,9 +68,30 @@ namespace TreeBuilders.Library.Wpf
 		private void Init()
       {
 			FileTree = FileTreeBuilder.BuildTree(RootFolder);
+			SetImages();
 			}
 
-    internal void OpenDocument()
+		public void SetImages()
+			{
+			try
+				{
+				if (!string.IsNullOrEmpty(FolderImage))
+					{
+					// The part pack://siteoforigin:,,,/ sets the correct absolute path to the image.
+					FolderBitMap = new BitmapImage(new Uri($"pack://siteoforigin:,,,/{FolderImage}", UriKind.RelativeOrAbsolute));
+					}
+				if (!string.IsNullOrEmpty(FileImage))
+					{
+					FileBitMap = new BitmapImage(new Uri($"pack://siteoforigin:,,,/{FileImage}", UriKind.RelativeOrAbsolute));
+					}
+				}
+			catch (Exception ex)
+				{
+				Log.Trace("Cannot retrieve images for TreeViewer ", ex, LogEventType.Error);
+				}
+			}
+
+		internal void OpenDocument()
       {
 			if(SelectedFileNode!=null)
 				{

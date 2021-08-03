@@ -8,56 +8,56 @@
 						 mc:Ignorable="d" 
 						 Name="TreeControl"
              d:DesignHeight="450" d:DesignWidth="450">
-	<UserControl.Resources>
-		<Convertor:PathToImageSourceConverter x:Key="ImageSourceConverter"/>
-	</UserControl.Resources>
-	<StackPanel>
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="auto"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
+  <UserControl.Resources>
+    <Convertor:PathToImageSourceConverter x:Key="ImageSourceConverter"/>
+  </UserControl.Resources>
+  <StackPanel>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="auto"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
 
-			<Border Grid.Column="0" Style="{DynamicResource BorderDefault}">
-				<StackPanel>
-					<WrapPanel HorizontalAlignment="Stretch">
-						<TextBlock Style="{DynamicResource TextBlockDefault}">Root folder</TextBlock>
-						<TextBox Text="{Binding RootFolder}" Style="{DynamicResource TextBoxReadOnly}" HorizontalAlignment="Stretch"/>
-					</WrapPanel>
-					<TreeView Name="FileTreeTreeView"
-	                      Height="300" MinWidth="400"
-	                      Margin="{DynamicResource MarginDefault}"
-	                      ItemsSource="{Binding FileTree.TreeViewFileTree, 
-																			UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
-	                      ScrollViewer.CanContentScroll="True"
-	                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
-	                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
-												
-												>
-						<TreeView.Resources>
-							<HierarchicalDataTemplate DataType="{x:Type local:TreeNodeModel}" ItemsSource="{Binding TreeViewFileTree}">
-								<WrapPanel>
-									<Image Source="{Binding ElementName=TreeControl, Path=FolderBitMap, 
-										NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Height="16" Margin="0,3,3,0"/>
-								<TextBlock Text="{Binding Root.Name}" />
-								</WrapPanel>
-							</HierarchicalDataTemplate>
-							<HierarchicalDataTemplate DataType="{x:Type local:FileNodeModel}">
-								<WrapPanel>
-									<Image Source="{Binding ElementName=TreeControl, Path=FileBitMap, 
-										NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Height="16" Margin="0,3,3,0"/>
-								<TextBlock Text="{Binding FileEntry.Name}" />
-								</WrapPanel>
-							</HierarchicalDataTemplate>
-						</TreeView.Resources>
-					</TreeView>
-					<WrapPanel>
-						<Button Name="OpenDocument" Style="{DynamicResource ButtonDefault}">Open document</Button>
-						<Button Name="OpenFolder" Style="{DynamicResource ButtonDefault}">Open folder</Button>
+      <Border Grid.Column="0" Style="{DynamicResource BorderDefault}">
+        <StackPanel>
+          <WrapPanel HorizontalAlignment="Stretch">
+            <TextBlock Style="{DynamicResource TextBlockDefault}">Root folder</TextBlock>
+            <TextBox Text="{Binding RootFolder}" Style="{DynamicResource TextBoxReadOnly}" HorizontalAlignment="Stretch"/>
+          </WrapPanel>
+          <TreeView Name="FileTreeTreeView"
+                      Height="300" MinWidth="400"
+                      Margin="{DynamicResource MarginDefault}"
+                      ItemsSource="{Binding FileTree.TreeViewFileTree, 
+																		UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
+                      ScrollViewer.CanContentScroll="True"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" 
+									SelectedItemChanged="FileTreeTreeView_SelectedItemChanged"
+											>
+            <TreeView.Resources>
+              <HierarchicalDataTemplate DataType="{x:Type local:TreeNodeModel}" ItemsSource="{Binding TreeViewFileTree}">
+                <WrapPanel>
+                  <Image Source="{Binding ElementName=TreeControl, Path=FolderBitMap, 
+									NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Height="16" Margin="0,3,3,0"/>
+                  <TextBlock Text="{Binding Root.Name}" />
+                </WrapPanel>
+              </HierarchicalDataTemplate>
+              <HierarchicalDataTemplate DataType="{x:Type local:FileNodeModel}">
+                <WrapPanel>
+                  <Image Source="{Binding ElementName=TreeControl, Path=FileBitMap, 
+									NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Height="16" Margin="0,3,3,0"/>
+                  <TextBlock Text="{Binding FileEntry.Name}" />
+                </WrapPanel>
+              </HierarchicalDataTemplate>
+            </TreeView.Resources>
+          </TreeView>
+          <WrapPanel>
+            <Button Name="OpenDocument" Style="{DynamicResource ButtonDefault}" Click="OpenDocument_Click">Open document</Button>
+            <Button Name="OpenFolder" Style="{DynamicResource ButtonDefault}" Click="OpenFolder_Click">Open folder</Button>
 
-					</WrapPanel>
-				</StackPanel>
-			</Border>
-			</Grid>
-		</StackPanel>
-</UserControl>
+          </WrapPanel>
+        </StackPanel>
+      </Border>
+    </Grid>
+  </StackPanel>
+ </UserControl>

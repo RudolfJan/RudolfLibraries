@@ -1,4 +1,4 @@
-﻿using Caliburn.Micro;
+﻿
 using Logging.Library;
 using Styles.Library.Helpers;
 using System;
@@ -11,17 +11,9 @@ using Utilities.Library;
 
 namespace TreeBuilders.Library.Wpf.ViewModels
   {
- public  class FileTreeViewModel: Screen
+ public  class FileTreeViewModel: Notifier
     {
 		public string RootFolder { get;set; } 
-
-
-		public string FileImage { get;set; }
-
-		public string FolderImage { get;set; }
-		public BitmapImage FolderBitMap { get; set; }
-		public BitmapImage FileBitMap { get; set; }
-
 		private TreeNodeModel _FileTree;
 		public TreeNodeModel FileTree
 			{
@@ -29,18 +21,28 @@ namespace TreeBuilders.Library.Wpf.ViewModels
 			set
 				{
 				_FileTree = value;
-				NotifyOfPropertyChange("FileTree");
+				OnPropertyChanged("FileTree");
 				}
 			}
 
-		private FileNodeModel _SelectedFileNode;
+    private bool _onlyDirectories;
+
+    public bool OnlyDirectories
+			{ 
+      get { return _onlyDirectories; }
+      set { _onlyDirectories = value; 
+				OnPropertyChanged("OnlyDirecties");
+					}
+      }
+
+    private FileNodeModel _SelectedFileNode;
 		public FileNodeModel SelectedFileNode
 			{
 			get { return _SelectedFileNode; }
 			set
 				{
 				_SelectedFileNode = value;
-				NotifyOfPropertyChange("SelectedFileNode");
+				OnPropertyChanged("SelectedFileNode");
 				}
 			}
 
@@ -51,13 +53,15 @@ namespace TreeBuilders.Library.Wpf.ViewModels
 			set
 				{
 				_SelectedTreeNode = value;
-				NotifyOfPropertyChange("SelectedTreeNode");
+				OnPropertyChanged("SelectedTreeNode");
 				}
 			}
 
 
-		public FileTreeViewModel()
+		public FileTreeViewModel(string rootFolder, bool onlyDirectories=false)
 			{
+			RootFolder= rootFolder;
+			OnlyDirectories= onlyDirectories;
 			if(!Directory.Exists(RootFolder))
         {
 				Log.Trace($"Root folder cannot be found {RootFolder}");
@@ -67,29 +71,9 @@ namespace TreeBuilders.Library.Wpf.ViewModels
 
 		private void Init()
       {
-			FileTree = FileTreeBuilder.BuildTree(RootFolder);
-			SetImages();
+			FileTree = FileTreeBuilder.BuildTree(RootFolder,"","",OnlyDirectories);
 			}
 
-		public void SetImages()
-			{
-			try
-				{
-				if (!string.IsNullOrEmpty(FolderImage))
-					{
-					// The part pack://siteoforigin:,,,/ sets the correct absolute path to the image.
-					FolderBitMap = new BitmapImage(new Uri($"pack://siteoforigin:,,,/{FolderImage}", UriKind.RelativeOrAbsolute));
-					}
-				if (!string.IsNullOrEmpty(FileImage))
-					{
-					FileBitMap = new BitmapImage(new Uri($"pack://siteoforigin:,,,/{FileImage}", UriKind.RelativeOrAbsolute));
-					}
-				}
-			catch (Exception ex)
-				{
-				Log.Trace("Cannot retrieve images for TreeViewer ", ex, LogEventType.Error);
-				}
-			}
 
 		internal void OpenDocument()
       {
