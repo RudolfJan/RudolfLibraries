@@ -1,13 +1,15 @@
-﻿using Logging.Library;
+﻿
+using Logging.Library;
 using Styles.Library.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Documents;
+using System.Windows.Media.Imaging;
 using Utilities.Library;
 
-namespace TreeBuilders.Library.Wpf
+namespace TreeBuilders.Library.Wpf.ViewModels
   {
  public  class FileTreeViewModel: Notifier
     {
@@ -23,7 +25,17 @@ namespace TreeBuilders.Library.Wpf
 				}
 			}
 
-		private FileNodeModel _SelectedFileNode;
+    private bool _onlyDirectories;
+
+    public bool OnlyDirectories
+			{ 
+      get { return _onlyDirectories; }
+      set { _onlyDirectories = value; 
+				OnPropertyChanged("OnlyDirecties");
+					}
+      }
+
+    private FileNodeModel _SelectedFileNode;
 		public FileNodeModel SelectedFileNode
 			{
 			get { return _SelectedFileNode; }
@@ -46,9 +58,10 @@ namespace TreeBuilders.Library.Wpf
 			}
 
 
-		public FileTreeViewModel(string _rootFolder, bool onlyDirectories=false)
+		public FileTreeViewModel(string rootFolder, bool onlyDirectories=false)
 			{
-			RootFolder= _rootFolder;
+			RootFolder= rootFolder;
+			OnlyDirectories= onlyDirectories;
 			if(!Directory.Exists(RootFolder))
         {
 				Log.Trace($"Root folder cannot be found {RootFolder}");
@@ -58,10 +71,11 @@ namespace TreeBuilders.Library.Wpf
 
 		private void Init()
       {
-			FileTree = FileTreeBuilder.BuildTree(RootFolder);
+			FileTree = FileTreeBuilder.BuildTree(RootFolder,"","",OnlyDirectories);
 			}
 
-    internal void OpenDocument()
+
+		internal void OpenDocument()
       {
 			if(SelectedFileNode!=null)
 				{

@@ -36,7 +36,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreeBuilders.Library.Wpf", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities.Library.Wpf", "Utilities.Library.Wpf\Utilities.Library.Wpf.csproj", "{5B73F9B7-C444-45DA-8ECB-1B6918746D9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging.Library.Wpf", "Logging.Library.Wpf\Logging.Library.Wpf.csproj", "{DBD5D202-E009-4699-B8EB-CDFFEA2D74D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging.Library.Wpf", "Logging.Library.Wpf\Logging.Library.Wpf.csproj", "{DBD5D202-E009-4699-B8EB-CDFFEA2D74D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

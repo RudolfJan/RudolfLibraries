@@ -29,8 +29,8 @@
             </Hyperlink></TextBlock>
 				</StackPanel>
         </Border>
-        <Button Name="OKButton" Style="{DynamicResource OKButton}" 
-								HorizontalAlignment="Right" Click="OnOkButtonClicked" >Close</Button>
+        <Button Name="Close" Style="{DynamicResource OKButton}" 
+								HorizontalAlignment="Right">Close</Button>
     </StackPanel>
     </ScrollViewer>
 </Window>

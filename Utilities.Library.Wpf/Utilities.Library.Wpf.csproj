@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Caliburn.Micro" Version="4.0.173" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Styles.Library\Styles.Library.csproj" />
     <ProjectReference Include="..\Utilities.Library\Utilities.Library.csproj" />
   </ItemGroup>

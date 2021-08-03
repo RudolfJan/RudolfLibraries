@@ -1,33 +1,30 @@
-﻿using Styles.Library.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using Utilities.About;
+﻿using System.Reflection;
+using System.Threading.Tasks;
+using Caliburn.Micro;
+using Utilities.Library.Wpf.Models;
 
 namespace Utilities.Library.Wpf.ViewModels
   {
-  public class AboutViewModel: Notifier
+  public class AboutViewModel: Screen
     {
-    private AboutModel _AboutData= new AboutModel();
-    public AboutModel AboutData
+    public IAboutModel AboutData {get; }
+
+    public AboutViewModel(IAboutModel aboutData)
       {
-      get { return _AboutData; }
-      set
-        {
-        _AboutData = value;
-        OnPropertyChanged("AboutData");
-        }
+      AboutData= aboutData;
       }
 
-    public AboutViewModel(Assembly currentAssembly, string version, string imagePath, string downlLoadUrl)
+    public void Initialize(Assembly currentAssembly, string version, string aboutImagePath, string downloadUri)
       {
-     
-      AboutData= new AboutModel();
-      AboutData.CurrentAssembly= currentAssembly;
-      AboutData.Version= version;
-      AboutData.DownloadUri= downlLoadUrl;
-      AboutData.AboutImagePath = imagePath;
+      AboutData.CurrentAssembly = currentAssembly;
+      AboutData.Version = version;
+      AboutData.AboutImagePath = aboutImagePath;
+      AboutData.DownloadUri = downloadUri;
+      }
+
+    public async Task Close()
+      {
+      await TryCloseAsync();
       }
     }
   }
