@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Logging.Library.Wpf.Models;
@@ -77,6 +78,7 @@ namespace Logging.Library.Wpf.ViewModels
 			ChangeFilter();
 			}
 
+		[Conditional("DEBUG")]
 		private void CreateTestData()
 			{
 			LogCollectionManager.LogEvents.Add(new LogEntryClass("", "", 1, "Test line Message", null, LogEventType.Message));
