@@ -12,7 +12,7 @@ namespace SQLiteDatabase.Library
   {
   public class DbAccess
     {
-    public const string LastRowInsertQuery= "SELECT last_insert_rowid()";
+    public const string LastRowInsertQuery= "SELECT last_insert_rowid();";
     public static void ClearTable(string tableName)
       {
       try

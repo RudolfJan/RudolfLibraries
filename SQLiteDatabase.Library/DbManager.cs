@@ -150,6 +150,7 @@ namespace SQLiteDatabase.Library
       var sql = $"SELECT cid AS Id, name as ColumnName, [type] AS ColumnType, [notnull] AS IsNotNull, dflt_value AS DefaultValue, pk AS IsPrimaryKey, hidden AS IsHidden FROM pragma_table_xinfo('{tableName}');";
       return DbAccess.LoadData<TableInfoModel, dynamic>(sql, new { });
       }
+
     #region info
 
     // https://stackoverflow.com/questions/1601151/how-do-i-check-in-sqlite-whether-a-table-exists
@@ -173,6 +174,14 @@ namespace SQLiteDatabase.Library
         return false;
         }
       }
+
+    public static bool ColumnExists(string tableName, string columnName)
+      {
+      var sql= $"SELECT COUNT(*) AS RecordCount FROM pragma_table_info('{tableName}') WHERE name='{columnName}';";
+      var result= DbAccess.LoadData<int, dynamic>(sql, new { }).FirstOrDefault();
+      return result==1;
+      }
+
     #endregion
 
     public static string GetConnectionString()
