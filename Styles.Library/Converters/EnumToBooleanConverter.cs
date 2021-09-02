@@ -29,7 +29,8 @@ namespace Styles.Library.Converters
       {
       if (parameter != null)
         {
-        if (!(parameter is String parameterString))
+        string parameterString = parameter.ToString();
+        if (parameterString==null)
           return DependencyProperty.UnsetValue;
 
         if (value != null && Enum.IsDefined(value.GetType(), value) == false)
@@ -47,7 +48,8 @@ namespace Styles.Library.Converters
 
     public Object ConvertBack(Object value, Type targetType, Object parameter, System.Globalization.CultureInfo culture)
       {
-      if (!(parameter is String parameterString))
+      string parameterString = parameter.ToString();
+      if (parameterString == null)
         return DependencyProperty.UnsetValue;
 
       return Enum.Parse(targetType, parameterString);
