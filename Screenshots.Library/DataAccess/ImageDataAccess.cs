@@ -108,7 +108,7 @@ namespace Screenshots.Library.DataAccess
 
     public static void DeleteImage(int id)
       {
-      var sql = "DELETE FROM Images WHERE Id=@id";
+      var sql = "DELETE FROM Images WHERE Id=@id;";
       DbAccess.SaveData<dynamic>(sql, new { id });
       }
 

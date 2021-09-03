@@ -7,6 +7,7 @@
 	<!-- This one is not working for some reason ...
 	<converters:EnumDescriptionTypeConverter x:Key="EnumDescriptionConverter"/> -->
 	<converters:EnumToStringConverter x:Key="EnumToStringConverter"/>
+  <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
 	<converters:NullToBoolConverter x:Key="NullToBoolConverter"/>
 	<converters:NumberToBoolConverter x:Key="NumberToBoolConverter"/>
 	<converters:PathToImageSourceConverter x:Key="PathToImageSourceConverter"/>

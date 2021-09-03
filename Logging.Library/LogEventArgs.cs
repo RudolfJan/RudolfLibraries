@@ -10,5 +10,11 @@ namespace Logging.Library
       {
       EntryClass = entryClass;
       }
+
+    public override string ToString()
+      {
+      return $"{EntryClass.EventType.ToString()} {EntryClass.LogEntry} \r\n";
+
+      }
     }
   }

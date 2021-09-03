@@ -21,19 +21,46 @@ namespace Utilities.Library
           .AsParallel()
           .ForAll(From =>
             {
-            var To = From.Replace(FromFolder, ToFolder);
-            // Create directories if needed
-            var ToSubFolder = Path.GetDirectoryName(To);
-            if (!String.IsNullOrWhiteSpace(ToSubFolder))
-              {
-              Directory.CreateDirectory(ToSubFolder);
-              }
+              var To = From.Replace(FromFolder, ToFolder);
+              // Create directories if needed
+              var ToSubFolder = Path.GetDirectoryName(To);
+              if (!String.IsNullOrWhiteSpace(ToSubFolder))
+                {
+                Directory.CreateDirectory(ToSubFolder);
+                }
 
-            File.Copy(From, To, Overwrite);
+              File.Copy(From, To, Overwrite);
             });
         return String.Empty;
         }
 
+      catch (Exception E)
+        {
+        return Log.Trace("Failed to copy directories because " + E.Message, LogEventType.Error);
+        }
+      }
+
+    public static string MoveDir(String FromFolder, String ToFolder, Boolean Overwrite = false)
+      {
+      try
+        {
+        Directory
+         .EnumerateFiles(FromFolder, "*", SearchOption.AllDirectories)
+         .AsParallel()
+         .ForAll(From =>
+         {
+           var To = From.Replace(FromFolder, ToFolder);
+           // Create directories if needed
+           var ToSubFolder = Path.GetDirectoryName(To);
+           if (!String.IsNullOrWhiteSpace(ToSubFolder))
+             {
+             Directory.CreateDirectory(ToSubFolder);
+             }
+           File.Move(From, To, Overwrite);
+         }
+         );
+        return String.Empty;
+        }
       catch (Exception E)
         {
         return Log.Trace("Failed to copy directories because " + E.Message, LogEventType.Error);
@@ -116,23 +143,23 @@ namespace Utilities.Library
 
     public static bool RenameFileWithSingleQuotes(string filePath)
       {
-      if(!File.Exists(filePath))
+      if (!File.Exists(filePath))
         {
         return false;
         }
-      var newPath=filePath.Replace("\'","");
-      if(newPath.Equals(filePath))
+      var newPath = filePath.Replace("\'", "");
+      if (newPath.Equals(filePath))
         {
         return true;
         }
       try
         {
-        File.Move(filePath,newPath);
+        File.Move(filePath, newPath);
         return true;
         }
       catch (Exception ex)
         {
-        Log.Trace($"Cannot remove singe quotes in file path {filePath}",ex,LogEventType.Error);
+        Log.Trace($"Cannot remove singe quotes in file path {filePath}", ex, LogEventType.Error);
         return false;
         }
       }
