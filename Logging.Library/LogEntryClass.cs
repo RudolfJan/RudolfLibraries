@@ -16,6 +16,18 @@ namespace Logging.Library
         }
       }
 
+    private DateTime _timeStamp=DateTime.Now;
+    public DateTime TimeStamp
+      {
+      get => _timeStamp;
+ 
+      set
+        {
+        _timeStamp = value;
+ 
+        }
+      }
+
     private LogEventType _EventType;
     public LogEventType EventType
       {
