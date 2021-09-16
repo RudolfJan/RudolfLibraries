@@ -24,6 +24,18 @@ namespace Logging.Library.Wpf.ViewModels
 				}
 			}
 
+
+		private LogEntryClass _selectedLogEntry;
+		public LogEntryClass SelectedLogEntry
+      {
+			get {  return _selectedLogEntry; }
+			set
+        {
+				_selectedLogEntry = value;
+				NotifyOfPropertyChange(() => SelectedLogEntry);
+        }
+      }
+
 		public bool _messageLogging = true;
 		public bool MessageLogging
 			{
@@ -128,10 +140,10 @@ namespace Logging.Library.Wpf.ViewModels
 				}
 			}
 
-		public async Task OKButton()
+		public Task OKButton()
 			{
-			await TryCloseAsync();
-			}
+      return TryCloseAsync();
+      }
 
 		}
 	}

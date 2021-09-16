@@ -6,43 +6,56 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:styles="clr-namespace:Styles.Library.UserControls;assembly=Styles.Library"
   xmlns:windowSizing="clr-namespace:UISupport.Library.WindowSizing;assembly=Styles.Library"
-  mc:Ignorable="d" 
+  mc:Ignorable="d" Width="550"
         Style="{StaticResource AllWindows}"
         Title="Logging Viewer">
   <ScrollViewer>
     <StackPanel>
-    <DataGrid Name="LogView" Style="{StaticResource DefaultDataGrid}"
-                Height="400" AutoGenerateColumns="False"
-                ItemsSource="{Binding Logging.FilteredLogging}">
+    <DataGrid Name="LogView" Style="{StaticResource DataGridReadOnly}"
+                Height="400" 
+              SelectedItem="{Binding SelectedLogEntry}"
+              ItemsSource="{Binding Logging.FilteredLogging}">
         <DataGrid.Columns>
-          <DataGridTextColumn Width="150"
-                          Binding="{Binding Method}"
-                          Header="Method" />
-          <DataGridTextColumn Width="200"
-                              Binding="{Binding FilePath}"
-                              Header="File" />
-          <DataGridTextColumn Width="60"
-                              Binding="{Binding LineNumber}"
-                              Header="Line" />
-          <DataGridTextColumn Width="80"
-                              Binding="{Binding EventType}"
-                              Header="Type" />
-          <DataGridTextColumn Width="200"
-                              Binding="{Binding LogEntry}"
-                              Header="Text" />
-          <DataGridTextColumn Width="200"
-                              Binding="{Binding E.Message}"
-                              Header="Exception" />
+          <DataGridTextColumn Header="Type" Width="60" Binding="{Binding EventType}" />
+          <DataGridTemplateColumn Header="Logging event">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <StackPanel>
+                  <WrapPanel>
+                    <TextBlock Width="120" Text="{Binding TimeStamp, 
+                      StringFormat='{}{0:yyyy-MM-ddTHH:mm:ss }'}"/>
+                    <TextBlock Width="400" Text="{Binding LogEntry}" />
+                  </WrapPanel>
+                </StackPanel>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
         </DataGrid.Columns>
+      
       </DataGrid>
-
+      <TextBlock Style="{StaticResource  TextBlockDefault}">Log entry details (select line in list to show)</TextBlock>
+      <WrapPanel>
+        <TextBlock Text="{Binding SelectedLogEntry.EventType}" 
+                   Style="{StaticResource  TextBlockDefault}"
+                   Width="60"/>
+        <TextBlock Width="120" 
+                   Text="{Binding SelectedLogEntry.TimeStamp, StringFormat='{}{0:yyyy-MM-ddTHH:mm:ss }'}" 
+                   Style="{StaticResource  TextBlockDefault}" />
+        <TextBlock Text="{Binding SelectedLogEntry.FilePath}" Style="{StaticResource  TextBlockDefault}"  />
+        <TextBlock Text="{Binding SelectedLogEntry.Method}" Style="{StaticResource  TextBlockDefault}"  />
+        <TextBlock Text="{Binding SelectedLogEntry.LineNumber}" Style="{StaticResource  TextBlockDefault}"  />
+      </WrapPanel>
+      <TextBlock Text="{Binding SelectedLogEntry.LogEntry}" Style="{StaticResource  TextBlockDefault}" 
+                 TextWrapping="Wrap" Height="Auto"/>
+      <TextBlock Text="{Binding SelectedLogEntry.E.Message}" Style="{StaticResource  TextBlockDefault}" 
+        TextWrapping="Wrap" Height="Auto"/>
       <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="120" />
           <ColumnDefinition Width="130" />
           <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" Style="{StaticResource DefaultBorder}">
+        <Border Grid.Column="0" Style="{StaticResource BorderDefault}">
           <StackPanel>
             <Label>Filters</Label>
             <CheckBox Name="DebugLogging">
@@ -69,16 +82,10 @@
             </Button>
           </StackPanel>
         </Border>
-        <Border Grid.Column="2" Style="{StaticResource DefaultBorder}">
-          <StackPanel>
-            <styles:ResultsTextBox Style="{StaticResource DefaultResultsTextBox}" 
-                                          Text="{Binding ElementName=LogView, Path=SelectedItem}" />
-            <Button Name="OKButton" Style="{StaticResource OKButton}" HorizontalAlignment="Right">
-              Done
-            </Button>
-          </StackPanel>
-        </Border>
-      </Grid>
+       </Grid>
+      <Button Name="OKButton" Style="{StaticResource OKButton}" HorizontalAlignment="Right">
+        Done
+      </Button>
     </StackPanel>
   </ScrollViewer>
 </windowSizing:SizableWindow>
