@@ -2,7 +2,7 @@
 
 namespace Logging.Library
   {
-  public class LogFilter 
+  public class LogFilter
     {
     private Boolean _DebugChecked = true;
     public Boolean DebugChecked
@@ -11,7 +11,6 @@ namespace Logging.Library
       set
         {
         _DebugChecked = value;
-        //OnPropertyChanged("DebugChecked");
         }
       }
 
@@ -22,7 +21,6 @@ namespace Logging.Library
       set
         {
         _ErrorChecked = value;
-        //OnPropertyChanged("ErrorChecked");
         }
       }
 
@@ -33,7 +31,6 @@ namespace Logging.Library
       set
         {
         _MessageChecked = value;
-        //OnPropertyChanged("MessageChecked");
         }
       }
 
@@ -44,21 +41,32 @@ namespace Logging.Library
       set
         {
         _EventChecked = value;
-        //OnPropertyChanged("EventChecked");
         }
       }
 
-    public LogFilter(Boolean debugChecked, Boolean errorChecked, Boolean messageChecked, Boolean eventChecked)
+    private Boolean _informUserChecked = true;
+    public Boolean InformUserChecked
       {
-      UpdateFilterSettings(debugChecked, errorChecked, messageChecked, eventChecked);
+      get => _informUserChecked;
+      set
+        {
+        _informUserChecked = value;
+        }
       }
 
-    public void UpdateFilterSettings(Boolean debugChecked, Boolean errorChecked, Boolean messageChecked, Boolean eventChecked)
+
+    public LogFilter(Boolean debugChecked, Boolean errorChecked, Boolean messageChecked, Boolean eventChecked, bool informUserChecked)
+      {
+      UpdateFilterSettings(debugChecked, errorChecked, messageChecked, eventChecked, informUserChecked);
+      }
+
+    public void UpdateFilterSettings(Boolean debugChecked, Boolean errorChecked, Boolean messageChecked, Boolean eventChecked, bool informUserChecked)
       {
       DebugChecked = debugChecked;
       ErrorChecked = errorChecked;
       MessageChecked = messageChecked;
       EventChecked = eventChecked;
+      InformUserChecked = informUserChecked;
       }
 
 
@@ -84,6 +92,10 @@ namespace Logging.Library
           case LogEventType.Event:
               {
               return EventChecked;
+              }
+          case LogEventType.InformUser:
+              {
+              return InformUserChecked;
               }
           default:
               {

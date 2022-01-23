@@ -13,82 +13,81 @@ namespace TreeBuilders.Library.Wpf.ViewModels
   {
  public  class FileTreeViewModel: Notifier
     {
-		public string RootFolder { get;set; } 
-		private TreeNodeModel _FileTree;
-		public TreeNodeModel FileTree
-			{
-			get { return _FileTree; }
-			set
-				{
-				_FileTree = value;
-				OnPropertyChanged("FileTree");
-				}
-			}
+    public string RootFolder { get;set; } 
+    private TreeNodeModel _FileTree;
+    public TreeNodeModel FileTree
+      {
+      get { return _FileTree; }
+      set
+        {
+        _FileTree = value;
+        OnPropertyChanged("FileTree");
+        }
+      }
 
     private bool _onlyDirectories;
 
     public bool OnlyDirectories
-			{ 
+      { 
       get { return _onlyDirectories; }
       set { _onlyDirectories = value; 
-				OnPropertyChanged("OnlyDirecties");
-					}
+        OnPropertyChanged("OnlyDirecties");
+          }
       }
 
     private FileNodeModel _SelectedFileNode;
-		public FileNodeModel SelectedFileNode
-			{
-			get { return _SelectedFileNode; }
-			set
-				{
-				_SelectedFileNode = value;
-				OnPropertyChanged("SelectedFileNode");
-				}
-			}
-
-		private TreeNodeModel _SelectedTreeNode;
-		public TreeNodeModel SelectedTreeNode
-			{
-			get { return _SelectedTreeNode; }
-			set
-				{
-				_SelectedTreeNode = value;
-				OnPropertyChanged("SelectedTreeNode");
-				}
-			}
-
-
-		public FileTreeViewModel(string rootFolder, bool onlyDirectories=false)
-			{
-			RootFolder= rootFolder;
-			OnlyDirectories= onlyDirectories;
-			if(!Directory.Exists(RootFolder))
+    public FileNodeModel SelectedFileNode
+      {
+      get { return _SelectedFileNode; }
+      set
         {
-				Log.Trace($"Root folder cannot be found {RootFolder}");
+        _SelectedFileNode = value;
+        OnPropertyChanged("SelectedFileNode");
         }
-			Init();
-			}
+      }
 
-		private void Init()
+    private TreeNodeModel _SelectedTreeNode;
+    public TreeNodeModel SelectedTreeNode
       {
-			FileTree = FileTreeBuilder.BuildTree(RootFolder,"","",OnlyDirectories);
-			}
+      get { return _SelectedTreeNode; }
+      set
+        {
+        _SelectedTreeNode = value;
+        OnPropertyChanged("SelectedTreeNode");
+        }
+      }
 
 
-		internal void OpenDocument()
+  
+    // Parameterless constructor for use with MVVM
+    // Call Initialize to complete setup
+    public FileTreeViewModel()
       {
-			if(SelectedFileNode!=null)
-				{
+
+      }
+
+    public void Initialize(string rootFolder, bool onlyDirectories = false)
+      {
+      RootFolder = rootFolder;
+      OnlyDirectories = onlyDirectories;
+      FileTree = FileTreeBuilder.BuildTree(RootFolder, "", "", OnlyDirectories);
+      }
+
+  
+    internal void OpenDocument()
+      {
+      if(SelectedFileNode!=null)
+        {
         ProcessHelper.OpenGenericFile(SelectedFileNode.FileEntry.FullName);
-				}
+        }
       }
 
     internal void OpenFolder()
       {
-			if(SelectedTreeNode!=null)
-				{
+      if(SelectedTreeNode!=null)
+        {
         ProcessHelper.OpenFolder(SelectedTreeNode.Root.FullName);
-				}
+        }
       }
     }
-	}
+  }

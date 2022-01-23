@@ -29,7 +29,7 @@
             </Hyperlink></TextBlock>
 				</StackPanel>
         </Border>
-        <Button Name="Close" Style="{DynamicResource OKButton}" 
+        <Button Name="CloseForm" Style="{DynamicResource OKButton}" 
 								HorizontalAlignment="Right">Close</Button>
     </StackPanel>
     </ScrollViewer>
