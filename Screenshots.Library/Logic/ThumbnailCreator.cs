@@ -106,62 +106,7 @@ namespace ThumbnailSharp
         }
       return bitmap;
       }
-    private static Bitmap CreateBitmapThumbnail(uint thumbnailSize, Stream imageStream)
-      {
-      Bitmap bitmap = null;
-      Image image;
-      try
-        {
-        image = Image.FromStream(imageStream);
-        }
-      catch
-        {
-        image = null;
-        }
-      if (image != null)
-        {
-        float actualHeight = image.Height;
-        float actualWidth = image.Width;
-        uint thumbnailHeight;
-        uint thumbnailWidth;
-        if (actualHeight > actualWidth)
-          {
-          if ((uint)actualHeight <= thumbnailSize)
-            throw new Exception("Thumbnail size must be less than actual height (portrait image)");
-          thumbnailHeight = thumbnailSize;
-          thumbnailWidth = (uint)((actualWidth / actualHeight) * thumbnailSize);
-          }
-        else if (actualWidth > actualHeight)
-          {
-
-          if ((uint)actualWidth <= thumbnailSize)
-            throw new Exception("Thumbnail size must be less than actual width (landscape image)");
-          thumbnailWidth = thumbnailSize;
-          thumbnailHeight = (uint)((actualHeight / actualWidth) * thumbnailSize);
-          }
-        else
-          {
-          if ((uint)actualWidth <= thumbnailSize)
-            throw new Exception("Thumbnail size must be less than image's size");
-          thumbnailWidth = thumbnailSize;
-          thumbnailHeight = thumbnailSize;
-          }
-        try
-          {
-          bitmap = new Bitmap((int)thumbnailWidth, (int)thumbnailHeight);
-          Graphics resizedImage = Graphics.FromImage(bitmap);
-          resizedImage.InterpolationMode = InterpolationMode.HighQualityBicubic;
-          resizedImage.CompositingQuality = CompositingQuality.HighQuality;
-          resizedImage.SmoothingMode = SmoothingMode.HighQuality;
-          resizedImage.DrawImage(image, 0, 0, thumbnailWidth, thumbnailHeight);
-          }
-        catch
-          {
-          bitmap = null;
-          }
-        }
-      return bitmap;
-      }
+ 
     private ImageFormat GetImageFormat(Format format)
       {
       return format switch

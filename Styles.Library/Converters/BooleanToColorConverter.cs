@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -27,6 +28,7 @@ namespace Styles.Library.Converters
       var colorIfTrue = Colors.LimeGreen;
       var colorIfFalse = Colors.Transparent;
       Double opacity = 1;
+      
       // Parsing converter parameter
       if (parameter != null)
         {

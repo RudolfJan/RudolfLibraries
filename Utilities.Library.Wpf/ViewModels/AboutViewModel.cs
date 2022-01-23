@@ -22,9 +22,9 @@ namespace Utilities.Library.Wpf.ViewModels
       AboutData.DownloadUri = downloadUri;
       }
 
-    public async Task Close()
+    public Task CloseForm()
       {
-      await TryCloseAsync();
+      return TryCloseAsync();
       }
     }
   }

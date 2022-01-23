@@ -6,6 +6,7 @@ namespace Logging.Library
     Error,
     Message,
     Event,
+    InformUser,
     Undefined
     }
   }

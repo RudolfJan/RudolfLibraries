@@ -1,41 +1,41 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 
-	<!--  https://www.codeproject.com/Articles/35346/Using-a-Resource-Dictionary-in-WPF  -->
-	<ResourceDictionary.MergedDictionaries>
-		<!-- Basic markup -->
-		<ResourceDictionary Source="DictionaryColorScheme.xaml" />
-		<ResourceDictionary Source="DictionarySizeScheme.xaml" />
+  <!--  https://www.codeproject.com/Articles/35346/Using-a-Resource-Dictionary-in-WPF  -->
+  <ResourceDictionary.MergedDictionaries>
+    <!--  Basic markup  -->
+    <ResourceDictionary Source="DictionaryColorScheme.xaml" />
+    <ResourceDictionary Source="DictionarySizeScheme.xaml" />
 
-		<!-- Converters -->
-		<ResourceDictionary Source="DictionaryConverters.xaml" />
-		
-		<!-- Windows -->
-		<ResourceDictionary Source="DictionaryWindow.xaml" />
+    <!--  Converters  -->
+    <ResourceDictionary Source="DictionaryConverters.xaml" />
 
-		<!-- Base controls -->
+    <!--  Windows  -->
+    <ResourceDictionary Source="DictionaryWindow.xaml" />
 
-		<ResourceDictionary Source="DictionaryBorder.xaml" />
-		<ResourceDictionary Source="DictionaryButton.xaml" />
-		<ResourceDictionary Source="DictionaryTextbox.xaml" />
-		<ResourceDictionary Source="DictionaryTextBlock.xaml" />
-		<ResourceDictionary Source="DictionaryComboBox.xaml" />
-		<ResourceDictionary Source="DictionaryLabel.xaml" />
-		<ResourceDictionary Source="DictionaryTooltip.xaml" />
-		<ResourceDictionary Source="DictionarySlider.xaml" />
-		<!-- Lists and grids -->
-		<ResourceDictionary Source="DictionaryListbox.xaml" />
-		<ResourceDictionary Source="DictionaryListView.xaml" />
-		<ResourceDictionary Source="DictionaryDataGrid.xaml" />
+    <!--  Base controls  -->
 
-		<!-- Panels etc -->
-		<ResourceDictionary Source="DictionaryTabControl.xaml" />
-		<ResourceDictionary Source="DictionaryCanvas.xaml" />
+    <ResourceDictionary Source="DictionaryBorder.xaml" />
+    <ResourceDictionary Source="DictionaryButton.xaml" />
+    <ResourceDictionary Source="DictionaryTextbox.xaml" />
+    <ResourceDictionary Source="DictionaryTextBlock.xaml" />
+    <ResourceDictionary Source="DictionaryComboBox.xaml" />
+    <ResourceDictionary Source="DictionaryLabel.xaml" />
+    <ResourceDictionary Source="DictionaryTooltip.xaml" />
+    <ResourceDictionary Source="DictionarySlider.xaml" />
+    <!--  Lists and grids  -->
+    <ResourceDictionary Source="DictionaryListbox.xaml" />
+    <ResourceDictionary Source="DictionaryListView.xaml" />
+    <ResourceDictionary Source="DictionaryDataGrid.xaml" />
 
-		<!-- User controls -->
+    <!--  Panels etc  -->
+    <ResourceDictionary Source="DictionaryTabControl.xaml" />
+    <ResourceDictionary Source="DictionaryCanvas.xaml" />
 
-		<ResourceDictionary Source="DictionaryLabelTextBox.xaml" />
-		<ResourceDictionary Source="DictionaryFileInputBox.xaml" />
-		<ResourceDictionary Source="DictionaryResultsTextBox.xaml" />
-		<ResourceDictionary Source="DictionaryMedia.xaml" />
-	</ResourceDictionary.MergedDictionaries>
+    <!--  User controls  -->
+
+    <ResourceDictionary Source="DictionaryLabelTextBox.xaml" />
+    <ResourceDictionary Source="DictionaryFileInputBox.xaml" />
+    <ResourceDictionary Source="DictionaryResultsTextBox.xaml" />
+    <ResourceDictionary Source="DictionaryMedia.xaml" />
+  </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

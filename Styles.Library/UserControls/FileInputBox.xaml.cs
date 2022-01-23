@@ -33,9 +33,7 @@ namespace Styles.Library.UserControls
         {
         case FileDialogTypeEnum.OpenFile:
             {
-#pragma warning disable IDE0017 // Simplify object initialization
             var Form = new OpenFileDialog();
-#pragma warning restore IDE0017 // Simplify object initialization
             //set property values
             Form.Title = Title;
             Form.CheckPathExists = CheckPathExists;
@@ -53,9 +51,7 @@ namespace Styles.Library.UserControls
 
         case FileDialogTypeEnum.SaveFile:
             {
-#pragma warning disable IDE0017 // Simplify object initialization
             var Form = new SaveFileDialog();
-#pragma warning restore IDE0017 // Simplify object initialization
             Form.Title = Title;
             Form.CheckPathExists = CheckPathExists;
             Form.CheckFileExists = CheckFileExists;
