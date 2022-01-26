@@ -2,17 +2,17 @@
 using System;
 
 namespace ConsoleDemo
-  {
+{
   class Program
-    {
+  {
     static void Main(string[] args)
-      {
+    {
       // Setup logging
       LogEventHandler.LogEvent += ReportLogging;
 
-      Console.WriteLine("Screenshot Demo");
-      ScreenshotsDemo.RunScreenshotsDemo();
-      Console.ReadLine();
+      //  Console.WriteLine("Screenshot Demo");
+      // ScreenshotsDemo.RunScreenshotsDemo();
+      // Console.ReadLine();
 
       //Console.WriteLine("Filter Demo");
       //FiltersDemo.RunFilterDemo();
@@ -38,21 +38,21 @@ namespace ConsoleDemo
       //SevenZipDemo.RunSevenZipDemo();
       //Console.ReadLine();
 
-      var log =LogCollectionManager.ReportLog();
+      var log = LogCollectionManager.ReportLog();
       if (log.Count == 0)
-        {
+      {
         Console.WriteLine("Error log: Nothing logged");
-        }
+      }
       Log.Trace("Test for logging");
       foreach (var line in log)
-        {
-        Console.WriteLine(line);
-        }
-      }
-
-    private static void ReportLogging(Object Sender, LogEventArgs E)
       {
-      Console.WriteLine($"{E.EntryClass.Method}: {E.EntryClass.LineNumber} {E.EntryClass}");
+        Console.WriteLine(line);
       }
     }
+
+    private static void ReportLogging(Object Sender, LogEventArgs E)
+    {
+      Console.WriteLine($"{E.EntryClass.Method}: {E.EntryClass.LineNumber} {E.EntryClass}");
+    }
   }
+}

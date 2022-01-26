@@ -10,13 +10,13 @@
 				Style="{StaticResource AllWindows}" 
         Title="Screenshot Demo View">
 	<ScrollViewer>
-		<StackPanel>
+		<!--<StackPanel>
 			<WrapPanel>
-				<views1:ScreenshotCollectionMaintenanceView x:Name="CollectionMantenanceView"/>
+				<views1:ScreenshotCollectionMaintenanceView x:Name="CollectionMaintenanceView"/>
 				<views:TagsMaintenanceView x:Name="TagMaintenanceView"/>
 			</WrapPanel>
 
 			<views1:ScreenshotManagerView x:Name="ScreenshotManagerView"/>
-		</StackPanel>
+		</StackPanel>-->
 	</ScrollViewer>
 </Window>
