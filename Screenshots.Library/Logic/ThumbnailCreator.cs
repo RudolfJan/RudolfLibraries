@@ -28,112 +28,110 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 
 namespace ThumbnailSharp
-  {
+{
   /// <summary>
   /// Image format to use when creating a thumbnail.
   /// </summary>
   public enum Format
-    {
+  {
     Jpeg,
     Bmp,
     Png,
     Gif,
     Tiff
 
-    }
+  }
   /// <summary>
   /// Thumbnail class that holds various methods to create an image thumbnail.
   /// </summary>
   public class ThumbnailCreator
+  {
+    private static Bitmap CreateBitmapThumbnail(uint thumbnailSize, string imageFileLocation)
     {
-    private Bitmap CreateBitmapThumbnail(uint thumbnailSize, string imageFileLocation)
-      {
       Bitmap bitmap = null;
       Image image;
       try
-        {
+      {
         image = Image.FromFile(imageFileLocation);
-        }
+      }
       catch
-        {
+      {
         image = null;
-        }
+      }
       if (image != null)
-        {
+      {
         float actualHeight = image.Height;
         float actualWidth = image.Width;
         uint thumbnailHeight;
         uint thumbnailWidth;
         if (actualHeight > actualWidth)
-          {
+        {
           if ((uint)actualHeight <= thumbnailSize)
             throw new Exception("Thumbnail size must be less than actual height (portrait image)");
           thumbnailHeight = thumbnailSize;
           thumbnailWidth = (uint)((actualWidth / actualHeight) * thumbnailSize);
-          }
+        }
         else if (actualWidth > actualHeight)
-          {
+        {
           if ((uint)actualWidth <= thumbnailSize)
             throw new Exception("Thumbnail size must be less than actual width (landscape image)");
           thumbnailWidth = thumbnailSize;
           thumbnailHeight = (uint)((actualHeight / actualWidth) * thumbnailSize);
-          }
+        }
         else
-          {
+        {
           if ((uint)actualWidth <= thumbnailSize)
             throw new Exception("Thumbnail size must be less than image's size");
           thumbnailWidth = thumbnailSize;
           thumbnailHeight = thumbnailSize;
-          }
+        }
         try
-          {
+        {
           bitmap = new Bitmap((int)thumbnailWidth, (int)thumbnailHeight);
           Graphics resizedImage = Graphics.FromImage(bitmap);
           resizedImage.InterpolationMode = InterpolationMode.HighQualityBicubic;
           resizedImage.CompositingQuality = CompositingQuality.HighQuality;
           resizedImage.SmoothingMode = SmoothingMode.HighQuality;
           resizedImage.DrawImage(image, 0, 0, thumbnailWidth, thumbnailHeight);
-          }
-        catch
-          {
-          bitmap = null;
-          }
         }
-      return bitmap;
-      }
- 
-    private ImageFormat GetImageFormat(Format format)
-      {
-      return format switch
+        catch
         {
-          Format.Jpeg => ImageFormat.Jpeg,
-          Format.Bmp => ImageFormat.Bmp,
-          Format.Png => ImageFormat.Png,
-          Format.Gif => ImageFormat.Gif,
-          _ => ImageFormat.Tiff,
-          };
+          bitmap = null;
+        }
       }
-  
-    public Stream CreateThumbnailStream(uint thumbnailSize, string imageFileLocation, Format imageFormat)
+      return bitmap;
+    }
+
+    private static ImageFormat GetImageFormat(Format format)
+    {
+      return format switch
       {
+        Format.Jpeg => ImageFormat.Jpeg,
+        Format.Bmp => ImageFormat.Bmp,
+        Format.Png => ImageFormat.Png,
+        Format.Gif => ImageFormat.Gif,
+        _ => ImageFormat.Tiff,
+      };
+    }
+
+    public static Stream CreateThumbnailStream(uint thumbnailSize, string imageFileLocation, Format imageFormat)
+    {
       if (String.IsNullOrEmpty(imageFileLocation))
         throw new ArgumentNullException(nameof(imageFileLocation), "'imageFileLocation' cannot be null");
       if (!File.Exists(imageFileLocation))
         throw new FileNotFoundException($"'{imageFileLocation}' cannot be found");
       Bitmap bitmap = CreateBitmapThumbnail(thumbnailSize, imageFileLocation);
       if (bitmap != null)
-        {
+      {
         MemoryStream stream = new MemoryStream();
         bitmap.Save(stream, GetImageFormat(imageFormat));
         stream.Position = 0;
         return stream;
-        }
-      return null;
       }
+      return null;
     }
   }
+}
