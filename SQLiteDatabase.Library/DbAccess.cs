@@ -12,7 +12,7 @@ namespace SQLiteDatabase.Library
   {
   public class DbAccess
     {
-    public const string LastRowInsertQuery= "SELECT last_insert_rowid();";
+    public const string LastRowInsertQuery = "SELECT last_insert_rowid();";
     public static void ClearTable(string tableName)
       {
       try
@@ -60,7 +60,7 @@ namespace SQLiteDatabase.Library
         throw ex;
         }
       }
- 
+
     public static int SaveData<T>(string sqlStatement, T parameters)
       {
       int output;
@@ -86,7 +86,7 @@ namespace SQLiteDatabase.Library
         {
         using (IDbConnection connection = new SQLiteConnection(DbManager.GetConnectionString()))
           {
-          output= await connection.ExecuteAsync(sqlStatement, parameters);
+          output = await connection.ExecuteAsync(sqlStatement, parameters);
           }
         }
       catch (Exception ex)
@@ -115,7 +115,7 @@ namespace SQLiteDatabase.Library
 
 
 
-  }
+    }
 
 
   }

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 
-namespace Styles.Library.Helpers
+namespace Utilities.Library
   {
   public enum SampleEnum
     {
