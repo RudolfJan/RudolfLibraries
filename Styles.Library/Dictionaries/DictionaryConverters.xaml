@@ -3,6 +3,7 @@
 
   <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
   <converters:BooleanToColorConverter x:Key="BoolToColorConverter" />
+  <converters:BooleanToReverseConverter x:Key="BooleanToReverseConverter" />
   <converters:DebugConverter x:Key="DebugConverter" />
   <!-- This one is not working for some reason ...
 	<converters:EnumDescriptionTypeConverter x:Key="EnumDescriptionConverter"/>-->

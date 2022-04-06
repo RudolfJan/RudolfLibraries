@@ -5,8 +5,6 @@ using SQLiteDatabase.Library;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using Utilities.Library.Filters.Models;
 
 namespace Utilities.Library.Filters.DataAccess
@@ -23,7 +21,7 @@ namespace Utilities.Library.Filters.DataAccess
       {
       var sql = $"INSERT OR IGNORE INTO Tags (TagName, TagDescription, CategoryId) " +
                 $"VALUES(@TagName, @TagDescription, @CategoryId);{DbAccess.LastRowInsertQuery}";
-      return DbAccess.SaveData<dynamic>(sql, new { tag.TagName, tag.TagDescription, tag.CategoryId});
+      return DbAccess.SaveData<dynamic>(sql, new { tag.TagName, tag.TagDescription, tag.CategoryId });
       }
 
     public static int UpdateTag(TagModel tag)
@@ -64,23 +62,23 @@ namespace Utilities.Library.Filters.DataAccess
             var tag = new TagModel();
             if (length > 0)
               {
-              if(string.CompareOrdinal(categoryName,fields[0])!=0)
+              if (string.CompareOrdinal(categoryName, fields[0]) != 0)
                 {
                 categoryName = fields[0];
                 var category = CategoryDataAccess.GetCategoryByName(categoryName);
                 if (category == null)
                   {
-                  var result=Log.Trace($"Category not defined in database {categoryName}");
+                  var result = Log.Trace($"Category not defined in database {categoryName}", LogEventType.Error); // Data issue
                   throw new InvalidDataException(result);
                   }
-                categoryId= category.Id;
+                categoryId = category.Id;
                 }
               }
 
-            tag.CategoryId=categoryId;
+            tag.CategoryId = categoryId;
             if (length > 1)
               {
-              tag.TagName= fields[1];
+              tag.TagName = fields[1];
               }
 
             if (length > 2)
