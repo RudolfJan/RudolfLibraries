@@ -19,7 +19,7 @@ namespace Screenshots.Library.WPF.Views
       set { SetValue(ScreenshotProperty, value); }
       }
 
-    public static readonly DependencyProperty ScreenshotProperty =
+    public readonly DependencyProperty ScreenshotProperty =
         DependencyProperty.Register("Screenshot", typeof(ImageModel), typeof(ThumbNailButton),
             new PropertyMetadata(null));
 
@@ -29,7 +29,7 @@ namespace Screenshots.Library.WPF.Views
       set { SetValue(ThumbnailHeightProperty, value); }
       }
 
-    public static readonly DependencyProperty ThumbnailHeightProperty =
+    public readonly DependencyProperty ThumbnailHeightProperty =
         DependencyProperty.Register("ThumbnailHeight", typeof(int), typeof(ThumbNailButton));
 
     public int ThumbnailWidth
@@ -38,7 +38,7 @@ namespace Screenshots.Library.WPF.Views
       set { SetValue(ThumbnailWidthProperty, value); }
       }
 
-    public static readonly DependencyProperty ThumbnailWidthProperty =
+    public readonly DependencyProperty ThumbnailWidthProperty =
         DependencyProperty.Register("ThumbnailWidth", typeof(int), typeof(ThumbNailButton));
 
     public ThumbNailButton()
@@ -46,7 +46,7 @@ namespace Screenshots.Library.WPF.Views
       InitializeComponent();
       }
 
-    public static readonly RoutedEvent ThumbnailClickedEvent = EventManager.RegisterRoutedEvent(
+    public readonly RoutedEvent ThumbnailClickedEvent = EventManager.RegisterRoutedEvent(
         "Click", // Event name
         RoutingStrategy.Bubble, // Bubble means the event will bubble up through the tree
         typeof(RoutedEventHandler), // The event type
@@ -64,7 +64,7 @@ namespace Screenshots.Library.WPF.Views
       RaiseEvent(ThumbnailClickedRoutedEventArgs);
       }
 
-    public static readonly RoutedEvent ThumbnailDoubleClickedEvent = EventManager.RegisterRoutedEvent(
+    public readonly RoutedEvent ThumbnailDoubleClickedEvent = EventManager.RegisterRoutedEvent(
       "DoubleClick", // Event name
       RoutingStrategy.Bubble, // Bubble means the event will bubble up through the tree
       typeof(RoutedEventHandler), // The event type

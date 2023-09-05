@@ -5,8 +5,7 @@
   <converters:BooleanToColorConverter x:Key="BoolToColorConverter" />
   <converters:BooleanToReverseConverter x:Key="BooleanToReverseConverter" />
   <converters:DebugConverter x:Key="DebugConverter" />
-  <!-- This one is not working for some reason ...
-	<converters:EnumDescriptionTypeConverter x:Key="EnumDescriptionConverter"/>-->
+  <converters:EnumToDescriptionConverter x:Key="EnumToDescriptionConverter" />
   <converters:EnumToStringConverter x:Key="EnumToStringConverter" />
   <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
   <converters:NullToBoolConverter x:Key="NullToBoolConverter" />

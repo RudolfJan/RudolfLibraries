@@ -1,11 +1,13 @@
-﻿namespace Logging.Library.Wpf.Views
-  {
+﻿using System.Windows.Controls;
 
-  public partial class LoggingView
-		{
-		public LoggingView()
-			{
-			InitializeComponent();
-			}
-		}
-	}
+namespace Logging.Library.Wpf.Views
+  {
+  public partial class LoggingView : UserControl
+    {
+    public LoggingView()
+      {
+      InitializeComponent();
+      }
+    }
+  }
+

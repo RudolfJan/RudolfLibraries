@@ -1,4 +1,6 @@
-﻿namespace SQLiteDatabase.Library
+﻿// Ignore Spelling: Nr
+
+namespace SQLiteDatabase.Library
   {
   public class VersionModel
     {

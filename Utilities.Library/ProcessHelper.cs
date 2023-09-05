@@ -10,7 +10,7 @@ namespace Utilities.Library
     {
     // call this function if a process needs to be run
     public static String RunProcess(
-        String Filepath,
+        String FilePath,
         String Arguments = "",
         bool WaitForExit = false,  // if true only returns once process has exited, otherwise behaves like fire-and-forget
         bool ContinuousOutput = false,  // specify which output formatting should be used. I couldn't think of a better name for the moment
@@ -21,15 +21,15 @@ namespace Utilities.Library
         bool RedirectStandardError = false,
         bool RunAsAdmin = false)
       {
-      Filepath = FileHelpers.GetFullPath(Filepath); // retrieve the path for the file,
-      if (!File.Exists(Filepath))
+      FilePath = FileHelpers.GetFullPath(FilePath); // retrieve the path for the file,
+      if (!File.Exists(FilePath))
         {
-        Log.Trace($"Cannot execute program {Filepath} because it does not exist", LogEventType.Error);
+        Log.Trace($"Cannot execute program {FilePath} because it does not exist", LogEventType.Error);
         return string.Empty;
         }
       using (var GenericProcess = new Process())
         {
-        GenericProcess.StartInfo.FileName = Filepath;
+        GenericProcess.StartInfo.FileName = FilePath;
         GenericProcess.StartInfo.Arguments = Arguments;
         GenericProcess.StartInfo.WindowStyle = WindowStyle;
         GenericProcess.StartInfo.CreateNoWindow = CreateNoWindow;
