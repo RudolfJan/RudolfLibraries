@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Ignore Spelling: exe
+
+using System;
 using System.IO;
-using System.Text;
 
 namespace Utilities.Library
   {
@@ -11,12 +11,12 @@ namespace Utilities.Library
     public static string FindFile(string exeFileName)
       {
       // try 64 bit program directory first
-      string output="";
-      if(!string.IsNullOrEmpty(output=FindFile(exeFileName,Environment.SpecialFolder.ProgramFiles)))
+      string output = "";
+      if (!string.IsNullOrEmpty(output = FindFile(exeFileName, Environment.SpecialFolder.ProgramFiles)))
         {
         return output;
         }
-        
+
       if (!string.IsNullOrEmpty(output = FindFile(exeFileName, Environment.SpecialFolder.ProgramFilesX86)))
         {
         return output;
@@ -38,12 +38,12 @@ namespace Utilities.Library
       {
       var folderPath = Environment.GetFolderPath(folder);
       var path = $"{folderPath}{exeFileName}";
-        if (File.Exists(path))
-          {
-          return path;
-          }
-        return "";
+      if (File.Exists(path))
+        {
+        return path;
         }
+      return "";
       }
+    }
   }
 

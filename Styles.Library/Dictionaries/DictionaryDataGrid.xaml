@@ -18,6 +18,12 @@
     <Setter Property="CanUserAddRows" Value="False" />
     <Setter Property="CanUserDeleteRows" Value="False" />
     <Setter Property="IsReadOnly" Value="True" />
+    <!--
+      This should not be necessary, because it is defined in the base style. I got a bug report from a user claiming it is not working. Need to check that.
+      TODO check scrollbar function in DataGrid
+    -->
+    <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
   </Style>
 
   <Style TargetType="{x:Type DataGridCell}">

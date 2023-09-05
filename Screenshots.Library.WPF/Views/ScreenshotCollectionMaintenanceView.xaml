@@ -1,77 +1,83 @@
-﻿<UserControl x:Class="Screenshots.Library.WPF.Views.ScreenshotCollectionMaintenanceView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Screenshots.Library.WPF.Views"
-             xmlns:userControls="clr-namespace:Styles.Library.UserControls;assembly=Styles.Library"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Loaded="OnControlLoaded">
-    <StackPanel>
-		<Grid>
-			<Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition Width="*"/>
-			</Grid.ColumnDefinitions>
-			<Border Grid.Column="0"  Style="{DynamicResource BorderDefault}">
-				<StackPanel>
-					<TextBlock Style="{DynamicResource TextBlockHeader}">Screenshot collections</TextBlock>
-					<DataGrid Name="ScreenshotCollectionDataGrid" Style="{DynamicResource DataGridReadOnly}"
-										Height="200"
-					          ItemsSource="{Binding CollectionList}"
-					          SelectedItem="{Binding SelectedCollection}"
-										SelectionChanged="OnSelectedCollectionChanged">
-						<DataGrid.Columns>
-							<DataGridTemplateColumn Header="Collection" Width="250">
-								<DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<StackPanel>
-											<TextBlock Text="{Binding CollectionName}" Style="{DynamicResource TextBlockDefault}" FontWeight="Bold"/>
-											<TextBlock Text="{Binding CollectionPath}" Style="{DynamicResource TextBlockDefault}"/>
-											<TextBlock Text="{Binding CollectionDescription}" Style="{DynamicResource TextBlockDefault}"/>
-										</StackPanel>
-									</DataTemplate>
-								</DataGridTemplateColumn.CellTemplate>
-							</DataGridTemplateColumn>
-						</DataGrid.Columns>
-					</DataGrid>
-					<WrapPanel>
-						<Button Name="EditCollectionButton" 
-						        Style="{DynamicResource ButtonNarrow}" 
-						        Click="EditCollectionClicked">Edit</Button>
-						<Button Name="DeleteCollectionButton" 
-						        Style="{DynamicResource ButtonNarrow}" 
-						        Click="DeleteCollectionClicked">Delete</Button>
-					</WrapPanel>
-				</StackPanel>
+﻿<UserControl x:Class="Screenshots.Library.WPF.Views.ScreenshotCollectionMaintenanceView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Screenshots.Library.WPF.Views" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:userControls="clr-namespace:Styles.Library.UserControls;assembly=Styles.Library" d:DesignHeight="450"
+             d:DesignWidth="800" Loaded="OnControlLoaded"
+             mc:Ignorable="d">
+  <StackPanel>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <Border Grid.Column="0" Style="{DynamicResource BorderDefault}">
+        <StackPanel>
+          <TextBlock Style="{DynamicResource TextBlockHeader}">Screenshot collections</TextBlock>
+          <DataGrid Name="ScreenshotCollectionDataGrid" Height="200"
+                    ItemsSource="{Binding CollectionList}"
+                    SelectedItem="{Binding SelectedCollection}"
+                    SelectionChanged="OnSelectedCollectionChanged"
+                    Style="{DynamicResource DataGridReadOnly}">
+            <DataGrid.Columns>
+              <DataGridTemplateColumn Width="250" Header="Collection">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <StackPanel>
+                      <TextBlock FontWeight="Bold"
+                                 Style="{DynamicResource TextBlockDefault}"
+                                 Text="{Binding CollectionName}" />
+                      <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{Binding CollectionPath}" />
+                      <TextBlock Style="{DynamicResource TextBlockDefault}" Text="{Binding CollectionDescription}" />
+                    </StackPanel>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+            </DataGrid.Columns>
+          </DataGrid>
+          <WrapPanel>
+            <Button Name="EditCollectionButton" Click="EditCollectionClicked"
+                    Style="{DynamicResource ButtonNarrow}">
+              Edit
+            </Button>
+            <Button Name="DeleteCollectionButton" Click="DeleteCollectionClicked"
+                    Style="{DynamicResource ButtonNarrow}">
+              Delete
+            </Button>
+          </WrapPanel>
+        </StackPanel>
 
-			</Border>
-			<Border Grid.Column="1"  Style="{DynamicResource BorderDefault}" Width="250">
-				<StackPanel>
-					<TextBlock Style="{DynamicResource TextBlockHeader}">Edit collection</TextBlock>
-					<userControls:LabelTextBox LabelText="Name" 
-					                           Style="{DynamicResource LabelTextBoxDefault}" 
-					                           TextBoxText="{Binding CollectionName, Mode=TwoWay}" 
-					                           LabelWidth="80" />
-					<userControls:FileInputBox x:Name="CollectionFolderFileInput" 
-					                           LabelText="Folder"
-					                           Style="{StaticResource OptionsOpenFile}" 
-					                           LabelWidth="80" 
-					                           InitialDirectory="C:\\" FileDialogType="BrowseDir"
-					                           FileName="{Binding CollectionPath, Mode=TwoWay}"
-					                           ToolTip="Specify a a folder where you keep screenshots" />
-					<userControls:LabelTextBox LabelText="Description" 
-					                           LabelWidth="80" 
-					                           Style="{DynamicResource LabelTextBoxMultiLine}" Height="80"
-					                           TextBoxText="{Binding CollectionDescription, Mode=TwoWay}"/>
-					<WrapPanel>
-						<Button Name="SaveCollectionButton" Style="{DynamicResource ButtonNarrow}" Click="SaveCollectionClicked">Save</Button>
-						<Button Name="ClearCollectionButton" Style="{DynamicResource ButtonNarrow}" Click="ClearCollectionClicked">Clear</Button>
-					</WrapPanel>
-					<TextBlock TextWrapping="Wrap">It may take up to about 30 seconds to create thumbnails for each image if you save a new collection. Please be patient.</TextBlock>
-				</StackPanel>
-			</Border>
-		</Grid> 
-    </StackPanel>
+      </Border>
+      <Border Grid.Column="1" Width="250"
+              Style="{DynamicResource BorderDefault}">
+        <StackPanel>
+          <TextBlock Style="{DynamicResource TextBlockHeader}">Edit collection</TextBlock>
+          <userControls:LabelTextBox LabelText="Name" LabelWidth="80"
+                                     Style="{DynamicResource LabelTextBoxDefault}"
+                                     TextBoxText="{Binding CollectionName, Mode=TwoWay}" />
+          <userControls:FileInputBox x:Name="CollectionFolderFileInput" FileDialogType="BrowseDir"
+                                     FileName="{Binding CollectionPath, Mode=TwoWay}"
+                                     InitialDirectory="C:\\" LabelText="Folder"
+                                     LabelWidth="80"
+                                     Style="{StaticResource OptionsOpenFile}"
+                                     ToolTip="Specify a a folder where you keep screenshots" />
+          <userControls:LabelTextBox Height="80" LabelText="Description"
+                                     LabelWidth="80"
+                                     Style="{DynamicResource LabelTextBoxMultiLine}"
+                                     TextBoxText="{Binding CollectionDescription, Mode=TwoWay}" />
+          <WrapPanel>
+            <Button Name="SaveCollectionButton" Click="SaveCollectionClicked"
+                    Style="{DynamicResource ButtonNarrow}">
+              Save
+            </Button>
+            <Button Name="ClearCollectionButton" Click="ClearCollectionClicked"
+                    Style="{DynamicResource ButtonNarrow}">
+              Clear
+            </Button>
+          </WrapPanel>
+          <TextBlock TextWrapping="Wrap">It may take up to about 30 seconds to create thumbnails for each image if you save a new collection. Please be patient.</TextBlock>
+        </StackPanel>
+      </Border>
+    </Grid>
+  </StackPanel>
 </UserControl>

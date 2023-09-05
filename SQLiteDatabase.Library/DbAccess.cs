@@ -1,4 +1,6 @@
-﻿using Dapper;
+﻿// Ignore Spelling: sql
+
+using Dapper;
 using Logging.Library;
 using System;
 using System.Collections.Generic;
@@ -23,7 +25,7 @@ namespace SQLiteDatabase.Library
       catch (Exception ex)
         {
         Log.Trace($"Cannot clear table {tableName}", ex, LogEventType.Error);
-        throw ex;
+        throw;
         }
       }
 
@@ -40,7 +42,7 @@ namespace SQLiteDatabase.Library
       catch (Exception ex)
         {
         Log.Trace($"Cannot execute query {sqlStatement}", ex, LogEventType.Error);
-        throw ex;
+        throw;
         }
       }
 
@@ -57,7 +59,7 @@ namespace SQLiteDatabase.Library
       catch (Exception ex)
         {
         Log.Trace($"Cannot execute query {sqlStatement}", ex, LogEventType.Error);
-        throw ex;
+        throw;
         }
       }
 
@@ -74,7 +76,7 @@ namespace SQLiteDatabase.Library
       catch (Exception ex)
         {
         Log.Trace($"Cannot save data in database using {sqlStatement}", ex, LogEventType.Error);
-        throw ex;
+        throw;
         }
       return output;
       }
@@ -92,7 +94,7 @@ namespace SQLiteDatabase.Library
       catch (Exception ex)
         {
         Log.Trace($"Cannot save data in database using {sqlStatement}", ex, LogEventType.Error);
-        throw ex;
+        throw;
         }
       return output;
       }

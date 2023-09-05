@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Ignore Spelling: Attrib
+
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
@@ -8,34 +10,34 @@ using System.Windows.Data;
 // Need description attributes to enum values
 
 namespace Styles.Library.Converters
-{
-  public class EnumDescriptionConverter : IValueConverter
   {
-    private static string GetEnumDescription(Enum EnumObj)
+  public class EnumToDescriptionConverter : IValueConverter
     {
+    private static string GetEnumDescription(Enum EnumObj)
+      {
       FieldInfo MyFieldInfo = EnumObj.GetType().GetField(EnumObj.ToString());
 
       Object[] AttribArray = MyFieldInfo.GetCustomAttributes(false);
 
       if (AttribArray.Length == 0)
-      {
+        {
         return EnumObj.ToString();
-      }
+        }
       else
-      {
+        {
         return (AttribArray[0] as DescriptionAttribute)?.Description;
+        }
       }
-    }
 
     Object IValueConverter.Convert(Object Value, Type TargetType, Object Parameter, CultureInfo Culture)
-    {
+      {
       Enum MyEnum = (Enum)Value;
       return GetEnumDescription(MyEnum);
-    }
+      }
 
     Object IValueConverter.ConvertBack(Object Value, Type TargetType, Object Parameter, CultureInfo Culture)
-    {
+      {
       return string.Empty;
+      }
     }
   }
-}

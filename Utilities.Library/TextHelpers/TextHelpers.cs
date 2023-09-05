@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Text;
 
 namespace Utilities.Library.TextHelpers
@@ -26,6 +24,11 @@ namespace Utilities.Library.TextHelpers
 
     public static string AddBackslash(string input)
       {
+      if (string.IsNullOrEmpty(input))
+        {
+        return input;
+        }
+
       if (input.EndsWith("\\"))
         {
         return input;
@@ -40,8 +43,8 @@ namespace Utilities.Library.TextHelpers
       {
       var output = "";
       var inputLength = input.Length;
-      StringBuilder hexString= new StringBuilder();
-      StringBuilder charString= new StringBuilder();
+      StringBuilder hexString = new StringBuilder();
+      StringBuilder charString = new StringBuilder();
       for (int i = 0; i < inputLength / lineLength; i++)
         {
         hexString.Clear();
@@ -50,11 +53,11 @@ namespace Utilities.Library.TextHelpers
         for (int j = 0; j < lineLength; j++)
           {
           var value = input[i * lineLength + j];
-          var result = char.IsLetterOrDigit((char) value) || char.IsPunctuation((char) value) ||
-                        char.IsSymbol((char) value) || ((char) value == ' ');
+          var result = char.IsLetterOrDigit((char)value) || char.IsPunctuation((char)value) ||
+                        char.IsSymbol((char)value) || ((char)value == ' ');
           if (result)
             {
-            charString.Append((char) value);
+            charString.Append((char)value);
             }
           else
             {
@@ -62,11 +65,11 @@ namespace Utilities.Library.TextHelpers
             }
 
           byte[] value2 = new byte[1];
-          value2[0]= value;
+          value2[0] = value;
           hexString.Append(BitConverter.ToString(value2).Replace("-", " ")).Append(' ');
           }
 
-        output += position + "  "+  hexString + "    " + charString + "\r\n";
+        output += position + "  " + hexString + "    " + charString + "\r\n";
         }
       return output;
       }
@@ -74,7 +77,7 @@ namespace Utilities.Library.TextHelpers
     // This function translates the C# wildcard symbols * and ? to % and _ and will escape % and _ by a backslash
     public static string ToLikeWildCard(string input)
       {
-      var output= input.Replace("%","\\%").Replace("_","\\_");
+      var output = input.Replace("%", "\\%").Replace("_", "\\_");
       output = output.Replace("*", "%").Replace("?", "_");
       return output;
       }
