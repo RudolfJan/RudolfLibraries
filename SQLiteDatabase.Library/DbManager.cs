@@ -102,6 +102,21 @@ namespace SQLiteDatabase.Library
         throw;
         }
       }
+
+    public static void DropTable(string tableName)
+      {
+      try
+        {
+        using IDbConnection DbConnection = new SQLiteConnection(DbManager.GetConnectionString());
+        DbConnection.Execute($"DROP TABLE {tableName}");
+        }
+      catch (Exception ex)
+        {
+        Log.Trace($"Cannot drop table {tableName}", ex, LogEventType.Error);
+        throw;
+        }
+      }
+
     #endregion
 
     #region versionmanager
