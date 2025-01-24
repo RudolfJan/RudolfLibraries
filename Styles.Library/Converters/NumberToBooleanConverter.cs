@@ -43,7 +43,5 @@ Converter={StaticResource IntConverter}}"/>
 
     #endregion
     }
-
-
   }
 

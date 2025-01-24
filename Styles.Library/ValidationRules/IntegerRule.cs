@@ -16,12 +16,9 @@ namespace Styles.Library.ValidationRules
     {
     public override ValidationResult Validate(object value, CultureInfo cultureInfo)
       {
-      return value is string str && str.Length>0 &&int.TryParse(str, out var x)
+      return value is string str && str.Length > 0 && int.TryParse(str, out var x)
         ? ValidationResult.ValidResult
-        : new ValidationResult(false, $"Not a valid integer {(string) value}");
+        : new ValidationResult(false, $"Not a valid integer {(string)value}");
       }
     }
-
-
-
   }

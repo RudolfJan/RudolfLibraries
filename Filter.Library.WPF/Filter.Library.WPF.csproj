@@ -1,36 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows10.0.17763.0</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="Images\LeftArrow.ico" />
     <None Remove="Images\RightArrow.ico" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Filter.Library\Filter.Library.csproj" />
     <ProjectReference Include="..\Styles.Library\Styles.Library.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Update="Views\TagsMaintenanceView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <Page Update="Views\TagsMaintenanceView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-
   <ItemGroup>
     <Resource Include="Images\LeftArrow.ico" />
     <Resource Include="Images\RightArrow.ico" />
   </ItemGroup>
-
 </Project>

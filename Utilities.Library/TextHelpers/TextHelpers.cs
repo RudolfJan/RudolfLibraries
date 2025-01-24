@@ -14,7 +14,7 @@ namespace Utilities.Library.TextHelpers
     // Add quotes to a filename in case it contains spaces.If the filepath is already quoted, don't do it again 
     public static string QuoteFilename(string s)
       {
-      if (s.StartsWith("\"") && s.EndsWith("\""))
+      if (s.StartsWith('\"') && s.EndsWith('\"'))
         {
         return s; // already quoted
         }
@@ -29,7 +29,7 @@ namespace Utilities.Library.TextHelpers
         return input;
         }
 
-      if (input.EndsWith("\\"))
+      if (input.EndsWith('\\'))
         {
         return input;
         }
@@ -81,6 +81,5 @@ namespace Utilities.Library.TextHelpers
       output = output.Replace("*", "%").Replace("?", "_");
       return output;
       }
-
     }
   }

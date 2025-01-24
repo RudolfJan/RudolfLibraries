@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Utilities.Library.TextHelpers
   {
@@ -12,7 +10,7 @@ namespace Utilities.Library.TextHelpers
       var hours = minutes / 60;
       minutes = minutes - hours * 60;
       var remainder = seconds - hours * 3600 - minutes * 60;
-      var output= $"{hours:D2}:{minutes:D2}";
+      var output = $"{hours:D2}:{minutes:D2}";
       if (showSeconds)
         {
         output += $":{remainder:D2}";
@@ -31,12 +29,12 @@ namespace Utilities.Library.TextHelpers
           $"String format for time is not correct should be hh:mm:ss but is {time}");
         }
       var success1 = ulong.TryParse(s1[0], out var hours);
-      var success2= ulong.TryParse(s1[1], out var minutes);
+      var success2 = ulong.TryParse(s1[1], out var minutes);
       ulong seconds = 0;
-      bool success3=true;
+      bool success3 = true;
       if (s1.Length > 2)
         {
-        success3=ulong.TryParse(s1[2], out seconds);
+        success3 = ulong.TryParse(s1[2], out seconds);
         }
 
       success1 = success1 && hours < 24;
@@ -48,7 +46,7 @@ namespace Utilities.Library.TextHelpers
           $"String format for time is not correct should be hh:mm:ss but is {time}");
         }
 
-      return (hours*3600+minutes*60+seconds);
+      return (hours * 3600 + minutes * 60 + seconds);
       }
 
     public static bool IsValidTimeString(string time)
@@ -74,7 +72,7 @@ namespace Utilities.Library.TextHelpers
           return false;
           }
         }
- 
+
       if (s1.Length > 2)
         {
         foreach (var c in s1[2])

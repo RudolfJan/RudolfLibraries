@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using Styles.Library.Models;
 
 namespace Styles.Library.Helpers
@@ -59,6 +56,5 @@ namespace Styles.Library.Helpers
         }
       return "";
       }
-
     }
   }

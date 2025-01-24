@@ -27,5 +27,4 @@ namespace Styles.Library.Converters
       throw new NotImplementedException();
       }
     }
-
   }

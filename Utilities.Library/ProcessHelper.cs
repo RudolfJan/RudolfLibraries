@@ -65,28 +65,28 @@ namespace Utilities.Library
       return String.Empty;
       }
 
-    public static String OpenGenericFile(String Filepath)
+    public static String OpenGenericFile(String FilePath)
       {
       try
         {
-        if (Filepath.Contains('\''))
+        if (FilePath.Contains('\''))
           {
           //TODO fix this work around
-          return Log.Trace("Cannot open file " + Filepath + " because it contains single quotes. Remove the quote from the file path", LogEventType.Error);
+          return Log.Trace("Cannot open file " + FilePath + " because it contains single quotes. Remove the quote from the file path", LogEventType.Error);
           }
 
-        if (File.Exists(Filepath))
+        if (File.Exists(FilePath))
           {
-          RunProcess("explorer.exe", TextHelper.QuoteFilename(Filepath), WindowStyle: ProcessWindowStyle.Maximized);
+          RunProcess("explorer.exe", TextHelper.QuoteFilename(FilePath), WindowStyle: ProcessWindowStyle.Maximized);
           return String.Empty;
           }
         }
       catch (Exception E)
         {
-        return Log.Trace("Cannot open file " + Filepath + " reason: " + E.Message, LogEventType.Error);
+        return Log.Trace("Cannot open file " + FilePath + " reason: " + E.Message, LogEventType.Error);
         }
 
-      return Log.Trace("Cannot find file " + Filepath + " \r\nMake sure to install it at the correct location");
+      return Log.Trace("Cannot find file " + FilePath + " \r\nMake sure to install it at the correct location");
       }
 
     // Open folder from the application

@@ -2,7 +2,6 @@ using Microsoft.Win32;
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Windows;
 
 // See WPF4.5 Unleashed chapter 20
 
@@ -15,9 +14,9 @@ namespace Styles.Library.UserControls
 
 
   public partial class FileInputBox : UserControl
-    { 
-  
-  #region Constructor
+    {
+
+    #region Constructor
     public FileInputBox()
       {
       InitializeComponent();
@@ -79,7 +78,6 @@ namespace Styles.Library.UserControls
             break;
             }
         }
-
       }
 
     public static readonly RoutedEvent FileNameChangedEvent =
