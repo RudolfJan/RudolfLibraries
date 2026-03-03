@@ -20,7 +20,7 @@ namespace Styles.Library.Helpers
         Filter = saveFileParams.Filter,
         FilterIndex = saveFileParams.FilterIndex,
         InitialDirectory = saveFileParams.InitialDirectory,
-        OverwritePrompt = saveFileParams.OverWriteprompt,
+        OverwritePrompt = saveFileParams.OverWritePrompt,
         Title = saveFileParams.Title
         };
       if (dialog.ShowDialog() == true)

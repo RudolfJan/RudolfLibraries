@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Caliburn.Micro" Version="4.0.230" />
+    <PackageReference Include="Caliburn.Micro" Version="5.0.258" />
   </ItemGroup>
 
   <ItemGroup>

@@ -18,7 +18,7 @@ namespace SQLiteDatabase.Library
     {
     public int CreateStructures()
       {
-      foreach (var file in Directory.EnumerateFiles("SQL", "*.sql"))
+      foreach (var file in Directory.EnumerateFiles("SQL", "*.sql*"))
         {
         DbManager.CreateStructureElementFromFile(file);
         }

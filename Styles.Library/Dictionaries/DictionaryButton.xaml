@@ -46,6 +46,15 @@
     </Setter>
   </Style>
 
+
+  <!--  Button layout for menu like buttons  -->
+  <Style x:Key="ButtonMenu"
+         TargetType="{x:Type Button}">
+    <Setter Property="Width" Value="{DynamicResource DefaultButtonWidth}" />
+    <Setter Property="Height" Value="{DynamicResource DefaultButtonHeight}" />
+    <Setter Property="Margin" Value="{DynamicResource SmallMargin}" />
+  </Style>
+
   <Style x:Key="ButtonWide"
          BasedOn="{StaticResource ButtonDefault}"
          TargetType="{x:Type Button}">

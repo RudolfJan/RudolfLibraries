@@ -76,7 +76,7 @@ namespace Utilities.Library
       StackA.Push(new DirectoryInfo(Directory));
 
       var StackB = new Stack<DirectoryInfo>();
-      while (StackA.Any())
+      while (StackA.Count != 0)
         {
         var Dir = StackA.Pop();
         foreach (var File in Dir.GetFiles())
@@ -98,7 +98,7 @@ namespace Utilities.Library
         }
 
       // Then delete the sub directories depth first
-      while (StackB.Any())
+      while (StackB.Count != 0)
         {
         StackB.Pop().Delete();
         }
