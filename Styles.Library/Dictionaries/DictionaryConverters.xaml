@@ -12,6 +12,7 @@
   <converters:NumberToBoolConverter x:Key="NumberToBoolConverter" />
   <converters:PathToImageSourceConverter x:Key="PathToImageSourceConverter" />
   <converters:RatioConverter x:Key="RatioConverter" />
+  <converters:DateNowColorConverter x:Key="DateNowToColor"/>
 
   <!--  Old definitions, still in use  -->
   <converters:EnumToStringConverter x:Key="DefaultEnumToStringConverter" />
